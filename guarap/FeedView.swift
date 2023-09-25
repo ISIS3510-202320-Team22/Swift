@@ -9,12 +9,58 @@ import SwiftUI
 
 struct FeedView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("Guarap")
+                .font(.title)
+            HStack{
+                Text("Fotografias")
+                    .frame(width:75,height:25)
+                    .foregroundColor(Color.black)
+                    .background(Color.gray)
+                    .cornerRadius(15)
+                    .font(.system(size: 10))
+                    
+                Text("Chisme")
+                    .frame(width:75,height:25)
+                    .foregroundColor(Color.black)
+                    .background(Color.gray)
+                    .cornerRadius(15)
+                    .font(.system(size: 10))
+                
+                Text("Looking for")
+                    .frame(width:75,height:25)
+                    .foregroundColor(Color.black)
+                    .background(Color.gray)
+                    .cornerRadius(15)
+                    .font(.system(size: 10))
+                
+                Text("Trabajos")
+                    .frame(width:75,height:25)
+                    .foregroundColor(Color.black)
+                    .background(Color.gray)
+                    .cornerRadius(15)
+                    .font(.system(size: 10))
+            }
+            HStack{
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .frame(width: 60, height: 60, alignment: .topLeading)
+                VStack(alignment: .leading){
+                    Text("@juandicanu202")
+                        .font(.system(size: 30))
+                    Text("25/10 4:06pm")
+                        .font(.system(size: 15))
+                }
+                Spacer()
+            }.padding(EdgeInsets(top: 5, leading: 30, bottom: 5, trailing: 20))
+            Spacer()
+        }
     }
 }
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
+            
     }
 }

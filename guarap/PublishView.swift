@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct PublishView: View {
     @State private var passedOnImage: UIImage? = nil
     @State private var isCustomCameraViewPresented = false
 
@@ -75,9 +75,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct PublishView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PublishView()
     }
 }
 

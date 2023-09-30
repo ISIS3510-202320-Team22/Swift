@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41552ABD0AF60016177A /* guarapApp.swift */; };
-		CD0F41582ABD0AF60016177A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41572ABD0AF60016177A /* ContentView.swift */; };
+		CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41572ABD0AF60016177A /* PublishView.swift */; };
 		CD0F415A2ABD0AF80016177A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0F41592ABD0AF80016177A /* Assets.xcassets */; };
 		CD0F415D2ABD0AF80016177A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0F415C2ABD0AF80016177A /* Preview Assets.xcassets */; };
 		CD0F41672ABD0AF90016177A /* guarapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41662ABD0AF90016177A /* guarapTests.swift */; };
@@ -45,7 +45,7 @@
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0F41522ABD0AF60016177A /* guarap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guarap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0F41552ABD0AF60016177A /* guarapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapApp.swift; sourceTree = "<group>"; };
-		CD0F41572ABD0AF60016177A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD0F41572ABD0AF60016177A /* PublishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishView.swift; sourceTree = "<group>"; };
 		CD0F41592ABD0AF80016177A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0F415C2ABD0AF80016177A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD0F41622ABD0AF90016177A /* guarapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = guarapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +113,7 @@
 			children = (
 				CD61E8F02AC490D900CEAD52 /* CameraService.swift */,
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
-				CD0F41572ABD0AF60016177A /* ContentView.swift */,
+				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CDA9B7D22AC1CF970054F09E /* FeedView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
@@ -294,7 +294,7 @@
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CDC9E4CD2AC79177006E6166 /* ImageCoordinator.swift in Sources */,
-				CD0F41582ABD0AF60016177A /* ContentView.swift in Sources */,
+				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,

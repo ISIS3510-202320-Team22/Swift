@@ -8,29 +8,75 @@
 import SwiftUI
 
 struct CameraContentView: View {
-    @State private var capturedImage: UIImage? = nil
+    @Binding var passedOnImage: UIImage?
+    @State var capturedImage: UIImage?
     @State private var isCustomCameraViewPresented = false
-    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
             if capturedImage != nil {
                 Image(uiImage: capturedImage!)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .ignoresSafeArea()
+                
+                VStack {
+                    HStack {
+                        Button(action: {
+                            // Pass the captured image to the parent view or perform any desired actions here
+                            passedOnImage = capturedImage
+                            presentationMode.wrappedValue.dismiss() // Dismiss the view
+                        }) {
+                            Text("Done")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(.blue)
+                                .cornerRadius(10)
+                        }
+                        .padding()
+                        Spacer()
+                        Button(action: {
+                            capturedImage = nil // Dismiss the image
+                            //presentationMode.wrappedValue.dismiss() // Dismiss the view
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 24))
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                    }
+                    Spacer()
+                }
             } else {
-                Color(UIColor.systemBackground)
+                ZStack {
+                    Color(UIColor.systemBackground)
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                presentationMode.wrappedValue.dismiss() // Dismiss the view
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                        }
+                        Spacer()
+                    }
+                }
             }
             VStack {
                 Spacer()
-                Button(action : {
+                Button(action: {
                     isCustomCameraViewPresented.toggle()
                 }, label: {
                     Image(systemName: "camera.fill")
                         .font(.largeTitle)
                         .padding()
-                        .background(Color.black)
+                        .background(.black)
                         .foregroundColor(.white)
                         .clipShape(Circle())
                 })
@@ -43,8 +89,4 @@ struct CameraContentView: View {
     }
 }
 
-struct CameraContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraContentView()
-    }
-}
+

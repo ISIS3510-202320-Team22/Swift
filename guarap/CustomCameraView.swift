@@ -4,13 +4,13 @@
 //
 //  Created by Esteban Gonzalez Ruales on 27-09-2023.
 //
+// This view is the view that appears when a photo is being taken.
 
 import SwiftUI
 
 struct CustomCameraView: View {
     let cameraService = CameraService()
     @Binding var capturedImage: UIImage?
-    
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
@@ -30,6 +30,18 @@ struct CustomCameraView: View {
             }
             
             VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    })
+                    {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                    }
+                    .padding()
+                                }
                 Spacer()
                 Button(action: {
                     cameraService.capturePhoto()

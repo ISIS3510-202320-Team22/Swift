@@ -75,9 +75,7 @@ struct PublishView: View {
     }
 }
 
-struct PublishView_Previews: PreviewProvider {
-    static var previews: some View {
-        PublishView()
-    }
+#Preview {
+    PublishView()
 }
 

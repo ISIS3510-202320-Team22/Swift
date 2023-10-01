@@ -10,11 +10,16 @@ import SwiftUI
 struct SettingsView: View {
     @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
     @AppStorage("notificationEnabled") private var notificationEnabled = true
-    @State private var selectedLanguage = "English"
+    
+    init() {
+        if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+            isDarkModeEnabled = true
+        }
+    }
     
     var body: some View {
         NavigationView {
-            Form {
+            List {
                 Section(header: Text("Appearance")) {
                     Toggle("Dark Mode", isOn: $isDarkModeEnabled)
                         .onChange(of: isDarkModeEnabled) { newValue in
@@ -32,38 +37,23 @@ struct SettingsView: View {
                     Toggle("Enable Notifications", isOn: $notificationEnabled)
                 }
                 
-                Section(header: Text("Language")) {
-                    Picker("Select Language", selection: $selectedLanguage) {
-                        Text("English").tag("English")
-                        Text("Spanish").tag("Spanish")
-                        Text("French").tag("French")
+                Section(header: Text("Information")) {
+                    NavigationLink(destination: AboutUsView()) {
+                        Text("About Us")
                     }
-                    .pickerStyle(SegmentedPickerStyle())
                 }
                 
                 Section(header: Text("Account")) {
-                    Button(action: {
-                        // Handle account settings
-                    }) {
+                    NavigationLink(destination: AccountView()) {
                         Text("Manage Account")
                     }
                 }
             }
             .navigationTitle("Settings")
-            .navigationBarBackButtonHidden(true) // Hide the default back button
-            .navigationBarItems(leading:
-                NavigationLink(destination: Text("Previous Screen")) {
-                    Image(systemName: "arrow.left")
-                        .font(.title)
-                        .foregroundColor(.blue)
-                }
-            )
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
+#Preview {
+    SettingsView()
 }

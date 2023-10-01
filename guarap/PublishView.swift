@@ -24,7 +24,7 @@ struct PublishView: View {
                         if let image = passedOnImage {
                             Image(uiImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                //.aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 2) // Adjust the size as needed
                                 .cornerRadius(10)
                                 .overlay(
@@ -40,35 +40,28 @@ struct PublishView: View {
                                     .padding()
                             }
                         } else {
-                            Rectangle()
-                                .fill(Color.gray)
-//                                .aspectRatio(contentMode: .fill)
-                                .frame(width: geometry.size.width / 2,
-                                       height: geometry.size.height / 2)
-                                .padding(.horizontal)
-                                .padding(.trailing)
-                                
-                            Text("Add an image\nto your post")
-                                .font(.body)
-                                .foregroundColor(.black)
-                                .padding(.trailing)
+                            Button(action: {
+                                isCustomCameraViewPresented.toggle()
+                            }) {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.gray)
+                                        .frame(width: geometry.size.width / 2,
+                                               height: geometry.size.height / 2)
+                                        .cornerRadius(10)
+                                        
+                                    
+                                    Text("Click here to add\nan image to your post")
+                                        .font(.body)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            .padding(.bottom)
+                            .sheet(isPresented: $isCustomCameraViewPresented) {
+                                CameraContentView(passedOnImage: $passedOnImage)
+                            }
                         }
                     }
-                }
-                
-                Button(action: {
-                    isCustomCameraViewPresented.toggle()
-                }) {
-                    Image(systemName: "camera.fill")
-                        .font(.largeTitle)
-                        .padding()
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .clipShape(Circle())
-                }
-                .padding(.bottom)
-                .sheet(isPresented: $isCustomCameraViewPresented) {
-                    CameraContentView(passedOnImage: $passedOnImage)
                 }
             }
         }

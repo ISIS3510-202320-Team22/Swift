@@ -1,3 +1,10 @@
+//
+//  LoginView.swift
+//  guarap
+//
+//  Created by Nathalia Quiroga.
+//
+
 import SwiftUI
 
 struct LoginView: View {

@@ -25,6 +25,8 @@
 		CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */; };
 		CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9B7D22AC1CF970054F09E /* FeedView.swift */; };
 		CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */; };
+		CDFC75F12ACC6C0600D7943C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC75F02ACC6C0600D7943C /* Repository.swift */; };
+		CDFC75F32ACC6C5300D7943C /* FirebaseDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC75F22ACC6C5300D7943C /* FirebaseDAO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		CDA9B7D22AC1CF970054F09E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pattaya-Regular.ttf"; sourceTree = "<group>"; };
+		CDFC75F02ACC6C0600D7943C /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		CDFC75F22ACC6C5300D7943C /* FirebaseDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDAO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
+				CDFC75F02ACC6C0600D7943C /* Repository.swift */,
+				CDFC75F22ACC6C5300D7943C /* FirebaseDAO.swift */,
 			);
 			path = guarap;
 			sourceTree = "<group>";
@@ -324,11 +330,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
+				CDFC75F32ACC6C5300D7943C /* FirebaseDAO.swift in Sources */,
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
+				CDFC75F12ACC6C0600D7943C /* Repository.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,

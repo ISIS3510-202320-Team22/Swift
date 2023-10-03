@@ -26,6 +26,12 @@
 		CD597E572ACCB67100D493B5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E562ACCB67100D493B5 /* FirebaseFirestore */; };
 		CD597E592ACCB67100D493B5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E582ACCB67100D493B5 /* FirebaseFirestoreSwift */; };
 		CD597E5B2ACCB67100D493B5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E5A2ACCB67100D493B5 /* FirebaseStorage */; };
+		CD597E612ACCB9EC00D493B5 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E5D2ACCB9EC00D493B5 /* UserDAO.swift */; };
+		CD597E622ACCB9EC00D493B5 /* PostDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */; };
+		CD597E632ACCB9EC00D493B5 /* UserDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E5F2ACCB9EC00D493B5 /* UserDAOFirebase.swift */; };
+		CD597E642ACCB9EC00D493B5 /* PostDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E602ACCB9EC00D493B5 /* PostDAO.swift */; };
+		CD597E682ACCB9F900D493B5 /* GuarapRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E662ACCB9F900D493B5 /* GuarapRepositoryImpl.swift */; };
+		CD597E692ACCB9F900D493B5 /* GuarapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E672ACCB9F900D493B5 /* GuarapRepository.swift */; };
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
@@ -71,6 +77,12 @@
 		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD597E4B2ACCB15800D493B5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		CD597E4F2ACCB5D100D493B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CD597E5D2ACCB9EC00D493B5 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDAOFirebase.swift; sourceTree = "<group>"; };
+		CD597E5F2ACCB9EC00D493B5 /* UserDAOFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAOFirebase.swift; sourceTree = "<group>"; };
+		CD597E602ACCB9EC00D493B5 /* PostDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDAO.swift; sourceTree = "<group>"; };
+		CD597E662ACCB9F900D493B5 /* GuarapRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuarapRepositoryImpl.swift; sourceTree = "<group>"; };
+		CD597E672ACCB9F900D493B5 /* GuarapRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuarapRepository.swift; sourceTree = "<group>"; };
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +148,8 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
+				CD597E652ACCB9F900D493B5 /* Repositories */,
+				CD597E5C2ACCB9EC00D493B5 /* DAOs */,
 				CD597E4A2ACCB14900D493B5 /* Model */,
 				CD597E452ACC856700D493B5 /* Feed Group */,
 				CD3EBF9B2AC8FD5F00F83C1B /* Settings Group */,
@@ -212,6 +226,26 @@
 				CD597E4B2ACCB15800D493B5 /* Post.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CD597E5C2ACCB9EC00D493B5 /* DAOs */ = {
+			isa = PBXGroup;
+			children = (
+				CD597E5D2ACCB9EC00D493B5 /* UserDAO.swift */,
+				CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */,
+				CD597E5F2ACCB9EC00D493B5 /* UserDAOFirebase.swift */,
+				CD597E602ACCB9EC00D493B5 /* PostDAO.swift */,
+			);
+			path = DAOs;
+			sourceTree = "<group>";
+		};
+		CD597E652ACCB9F900D493B5 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				CD597E662ACCB9F900D493B5 /* GuarapRepositoryImpl.swift */,
+				CD597E672ACCB9F900D493B5 /* GuarapRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		CDA9B7D82AC1F1750054F09E /* proyect_fonts */ = {
@@ -365,6 +399,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
+				CD597E622ACCB9EC00D493B5 /* PostDAOFirebase.swift in Sources */,
+				CD597E632ACCB9EC00D493B5 /* UserDAOFirebase.swift in Sources */,
 				CDFC75F32ACC6C5300D7943C /* FirebaseDAO.swift in Sources */,
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
@@ -374,11 +410,15 @@
 				CDFC75F12ACC6C0600D7943C /* Repository.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */,
+				CD597E642ACCB9EC00D493B5 /* PostDAO.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,
+				CD597E612ACCB9EC00D493B5 /* UserDAO.swift in Sources */,
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,
 				CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
+				CD597E692ACCB9F900D493B5 /* GuarapRepository.swift in Sources */,
+				CD597E682ACCB9F900D493B5 /* GuarapRepositoryImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

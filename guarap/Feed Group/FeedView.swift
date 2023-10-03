@@ -66,6 +66,25 @@ struct FeedView: View {
                     }
                     Spacer()
                 }.padding(EdgeInsets(top: 5, leading: 30, bottom: 5, trailing: 20))
+                TabView {
+                    Text("Settings")
+                        .tabItem{
+                            Image(systemName: "gear")
+                        }
+                    Text("PostText")
+                        .tabItem{
+                            Image(systemName: "text.bubble.fill")
+                        }
+                    Text("PostImage")
+                        .tabItem{
+                            Image(systemName: "camera.shutter.button.fill")
+                        }
+                    Text("Profile")
+                        .tabItem{
+                            Image(systemName: "person.crop.circle.fill")
+                        }
+                }
+                .accentColor(.black)
                 Spacer()
             }
         }

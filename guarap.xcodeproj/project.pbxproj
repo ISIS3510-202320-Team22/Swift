@@ -17,6 +17,7 @@
 		CD0F41732ABD0AF90016177A /* guarapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41722ABD0AF90016177A /* guarapUITestsLaunchTests.swift */; };
 		CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C22CA2AC623B500D853EF /* SettingsView.swift */; };
 		CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */; };
+		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
@@ -56,6 +57,7 @@
 		CD0F41722ABD0AF90016177A /* guarapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD3C22CA2AC623B500D853EF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
@@ -113,11 +115,11 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
+				CD597E452ACC856700D493B5 /* Feed Group */,
 				CD3EBF9B2AC8FD5F00F83C1B /* Settings Group */,
 				CD3EBF9A2AC8FD4800F83C1B /* Camera Group */,
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
-				CDA9B7D22AC1CF970054F09E /* FeedView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
 			);
@@ -168,6 +170,15 @@
 				CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */,
 			);
 			path = "Settings Group";
+			sourceTree = "<group>";
+		};
+		CD597E452ACC856700D493B5 /* Feed Group */ = {
+			isa = PBXGroup;
+			children = (
+				CDA9B7D22AC1CF970054F09E /* FeedView.swift */,
+				CD597E462ACC858400D493B5 /* FeedCell.swift */,
+			);
+			path = "Feed Group";
 			sourceTree = "<group>";
 		};
 		CDA9B7D82AC1F1750054F09E /* proyect_fonts */ = {
@@ -313,6 +324,7 @@
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
+				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,

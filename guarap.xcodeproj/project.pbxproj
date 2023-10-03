@@ -18,6 +18,7 @@
 		CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C22CA2AC623B500D853EF /* SettingsView.swift */; };
 		CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */; };
 		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
+		CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E482ACCA1EA00D493B5 /* MainTabView.swift */; };
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
@@ -58,6 +59,7 @@
 		CD3C22CA2AC623B500D853EF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				CDA9B7D22AC1CF970054F09E /* FeedView.swift */,
 				CD597E462ACC858400D493B5 /* FeedCell.swift */,
+				CD597E482ACCA1EA00D493B5 /* MainTabView.swift */,
 			);
 			path = "Feed Group";
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,
 				CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
+				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

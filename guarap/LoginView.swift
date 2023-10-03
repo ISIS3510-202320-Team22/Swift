@@ -2,7 +2,7 @@
 //  LoginView.swift
 //  guarap
 //
-//  Created by Nathalia Quiroga.
+//  Created by Nathalia Quiroga 2/10/23.
 //
 
 import SwiftUI

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedCell: View {
+    let post : Post
     var body: some View {
         VStack{
             // Image and username + publishing time
@@ -32,7 +33,7 @@ struct FeedCell: View {
             
             // Post
             
-            Image("bobo_sunset")
+            Image(post.image)
                 .resizable()
                 .scaledToFill()
                 .frame(height: 400)
@@ -68,6 +69,8 @@ struct FeedCell: View {
                 .foregroundColor(.black)
             
             // Comments
+            Text(post.title)
+            Text(post.description)
             HStack{
                 Text("@sadiomane ").fontWeight(.semibold) +
                 Text("Grande calixx")

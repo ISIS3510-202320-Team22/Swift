@@ -14,6 +14,8 @@ struct AboutUsView: View {
     }
 }
 
-#Preview {
-    AboutUsView()
+struct AboutUsView_Previews: PreviewProvider {
+    static var previews: some View {
+        AboutUsView()
+    }
 }

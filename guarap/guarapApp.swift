@@ -11,7 +11,7 @@ import SwiftUI
 struct guarapApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            LoginView() //The first view is the Login
         }
     }
 }

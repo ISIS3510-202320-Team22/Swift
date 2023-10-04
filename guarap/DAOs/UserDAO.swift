@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 
 protocol UserDAO {
-    func createUser(email: String, username: String, image: Image?)
-    func getUserByEmail(email: String)
-    func getUserByUsername(username: String)
+    
+    static var shared: UserDAO { get }
+    
+    func createUser(email: String, username: String, image: Image?) async throws
+    func getUserByEmail(email: String) async throws
+    func getUserByUsername(username: String) async throws
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
+		CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB782ACD383600ED324C /* ImageDAO.swift */; };
+		CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */; };
 		CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41552ABD0AF60016177A /* guarapApp.swift */; };
 		CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41572ABD0AF60016177A /* PublishView.swift */; };
 		CD0F415A2ABD0AF80016177A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0F41592ABD0AF80016177A /* Assets.xcassets */; };
@@ -20,7 +22,6 @@
 		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
 		CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E482ACCA1EA00D493B5 /* MainTabView.swift */; };
 		CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E4B2ACCB15800D493B5 /* Post.swift */; };
-		CD597E502ACCB5D100D493B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD597E4F2ACCB5D100D493B5 /* GoogleService-Info.plist */; };
 		CD597E532ACCB67100D493B5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E522ACCB67100D493B5 /* FirebaseAuth */; };
 		CD597E552ACCB67100D493B5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E542ACCB67100D493B5 /* FirebaseCrashlytics */; };
 		CD597E572ACCB67100D493B5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CD597E562ACCB67100D493B5 /* FirebaseFirestore */; };
@@ -40,6 +41,12 @@
 		CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */; };
 		CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9B7D22AC1CF970054F09E /* FeedView.swift */; };
 		CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */; };
+		CDFC76172ACCE12B00D7943C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */; };
+		CDFC76192ACCE61F00D7943C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC76182ACCE61F00D7943C /* FirebaseAnalytics */; };
+		CDFC761B2ACCE61F00D7943C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761A2ACCE61F00D7943C /* FirebaseAnalyticsSwift */; };
+		CDFC761D2ACCE61F00D7943C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761C2ACCE61F00D7943C /* FirebaseDatabase */; };
+		CDFC761F2ACCE61F00D7943C /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761E2ACCE61F00D7943C /* FirebaseDatabaseSwift */; };
+		CDFC76212ACCE73400D7943C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC76202ACCE73400D7943C /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		CD0CCB782ACD383600ED324C /* ImageDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAO.swift; sourceTree = "<group>"; };
+		CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAOFirebase.swift; sourceTree = "<group>"; };
 		CD0F41522ABD0AF60016177A /* guarap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guarap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0F41552ABD0AF60016177A /* guarapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapApp.swift; sourceTree = "<group>"; };
 		CD0F41572ABD0AF60016177A /* PublishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishView.swift; sourceTree = "<group>"; };
@@ -76,7 +85,6 @@
 		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD597E4B2ACCB15800D493B5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		CD597E4F2ACCB5D100D493B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD597E5D2ACCB9EC00D493B5 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDAOFirebase.swift; sourceTree = "<group>"; };
 		CD597E5F2ACCB9EC00D493B5 /* UserDAOFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAOFirebase.swift; sourceTree = "<group>"; };
@@ -90,6 +98,8 @@
 		CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		CDA9B7D22AC1CF970054F09E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pattaya-Regular.ttf"; sourceTree = "<group>"; };
+		CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CDFC76202ACCE73400D7943C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,10 +107,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDFC761F2ACCE61F00D7943C /* FirebaseDatabaseSwift in Frameworks */,
+				CDFC76192ACCE61F00D7943C /* FirebaseAnalytics in Frameworks */,
 				CD597E702ACCD0ED00D493B5 /* Kingfisher in Frameworks */,
 				CD597E532ACCB67100D493B5 /* FirebaseAuth in Frameworks */,
 				CD597E552ACCB67100D493B5 /* FirebaseCrashlytics in Frameworks */,
+				CDFC761B2ACCE61F00D7943C /* FirebaseAnalyticsSwift in Frameworks */,
 				CD597E572ACCB67100D493B5 /* FirebaseFirestore in Frameworks */,
+				CDFC761D2ACCE61F00D7943C /* FirebaseDatabase in Frameworks */,
 				CD597E5B2ACCB67100D493B5 /* FirebaseStorage in Frameworks */,
 				CD597E592ACCB67100D493B5 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -126,7 +140,6 @@
 		CD0F41492ABD0AF60016177A = {
 			isa = PBXGroup;
 			children = (
-				CD597E4F2ACCB5D100D493B5 /* GoogleService-Info.plist */,
 				CDA9B7D82AC1F1750054F09E /* proyect_fonts */,
 				CD0F41542ABD0AF60016177A /* guarap */,
 				CD0F41652ABD0AF90016177A /* guarapTests */,
@@ -157,7 +170,9 @@
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
+				CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
+				CDFC76202ACCE73400D7943C /* AuthService.swift */,
 			);
 			path = guarap;
 			sourceTree = "<group>";
@@ -228,6 +243,8 @@
 		CD597E5C2ACCB9EC00D493B5 /* DAOs */ = {
 			isa = PBXGroup;
 			children = (
+				CD0CCB782ACD383600ED324C /* ImageDAO.swift */,
+				CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */,
 				CD597E5D2ACCB9EC00D493B5 /* UserDAO.swift */,
 				CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */,
 				CD597E5F2ACCB9EC00D493B5 /* UserDAOFirebase.swift */,
@@ -294,6 +311,10 @@
 				CD597E582ACCB67100D493B5 /* FirebaseFirestoreSwift */,
 				CD597E5A2ACCB67100D493B5 /* FirebaseStorage */,
 				CD597E6F2ACCD0ED00D493B5 /* Kingfisher */,
+				CDFC76182ACCE61F00D7943C /* FirebaseAnalytics */,
+				CDFC761A2ACCE61F00D7943C /* FirebaseAnalyticsSwift */,
+				CDFC761C2ACCE61F00D7943C /* FirebaseDatabase */,
+				CDFC761E2ACCE61F00D7943C /* FirebaseDatabaseSwift */,
 			);
 			productName = guarap;
 			productReference = CD0F41522ABD0AF60016177A /* guarap.app */;
@@ -388,7 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD0F415D2ABD0AF80016177A /* Preview Assets.xcassets in Resources */,
-				CD597E502ACCB5D100D493B5 /* GoogleService-Info.plist in Resources */,
+				CDFC76172ACCE12B00D7943C /* GoogleService-Info.plist in Resources */,
 				CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */,
 				CD0F415A2ABD0AF80016177A /* Assets.xcassets in Resources */,
 			);
@@ -415,14 +436,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */,
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
 				CD597E622ACCB9EC00D493B5 /* PostDAOFirebase.swift in Sources */,
 				CD597E632ACCB9EC00D493B5 /* UserDAOFirebase.swift in Sources */,
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
+				CDFC76212ACCE73400D7943C /* AuthService.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
+				CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */,
 				CD597E6D2ACCCCAA00D493B5 /* FeedViewModel.swift in Sources */,
@@ -811,6 +835,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD597E6E2ACCD0ED00D493B5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		CDFC76182ACCE61F00D7943C /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD597E512ACCB67100D493B5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		CDFC761A2ACCE61F00D7943C /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD597E512ACCB67100D493B5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		CDFC761C2ACCE61F00D7943C /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD597E512ACCB67100D493B5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		CDFC761E2ACCE61F00D7943C /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD597E512ACCB67100D493B5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

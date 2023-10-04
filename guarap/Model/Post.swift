@@ -8,17 +8,19 @@
 import Foundation
 
 struct Post: Identifiable, Hashable, Codable {
+    var id: UUID
+    
     
     // Atributes of a post
     
-    let id: String
-    let ownerUid: String
+    let user: String
     let title: String
     let description: String
-    let ups: Int
-    let downs: Int
+    var upVotes: Int
+    var downVotes: Int
+    let reported: Bool
     let image: String
-    let timeStamp: Date
-    let category: String
-    
+    let latitude: Double
+    let longitude: Double
+
 }

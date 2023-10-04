@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 protocol PostDAO {
+    
+    static var shared: PostDAO { get }
+    
     func createPost(title: String, description: String, image: Image?, category: String)
-    func getPostsByCategory(categoryName: String)
+    func getPostsByCategory(categoryName: String) async throws -> [Post]
 }

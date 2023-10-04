@@ -9,15 +9,20 @@ import Foundation
 import SwiftUI
 
 class UserDAOFirebase: UserDAO {
-    func createUser(email: String, username: String, image: Image?) {
+    
+    private init(){}
+    
+    static var shared: UserDAO = UserDAOFirebase()
+    
+    func createUser(email: String, username: String, image: Image?) async throws {
         
     }
     
-    func getUserByEmail(email: String) {
+    func getUserByEmail(email: String) async throws {
         
     }
     
-    func getUserByUsername(username: String) {
+    func getUserByUsername(username: String) async throws {
         
     }
 }

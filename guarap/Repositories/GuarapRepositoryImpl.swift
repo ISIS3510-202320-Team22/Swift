@@ -9,7 +9,22 @@ import Foundation
 import SwiftUI
 
 class GuarapRepositoryImpl: GuarapRepository {
-    func createUser(email: String, username: String, image: Image?) {
+    
+    static var shared: GuarapRepository = GuarapRepositoryImpl()
+    
+    static let postDao: PostDAO = PostDAOFirebase.shared
+    static let userDao: UserDAO = UserDAOFirebase.shared
+    static let imageDao: ImageDAO = ImageDAOFirebase.shared
+    
+    func createUser(email: String, username: String, image: Image?) async throws {
+        
+    }
+    
+    func getUserByEmail(email: String) async throws {
+        
+    }
+    
+    func getUserByUsername(username: String) async throws {
         
     }
     
@@ -17,15 +32,11 @@ class GuarapRepositoryImpl: GuarapRepository {
         
     }
     
-    func getPostsByCategory(categoryName: String) {
-        
+    func getPostsByCategory(categoryName: String) async throws -> [Post] {
+        return try await GuarapRepositoryImpl.postDao.getPostsByCategory(categoryName: categoryName)
     }
     
-    func getUserByEmail(email: String) {
-        
-    }
-    
-    func getUserByUsername(username: String) {
-        
+    func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void) {
+        GuarapRepositoryImpl.imageDao.getImageFromUrl(url: url, completion: completion)
     }
 }

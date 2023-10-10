@@ -10,10 +10,10 @@ import SwiftUI
 
 class PostDAOFirebase: PostDAO {
     func createPost(title: String, description: String, image: Image?, category: String) {
-        <#code#>
+        
     }
     
     func getPostsByCategory(categoryName: String) {
-        <#code#>
+        
     }
 }

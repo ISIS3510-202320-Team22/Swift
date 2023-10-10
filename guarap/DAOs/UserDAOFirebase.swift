@@ -10,14 +10,14 @@ import SwiftUI
 
 class UserDAOFirebase: UserDAO {
     func createUser(email: String, username: String, image: Image?) {
-        <#code#>
+        
     }
     
     func getUserByEmail(email: String) {
-        <#code#>
+        
     }
     
     func getUserByUsername(username: String) {
-        <#code#>
+        
     }
 }

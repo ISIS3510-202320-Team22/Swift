@@ -7,32 +7,24 @@
 
 import SwiftUI
 
-struct CreateUsernameView: View {
-    @State private var username = ""
-    
+struct CompleteSignUpView: View {
+    @EnvironmentObject var viewModel: RegistrationViewModel
+
     var body: some View {
         VStack(spacing: 12) {
-            Text ("Create username")
+            Text ("Welcome to Guarap, \(viewModel.username)!")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight (.bold)
                 .padding (.top)
-            Text("You'll use this username to sign in to your account")
+            Text("Click below to complete registration")
                 .font (.footnote)
                 .foregroundColor (.gray)
                 .multilineTextAlignment (.center)
                 .padding (.horizontal, 24)
-            TextField("Username", text: $username)
-                .autocapitalization(.none)
-                .font (.subheadline)
-                .padding (12)
-                .background (Color(.systemGray6))
-                .cornerRadius (10)
-                .padding (.horizontal, 24)
-                .padding (.top)
-            NavigationLink{
-                CreatePasswordView()
+            Button{
+                Task{ try await viewModel.createUser()}
             } label: {
-                Text ("Next" )
+                Text ("Complete Sing Up" )
                     .font (. subheadline)
                     .fontWeight (.semibold)
                     .foregroundColor(.white)
@@ -46,8 +38,8 @@ struct CreateUsernameView: View {
     }
 }
 
-struct CreateUsernameView_Previews: PreviewProvider {
+struct CompleteSignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateUsernameView()
+        CompleteSignUpView()
     }
 }

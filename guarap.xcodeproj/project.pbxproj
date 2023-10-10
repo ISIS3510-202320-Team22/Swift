@@ -17,6 +17,7 @@
 		B540EB152AD5F8F6005C3019 /* CreateUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */; };
 		B540EB172AD5FBDD005C3019 /* CreatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */; };
 		B540EB192AD5FC91005C3019 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */; };
+		B540EB1D2AD602AE005C3019 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB1C2AD602AE005C3019 /* RegistrationViewModel.swift */; };
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41552ABD0AF60016177A /* guarapApp.swift */; };
 		CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41572ABD0AF60016177A /* PublishView.swift */; };
@@ -69,6 +70,7 @@
 		B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameView.swift; sourceTree = "<group>"; };
 		B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordView.swift; sourceTree = "<group>"; };
 		B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
+		B540EB1C2AD602AE005C3019 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0F41522ABD0AF60016177A /* guarap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guarap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0F41552ABD0AF60016177A /* guarapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapApp.swift; sourceTree = "<group>"; };
@@ -134,12 +136,9 @@
 		B540EB082AD5ED4D005C3019 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B540EAFE2AD5DD25005C3019 /* LoginView.swift */,
-				B540EB102AD5F329005C3019 /* AddEmailView.swift */,
+				B540EB1A2AD60256005C3019 /* View */,
+				B540EB1B2AD60286005C3019 /* ViewModel */,
 				B540EB002AD5E4CF005C3019 /* Service */,
-				B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */,
-				B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */,
-				B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -165,6 +164,26 @@
 			isa = PBXGroup;
 			children = (
 				B540EB0C2AD5EDAA005C3019 /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B540EB1A2AD60256005C3019 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B540EAFE2AD5DD25005C3019 /* LoginView.swift */,
+				B540EB102AD5F329005C3019 /* AddEmailView.swift */,
+				B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */,
+				B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */,
+				B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B540EB1B2AD60286005C3019 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B540EB1C2AD602AE005C3019 /* RegistrationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -439,6 +458,7 @@
 				B540EB0D2AD5EDAA005C3019 /* ContentViewModel.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
 				CDFC760F2ACCB0F000D7943C /* PostDAO.swift in Sources */,
+				B540EB1D2AD602AE005C3019 /* RegistrationViewModel.swift in Sources */,
 				B540EB022AD5E4ED005C3019 /* AuthService.swift in Sources */,
 				B540EB112AD5F329005C3019 /* AddEmailView.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,

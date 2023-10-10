@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B540EAFF2AD5DD25005C3019 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EAFE2AD5DD25005C3019 /* LoginView.swift */; };
+		B540EB022AD5E4ED005C3019 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB012AD5E4ED005C3019 /* AuthService.swift */; };
+		B540EB042AD5E826005C3019 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B540EB032AD5E826005C3019 /* GoogleService-Info.plist */; };
+		B540EB072AD5EA4F005C3019 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B540EB062AD5EA4F005C3019 /* FirebaseAuth */; };
+		B540EB0D2AD5EDAA005C3019 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB0C2AD5EDAA005C3019 /* ContentViewModel.swift */; };
+		B540EB0F2AD5EF3C005C3019 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB0E2AD5EF3C005C3019 /* ContentView.swift */; };
+		B540EB112AD5F329005C3019 /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB102AD5F329005C3019 /* AddEmailView.swift */; };
+		B540EB152AD5F8F6005C3019 /* CreateUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */; };
+		B540EB172AD5FBDD005C3019 /* CreatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */; };
+		B540EB192AD5FC91005C3019 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */; };
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41552ABD0AF60016177A /* guarapApp.swift */; };
 		CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41572ABD0AF60016177A /* PublishView.swift */; };
@@ -50,6 +60,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B540EAFE2AD5DD25005C3019 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B540EB012AD5E4ED005C3019 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B540EB032AD5E826005C3019 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B540EB0C2AD5EDAA005C3019 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		B540EB0E2AD5EF3C005C3019 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B540EB102AD5F329005C3019 /* AddEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
+		B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameView.swift; sourceTree = "<group>"; };
+		B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordView.swift; sourceTree = "<group>"; };
+		B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0F41522ABD0AF60016177A /* guarap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guarap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0F41552ABD0AF60016177A /* guarapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapApp.swift; sourceTree = "<group>"; };
@@ -83,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B540EB072AD5EA4F005C3019 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +123,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B540EB002AD5E4CF005C3019 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B540EB012AD5E4ED005C3019 /* AuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B540EB082AD5ED4D005C3019 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B540EAFE2AD5DD25005C3019 /* LoginView.swift */,
+				B540EB102AD5F329005C3019 /* AddEmailView.swift */,
+				B540EB002AD5E4CF005C3019 /* Service */,
+				B540EB142AD5F8F6005C3019 /* CreateUsernameView.swift */,
+				B540EB162AD5FBDD005C3019 /* CreatePasswordView.swift */,
+				B540EB182AD5FC91005C3019 /* CompleteSignUpView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B540EB092AD5ED6F005C3019 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				B540EB0B2AD5ED86005C3019 /* ViewModel */,
+				B540EB0A2AD5ED81005C3019 /* View */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		B540EB0A2AD5ED81005C3019 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B540EB0E2AD5EF3C005C3019 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B540EB0B2AD5ED86005C3019 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B540EB0C2AD5EDAA005C3019 /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		CD0F41492ABD0AF60016177A = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +193,8 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
+				B540EB092AD5ED6F005C3019 /* Root */,
+				B540EB082AD5ED4D005C3019 /* Authentication */,
 				CDFC76042ACCB0F000D7943C /* DAOs */,
 				CDFC76092ACCB0F000D7943C /* Repositories */,
 				CD597E452ACC856700D493B5 /* Feed Group */,
@@ -135,6 +203,7 @@
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
+				B540EB032AD5E826005C3019 /* GoogleService-Info.plist */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
 			);
 			path = guarap;
@@ -239,6 +308,9 @@
 			dependencies = (
 			);
 			name = guarap;
+			packageProductDependencies = (
+				B540EB062AD5EA4F005C3019 /* FirebaseAuth */,
+			);
 			productName = guarap;
 			productReference = CD0F41522ABD0AF60016177A /* guarap.app */;
 			productType = "com.apple.product-type.application";
@@ -311,6 +383,9 @@
 				Base,
 			);
 			mainGroup = CD0F41492ABD0AF60016177A;
+			packageReferences = (
+				B540EB052AD5E8F3005C3019 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = CD0F41532ABD0AF60016177A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -328,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD0F415D2ABD0AF80016177A /* Preview Assets.xcassets in Resources */,
+				B540EB042AD5E826005C3019 /* GoogleService-Info.plist in Resources */,
 				CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */,
 				CD0F415A2ABD0AF80016177A /* Assets.xcassets in Resources */,
 			);
@@ -356,19 +432,27 @@
 			files = (
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
 				CDFC76112ACCB0F000D7943C /* GuarapRepository.swift in Sources */,
+				B540EB0F2AD5EF3C005C3019 /* ContentView.swift in Sources */,
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
+				B540EB192AD5FC91005C3019 /* CompleteSignUpView.swift in Sources */,
+				B540EB0D2AD5EDAA005C3019 /* ContentViewModel.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
 				CDFC760F2ACCB0F000D7943C /* PostDAO.swift in Sources */,
+				B540EB022AD5E4ED005C3019 /* AuthService.swift in Sources */,
+				B540EB112AD5F329005C3019 /* AddEmailView.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
+				B540EB152AD5F8F6005C3019 /* CreateUsernameView.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,
 				CDFC760D2ACCB0F000D7943C /* PostDAOFirebase.swift in Sources */,
 				CDFC76102ACCB0F000D7943C /* GuarapRepositoryImpl.swift in Sources */,
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,
+				B540EAFF2AD5DD25005C3019 /* LoginView.swift in Sources */,
 				CDFC760C2ACCB0F000D7943C /* UserDAO.swift in Sources */,
 				CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */,
 				CDFC760E2ACCB0F000D7943C /* UserDAOFirebase.swift in Sources */,
+				B540EB172AD5FBDD005C3019 /* CreatePasswordView.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
 			);
@@ -697,6 +781,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B540EB052AD5E8F3005C3019 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.16.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B540EB062AD5EA4F005C3019 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B540EB052AD5E8F3005C3019 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CD0F414A2ABD0AF60016177A /* Project object */;
 }

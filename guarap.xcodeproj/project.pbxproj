@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5F32CF22AD7441A002A2D3B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */; };
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB782ACD383600ED324C /* ImageDAO.swift */; };
 		CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0CCB782ACD383600ED324C /* ImageDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAO.swift; sourceTree = "<group>"; };
 		CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAOFirebase.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				CD3EC5E12AD6320500051117 /* RegistrationViewModel.swift */,
+				B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				CD597E6D2ACCCCAA00D493B5 /* FeedViewModel.swift in Sources */,
 				CD597E642ACCB9EC00D493B5 /* PostDAO.swift in Sources */,
 				CD0F41562ABD0AF60016177A /* guarapApp.swift in Sources */,
+				B5F32CF22AD7441A002A2D3B /* LoginViewModel.swift in Sources */,
 				CD597E612ACCB9EC00D493B5 /* UserDAO.swift in Sources */,
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,
 				CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */,
@@ -715,7 +719,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = F7NRPQ92RT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -746,7 +750,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = F7NRPQ92RT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;

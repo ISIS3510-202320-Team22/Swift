@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import Combine
 import FirebaseAuth
-@MainActor
+
 class ContentViewModel: ObservableObject {
     
     private let service = AuthService.shared

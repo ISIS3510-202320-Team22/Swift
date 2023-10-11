@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var username = ""
-    @State private var password = ""
-    @State private var wrongUser = 0
-    @State private var wrongPassword = 0
+
     @State private var showingLoginScreen = false
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationView{
@@ -24,34 +21,30 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("Email Addess", text: $username)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .border(Color.gray, width: 1)
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUser))
+                    TextField("Email Addess", text: $viewModel.email)
                         .autocapitalization(.none)
-                    SecureField("Password", text: $password)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPassword))
-                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .font (.subheadline)
+                        .padding (12)
+                        .background (Color(.systemGray6))
+                        .cornerRadius (10)
+                        .padding (.horizontal, 24)
+                        .padding (.top)
+                    SecureField("Password", text: $viewModel.password)
+                        .autocapitalization(.none)
+                        .font (.subheadline)
+                        .padding (12)
+                        .background (Color(.systemGray6))
+                        .cornerRadius (10)
+                        .padding (.horizontal, 24)
+                        .padding (.top)
                     Button("Login") {
-                        authenticateUser(username: username, password: password)
+                        Task { try await viewModel.signIn()}
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.red)
                     .cornerRadius(10)
                     .padding()
-                    
-                    NavigationLink(destination: MainTabView(), isActive: $showingLoginScreen)
-                    {
-                        EmptyView()
-                            .navigationBarBackButtonHidden()
-                    }
                     
                     Text("Forgot your logging details?")
                     Button("Recover your account"){
@@ -73,20 +66,6 @@ struct LoginView: View {
         .navigationBarHidden(true)
         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
             
-        }
-    }
-    
-    func authenticateUser(username: String, password: String){
-        if username == "hola" {
-            wrongUser = 0
-            if password == "hola"{
-                wrongPassword = 0
-                showingLoginScreen = true
-            } else {
-                wrongPassword = 2
-            }
-        } else {
-            wrongUser = 2
         }
     }
 }

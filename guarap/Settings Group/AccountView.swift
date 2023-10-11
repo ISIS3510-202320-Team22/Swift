@@ -15,7 +15,7 @@ struct AccountView: View {
                     Spacer()
                     
                     Button{
-                        AuthService.shared.singOut()
+                        AuthService.shared.signOut()
                     } label: {
                         Text("Sign Out")
                     }

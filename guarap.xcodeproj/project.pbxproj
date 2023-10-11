@@ -17,6 +17,8 @@
 		CD0F41672ABD0AF90016177A /* guarapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41662ABD0AF90016177A /* guarapTests.swift */; };
 		CD0F41712ABD0AF90016177A /* guarapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41702ABD0AF90016177A /* guarapUITests.swift */; };
 		CD0F41732ABD0AF90016177A /* guarapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F41722ABD0AF90016177A /* guarapUITestsLaunchTests.swift */; };
+		CD304B5D2AD64064001AE8CE /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD304B5A2AD64064001AE8CE /* ContentViewModel.swift */; };
+		CD304B5E2AD64064001AE8CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD304B5C2AD64064001AE8CE /* ContentView.swift */; };
 		CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C22CA2AC623B500D853EF /* SettingsView.swift */; };
 		CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */; };
 		CD3EC5EA2AD6320500051117 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E12AD6320500051117 /* RegistrationViewModel.swift */; };
@@ -86,6 +88,8 @@
 		CD0F416C2ABD0AF90016177A /* guarapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = guarapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0F41702ABD0AF90016177A /* guarapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapUITests.swift; sourceTree = "<group>"; };
 		CD0F41722ABD0AF90016177A /* guarapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guarapUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CD304B5A2AD64064001AE8CE /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		CD304B5C2AD64064001AE8CE /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CD3C22CA2AC623B500D853EF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		CD3EC5E12AD6320500051117 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
+				CD304B5F2AD640B2001AE8CE /* Publish Group */,
+				CD304B582AD64064001AE8CE /* Root */,
 				CD3EC5DF2AD6320500051117 /* Authentication */,
 				CD597E652ACCB9F900D493B5 /* Repositories */,
 				CD597E5C2ACCB9EC00D493B5 /* DAOs */,
@@ -181,7 +187,6 @@
 				CD3EBF9B2AC8FD5F00F83C1B /* Settings Group */,
 				CD3EBF9A2AC8FD4800F83C1B /* Camera Group */,
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
-				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
@@ -212,6 +217,40 @@
 				CD0F41722ABD0AF90016177A /* guarapUITestsLaunchTests.swift */,
 			);
 			path = guarapUITests;
+			sourceTree = "<group>";
+		};
+		CD304B582AD64064001AE8CE /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				CD304B592AD64064001AE8CE /* ViewModel */,
+				CD304B5B2AD64064001AE8CE /* View */,
+			);
+			name = Root;
+			path = ../../../Root;
+			sourceTree = "<group>";
+		};
+		CD304B592AD64064001AE8CE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CD304B5A2AD64064001AE8CE /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CD304B5B2AD64064001AE8CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CD304B5C2AD64064001AE8CE /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD304B5F2AD640B2001AE8CE /* Publish Group */ = {
+			isa = PBXGroup;
+			children = (
+				CD0F41572ABD0AF60016177A /* PublishView.swift */,
+			);
+			path = "Publish Group";
 			sourceTree = "<group>";
 		};
 		CD3EBF9A2AC8FD4800F83C1B /* Camera Group */ = {
@@ -497,9 +536,11 @@
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
+				CD304B5E2AD64064001AE8CE /* ContentView.swift in Sources */,
 				CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */,
 				CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */,
 				CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */,
+				CD304B5D2AD64064001AE8CE /* ContentViewModel.swift in Sources */,
 				CD3EC5EA2AD6320500051117 /* RegistrationViewModel.swift in Sources */,
 				CD597E6D2ACCCCAA00D493B5 /* FeedViewModel.swift in Sources */,
 				CD597E642ACCB9EC00D493B5 /* PostDAO.swift in Sources */,

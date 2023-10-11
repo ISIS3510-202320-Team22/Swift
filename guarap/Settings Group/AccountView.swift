@@ -14,9 +14,9 @@ struct AccountView: View {
                 HStack {
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }) {
+                    Button{
+                        AuthService.shared.singOut()
+                    } label: {
                         Text("Sign Out")
                     }
                     .padding()

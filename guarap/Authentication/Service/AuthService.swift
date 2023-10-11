@@ -42,6 +42,7 @@ class AuthService{
     }
     
     func singOut (){
-        
+        try? Auth.auth().signOut()
+        self.userSession = nil
     }
 }

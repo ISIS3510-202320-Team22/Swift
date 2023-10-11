@@ -22,5 +22,5 @@ struct Post: Identifiable, Hashable, Codable {
     let image: String
     let latitude: Double
     let longitude: Double
-
+    let dateTime: Date
 }

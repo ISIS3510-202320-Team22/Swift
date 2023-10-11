@@ -23,7 +23,7 @@ class PostDAOFirebase: PostDAO {
     @MainActor
     func getPostsByCategory(categoryName: String) async throws -> [Post] {
         var posts = [Post]()
-        let snapshot = Firestore.firestore().collection("categories").document("atardeceres").collection("posts")
+        let snapshot = Firestore.firestore().collection("categories").document(categoryName).collection("posts")
         
         do {
             let queryPosts = try await snapshot.getDocuments()
@@ -36,7 +36,8 @@ class PostDAOFirebase: PostDAO {
                        let description = postDict["description"] as? String,
                        let upVotes = postDict["upVotes"] as? Int,
                        let downVotes = postDict["downVotes"] as? Int,
-                       let reported = postDict["reported"] as? Bool {
+                       let reported = postDict["reported"] as? Bool,
+                       let dateTime = postDict["dateTime"] as? Date {
                         
                         var image = ""
                         if let unwrappedImage = postDict["image"] as? String {
@@ -51,7 +52,7 @@ class PostDAOFirebase: PostDAO {
                         }
 
 
-                        let post = Post(id: UUID(), user: user, title: title, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, latitude: latitude, longitude: longitude)
+                        let post = Post(id: UUID(), user: user, title: title, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, latitude: latitude, longitude: longitude, dateTime: dateTime)
                             
                             posts.append(post)
                     }

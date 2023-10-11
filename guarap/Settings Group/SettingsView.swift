@@ -18,7 +18,7 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Section(header: Text("Appearance")) {
                     Toggle("Dark Mode", isOn: $isDarkModeEnabled)
@@ -40,12 +40,6 @@ struct SettingsView: View {
                 Section(header: Text("Information")) {
                     NavigationLink(destination: AboutUsView()) {
                         Text("About Us")
-                    }
-                }
-                
-                Section(header: Text("Account")) {
-                    NavigationLink(destination: AccountView()) {
-                        Text("Manage Account")
                     }
                 }
             }

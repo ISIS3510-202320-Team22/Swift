@@ -10,30 +10,28 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            FeedCell()
+            
+            FeedView()
                 .tabItem{
                     Image(systemName: "house")
                 }
             
-            Text("Settings")
-                .tabItem{
-                    Image(systemName: "gear")
-                }
-            
-            Text("PostText")
-                .tabItem{
-                    Image(systemName: "text.bubble.fill")
-                }
-            
-            Text("PostImage")
-                .tabItem{
+            PublishView()
+                .tabItem {
                     Image(systemName: "camera.shutter.button.fill")
                 }
             
-            Text("Profile")
-                .tabItem{
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gear")
+                }
+            
+            AccountView()
+                .tabItem {
                     Image(systemName: "person.crop.circle.fill")
                 }
+            
+            
         }
         .accentColor(.black)
         Spacer()

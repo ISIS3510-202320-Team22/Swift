@@ -16,7 +16,7 @@ struct CreatePasswordView: View {
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight (.bold)
                 .padding (.top)
-            Text("You'll use this password to sign in to your account")
+            Text("You'll use this password to sign in to your account. Your password should have at least 6 characters.")
                 .font (.footnote)
                 .foregroundColor (.gray)
                 .multilineTextAlignment (.center)

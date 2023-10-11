@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 import Combine
 
 class ContentViewModel: ObservableObject {

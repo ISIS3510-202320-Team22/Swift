@@ -30,12 +30,14 @@ struct LoginView: View {
                         .border(Color.gray, width: 1)
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongUser))
+                        .autocapitalization(.none)
                     SecureField("Password", text: $password)
                         .padding()
                         .frame(width: 300, height: 50)
                         .border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     Button("Login") {
                         authenticateUser(username: username, password: password)
                     }
@@ -45,7 +47,7 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding()
                     
-                    NavigationLink(destination: AccountView(), isActive: $showingLoginScreen)
+                    NavigationLink(destination: MainTabView(), isActive: $showingLoginScreen)
                     {
                         EmptyView()
                             .navigationBarBackButtonHidden()
@@ -75,9 +77,9 @@ struct LoginView: View {
     }
     
     func authenticateUser(username: String, password: String){
-        if username.lowercased() == "hola" {
+        if username == "hola" {
             wrongUser = 0
-            if password.lowercased() == "hola"{
+            if password == "hola"{
                 wrongPassword = 0
                 showingLoginScreen = true
             } else {

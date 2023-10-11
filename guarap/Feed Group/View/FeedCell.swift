@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FeedCell: View {
+    @State var downloadedImage: UIImage?
+    var guarapRepo = GuarapRepositoryImpl.shared
+    let post : Post
     var body: some View {
         VStack{
             // Image and username + publishing time
@@ -29,16 +32,18 @@ struct FeedCell: View {
                 
                 Spacer()
             }.padding(.leading)
+
             
-            // Post
+            if let image = downloadedImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 400)
+                    .cornerRadius(15)
+                    .clipShape(Rectangle())
+                    .padding(15)
+            }
             
-            Image("bobo_sunset")
-                .resizable()
-                .scaledToFill()
-                .frame(height: 400)
-                .cornerRadius(15)
-                .clipShape(Rectangle())
-                .padding(15)
             
             // Action buttons
             
@@ -68,6 +73,8 @@ struct FeedCell: View {
                 .foregroundColor(.black)
             
             // Comments
+            Text(post.title)
+            Text(post.description)
             HStack{
                 Text("@sadiomane ").fontWeight(.semibold) +
                 Text("Grande calixx")
@@ -76,12 +83,20 @@ struct FeedCell: View {
             .font(.footnote)
             .padding(.leading,15)
             .padding(.top,1)
+            .onAppear {
+                // Fetch the image when the view appears
+                if !post.image.isEmpty {
+                    guarapRepo.getImageFromUrl(url: post.image) { image in
+                        // Update the downloadedImage state when the image is fetched
+                        downloadedImage = image
+                    }
+                }
+            }
         }
     }
 }
-
-struct FeedCell_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedCell()
-    }
-}
+    //struct FeedCell_Previews: PreviewProvider {
+    //    static var previews: some View {
+    //        FeedCell(post: <#Post#>)
+    //    }
+    //}

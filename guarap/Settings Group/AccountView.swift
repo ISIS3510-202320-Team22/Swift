@@ -9,25 +9,23 @@ import SwiftUI
 
 struct AccountView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack{
                 HStack {
-                    NavigationLink(destination: SettingsView()) {
-                        Text("Settings")
-                    }
-                    .padding()
                     Spacer()
                     
-                    NavigationLink(destination: PublishView()) {
-                        Text("Post")
+                    Button(action: {
+                        
+                    }) {
+                        Text("Sign Out")
                     }
                     .padding()
                 }
+                
                 Text("Guarap")
                     .font(.title)
     
                 ZStack{
-                    
                     VStack(alignment: .center){
                         Image(systemName: "person.crop.circle")
                             .resizable()
@@ -70,6 +68,7 @@ struct AccountView: View {
                     
                     Spacer()
                 }
+                
                 Spacer()
             }
         }

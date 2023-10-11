@@ -16,7 +16,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-
 @main
 struct guarapApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate

@@ -53,7 +53,6 @@
 		CDFC761B2ACCE61F00D7943C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761A2ACCE61F00D7943C /* FirebaseAnalyticsSwift */; };
 		CDFC761D2ACCE61F00D7943C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761C2ACCE61F00D7943C /* FirebaseDatabase */; };
 		CDFC761F2ACCE61F00D7943C /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CDFC761E2ACCE61F00D7943C /* FirebaseDatabaseSwift */; };
-		CDFC76212ACCE73400D7943C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFC76202ACCE73400D7943C /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +112,6 @@
 		CDA9B7D22AC1CF970054F09E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pattaya-Regular.ttf"; sourceTree = "<group>"; };
 		CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CDFC76202ACCE73400D7943C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,7 +185,6 @@
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
-				CDFC76202ACCE73400D7943C /* AuthService.swift */,
 			);
 			path = guarap;
 			sourceTree = "<group>";
@@ -497,7 +494,6 @@
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
-				CDFC76212ACCE73400D7943C /* AuthService.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,

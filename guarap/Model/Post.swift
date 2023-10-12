@@ -14,7 +14,6 @@ struct Post: Identifiable, Hashable, Codable {
     // Atributes of a post
     
     let user: String
-    let title: String
     let description: String
     var upVotes: Int
     var downVotes: Int

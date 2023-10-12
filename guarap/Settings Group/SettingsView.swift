@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("isDarkModeEnabled") var isDarkModeEnabled = false
+    @AppStorage("isDarkModeEnabled") var isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark ? true : false
     @AppStorage("notificationEnabled") private var notificationEnabled = true
     
     init() {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-    let user: User
     var body: some View {
         TabView {
             
@@ -27,7 +26,7 @@ struct MainTabView: View {
                     Image(systemName: "gear")
                 }
             
-            AccountView(user: user)
+            AccountView()
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
                 }
@@ -42,7 +41,6 @@ struct MainTabView: View {
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTabView(user: User.MOCK_USERS[0])
-    
+        MainTabView()
     }
 }

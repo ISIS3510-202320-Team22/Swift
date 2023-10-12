@@ -45,6 +45,7 @@
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
+		CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */; };
 		CD7EF73A2AD646A400C9567B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7372AD646A400C9567B /* ContentViewModel.swift */; };
 		CD7EF73B2AD646A400C9567B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7392AD646A400C9567B /* ContentView.swift */; };
 		CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */; };
@@ -110,6 +111,7 @@
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
+		CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7372AD646A400C9567B /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7392AD646A400C9567B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD04453B2AD7249200AB5B8A /* PublishModel */ = {
+			isa = PBXGroup;
+			children = (
+				CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */,
+			);
+			path = PublishModel;
+			sourceTree = "<group>";
+		};
+		CD04453C2AD724A200AB5B8A /* PublishView */ = {
+			isa = PBXGroup;
+			children = (
+				CD0F41572ABD0AF60016177A /* PublishView.swift */,
+			);
+			path = PublishView;
+			sourceTree = "<group>";
+		};
 		CD0F41492ABD0AF60016177A = {
 			isa = PBXGroup;
 			children = (
@@ -222,7 +240,8 @@
 		CD304B5F2AD640B2001AE8CE /* Publish Group */ = {
 			isa = PBXGroup;
 			children = (
-				CD0F41572ABD0AF60016177A /* PublishView.swift */,
+				CD04453C2AD724A200AB5B8A /* PublishView */,
+				CD04453B2AD7249200AB5B8A /* PublishModel */,
 			);
 			path = "Publish Group";
 			sourceTree = "<group>";
@@ -550,6 +569,7 @@
 				CD3EC5ED2AD6320500051117 /* CreateUsernameView.swift in Sources */,
 				CD3EC5EE2AD6320500051117 /* LoginView.swift in Sources */,
 				CD3EC5EC2AD6320500051117 /* CompleteSignUpView.swift in Sources */,
+				CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
 				CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */,

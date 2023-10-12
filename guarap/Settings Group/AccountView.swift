@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountView: View {
-    
+    let user: User
 
     
     var body: some View {
@@ -33,7 +33,7 @@ struct AccountView: View {
                         Image(systemName: "person.crop.circle")
                             .resizable()
                             .frame(width: 200, height: 200, alignment: .topLeading)
-                        Text("---")
+                        Text(user.username)
                             .font(.system(size: 30))
                         Text("Favorite Categories")
                             .font(.system(size: 25))
@@ -80,6 +80,6 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView()
+        AccountView(user: User.MOCK_USERS[0])
     }
 }

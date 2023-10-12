@@ -27,6 +27,11 @@ class ContentViewModel: ObservableObject {
             self?.userSession = userSession
         }
         .store(in: &cancellables)
+        
+        service.$currentUser.sink { [weak self] currentUser in
+            self?.currentUser = currentUser
+        }
+        .store(in: &cancellables)
 
     }
 }

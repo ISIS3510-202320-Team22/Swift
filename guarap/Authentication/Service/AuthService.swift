@@ -13,6 +13,7 @@ import Firebase
 class AuthService{
     
     @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: User?
     
     static let shared = AuthService()
     
@@ -25,7 +26,7 @@ class AuthService{
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
-            
+            try await loadUserData()
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
             
@@ -49,21 +50,42 @@ class AuthService{
         
     }
     
+    @MainActor
     func loadUserData() async throws {
         self.userSession = Auth.auth().currentUser
-        guard let currentUid = self.userSession?.uid else { return }
+        guard let currentUid = userSession?.uid else { return }
         let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
-        print("DEBUG: Snapshot data is \(snapshot.data())")
+        func loadUserData() async throws {
+            self.userSession = Auth.auth().currentUser
+            guard let currentUid = self.userSession?.uid else { return }
+            let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
+            
+            if let userData = snapshot.data() {
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
+                    let decoder = JSONDecoder()
+                    let userData = try decoder.decode(User.self, from: jsonData)
+                    self.currentUser = userData
+                } catch {
+                    print("Error al decodificar los datos: \(error)")
+                }
+            } else {
+                print("Los datos no son del tipo esperado")
+            }
+        }
+
+        
     }
     
     func signOut (){
         try? Auth.auth().signOut()
         self.userSession = nil
+        self.currentUser = nil
     }
     
     private func uploadUserData(uid: String, username: String, email: String) async {
         let user = User(id: uid, username: username, email: email)
-        
+        self.currentUser = user
         do {
             let encoder = JSONEncoder()
             let userData = try encoder.encode(user)

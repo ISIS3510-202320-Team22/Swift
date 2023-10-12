@@ -11,11 +11,25 @@ import SwiftUI
 
 struct PublishView: View {
     
+    // Post Atributes
+    @State private var description = ""
+    @State private var category = "Generic"
+    @State private var latitude = 0.0
+    @State private var longitude = 0.0
+    @State private var isBlockingUI = false
+    
+    // Image States
     @State private var passedOnImage: UIImage? = nil
     @State private var isCustomCameraViewPresented = false
-    @State private var caption = ""
     @StateObject var viewModel = PublishViewModel()
     @Binding var tabIndex: Int
+    
+    // Dropdown Menu States
+    @State private var isPopoverVisible = false
+    @State private var selectedOption: String = "Select a Category"
+    let options = ["chismes", "atardeceres"]
+    
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
     var body: some View {
         
@@ -24,17 +38,18 @@ struct PublishView: View {
             Text("Guarap")
                 .padding(.top, 15)
                 .font(.system(size: 35))
-            
+            Divider()
             // Cancel Button
             HStack{
                 Spacer()
                 Button{
-                    caption = ""
+                    description = ""
                     passedOnImage = nil
                     tabIndex = 0
                 } label: {
                     Text("Cancel")
                         .font(.system(size: 25))
+                        .foregroundColor(guarapColor)
                 }
             }.padding(.trailing, 15)
             
@@ -92,20 +107,46 @@ struct PublishView: View {
                 
                 // Text
                 VStack{
-                    TextField("Enter your description", text: $caption, axis: .vertical)
+                    TextField("Enter your description", text: $description, axis: .vertical)
                         .frame(maxWidth: .infinity) // Expand to fill the width
                         .padding(.trailing, 15)
                     
                 }
                 
             }// End of Image and Text
-            .frame(height: 350)
-            
+            .frame(height: 300)
+            Divider()
             // Categories tags
             HStack {
-                Text("Categories")
+                Text("Category Tag")
                 Spacer()
-                Text("Aqui van las categorías")
+                // Pulldown Button
+                VStack {
+                    Button(action: {
+                        isPopoverVisible.toggle()
+                    }) {
+                        Text(selectedOption)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(guarapColor)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+                        List {
+                            ForEach(options, id: \.self) { option in
+                                Button(action: {
+                                    selectedOption = option
+                                    category = option
+                                    isPopoverVisible.toggle()
+                                }) {
+                                    Text(option)
+                                }
+                            }
+                        }.foregroundColor(.black)
+                    }
+                }// End Pulldown Button
+                .padding()
             }
             .padding(.horizontal, 15)
             
@@ -113,13 +154,29 @@ struct PublishView: View {
             
             // Share button
             Button(action: {
-                // Action to perform when the button is tapped
-                print("Button tapped!")
+                Task {
+                    do {
+                        try await Task.sleep(nanoseconds: 1)
+                        let success = try await GuarapRepositoryImpl.shared.createPost(description: description, image: passedOnImage, category: category, latitude: latitude, longitude: longitude)
+                        if success {
+                            passedOnImage = nil
+                            description = ""
+                            category = ""
+                            latitude = 0.0
+                            longitude = 0.0
+                            tabIndex = 0
+                        }
+                    } catch {
+                        print("Cannot upload post")
+                    }
+                    
+                    isBlockingUI = false
+                }
             }) {
                 Text("Share")
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.gray)
+                    .background(guarapColor)
                     .cornerRadius(15)
             }
             .frame(width: 300, height: 50)

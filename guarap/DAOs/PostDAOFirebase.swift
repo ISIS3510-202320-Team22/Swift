@@ -16,14 +16,64 @@ class PostDAOFirebase: PostDAO {
     
     static var shared: PostDAO = PostDAOFirebase()
     
-    func createPost(title: String, description: String, image: Image?, category: String) {
-        // implement logic here
+    func createPost(description: String, imageUrl: String, category: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
+        let firestore = Firestore.firestore()
+
+        let user = "YourUser" // Replace with actual user data
+        let upVotes = 0
+        let downVotes = 0
+        let reported = false
+        let dateTime = Date()
+
+        firestore.runTransaction({ transaction, errorPointer in
+            let categoryRef = firestore.collection("categories").document(category)
+
+            do {
+                // Try to retrieve the category document
+                let categoryDocument = try transaction.getDocument(categoryRef)
+
+                if !categoryDocument.exists {
+                    // If the category doesn't exist, create it
+                    let initialCategoryData: [String: Any] = [
+                        "name": category
+                    ]
+                    transaction.setData(initialCategoryData, forDocument: categoryRef)
+                }
+
+                // Create the post and add it to the category
+                let postRef = categoryRef.collection("posts").document()
+                let postAttributes: [String: Any] = [
+                    "user": user,
+                    "description": description,
+                    "upVotes": upVotes,
+                    "downVotes": downVotes,
+                    "reported": reported,
+                    "image": imageUrl,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "dateTime": Timestamp(date: dateTime)
+                ]
+                transaction.setData(postAttributes, forDocument: postRef)
+
+                completion(true)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                completion(false)
+            }
+
+            return nil
+        }) { _, error in
+            if let error = error {
+                print("Transaction failed: \(error)")
+                completion(false)
+            }
+        }
     }
     
     @MainActor
     func getPostsByCategory(categoryName: String) async throws -> [Post] {
         var posts = [Post]()
-        let snapshot = Firestore.firestore().collection("categories").document("atardeceres").collection("posts")
+        let snapshot = Firestore.firestore().collection("categories").document(categoryName).collection("posts")
         
         do {
             let queryPosts = try await snapshot.getDocuments()
@@ -32,11 +82,11 @@ class PostDAOFirebase: PostDAO {
                 
                 do {
                     if let user = postDict["user"] as? String,
-                       let title = postDict["title"] as? String,
                        let description = postDict["description"] as? String,
                        let upVotes = postDict["upVotes"] as? Int,
                        let downVotes = postDict["downVotes"] as? Int,
-                       let reported = postDict["reported"] as? Bool {
+                       let reported = postDict["reported"] as? Bool,
+                       let dateTime = postDict["dateTime"] as? Timestamp {
                         
                         var image = ""
                         if let unwrappedImage = postDict["image"] as? String {
@@ -51,7 +101,7 @@ class PostDAOFirebase: PostDAO {
                         }
 
 
-                        let post = Post(id: UUID(), user: user, title: title, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, latitude: latitude, longitude: longitude)
+                        let post = Post(id: UUID(), user: user, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, latitude: latitude, longitude: longitude, dateTime: dateTime.dateValue())
                             
                             posts.append(post)
                     }

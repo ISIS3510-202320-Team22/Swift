@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
+    @AppStorage("isDarkModeEnabled") var isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark ? true : false
     @AppStorage("notificationEnabled") private var notificationEnabled = true
     
     init() {
-        if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
-            isDarkModeEnabled = true
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0 is UIWindowScene }) as? UIWindowScene {
+            windowScene.windows.forEach { window in
+                window.overrideUserInterfaceStyle = isDarkModeEnabled ? .dark : .light
+            }
         }
     }
     

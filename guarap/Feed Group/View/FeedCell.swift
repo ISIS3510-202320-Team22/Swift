@@ -73,7 +73,6 @@ struct FeedCell: View {
                 .foregroundColor(.black)
             
             // Comments
-            Text(post.title)
             Text(post.description)
             HStack{
                 Text("@sadiomane ").fontWeight(.semibold) +

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AccountView: View {
+    
+
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -30,7 +33,7 @@ struct AccountView: View {
                         Image(systemName: "person.crop.circle")
                             .resizable()
                             .frame(width: 200, height: 200, alignment: .topLeading)
-                        Text("@juandicanu202")
+                        Text("---")
                             .font(.system(size: 30))
                         Text("Favorite Categories")
                             .font(.system(size: 25))

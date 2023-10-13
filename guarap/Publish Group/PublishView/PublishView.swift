@@ -122,29 +122,29 @@ struct PublishView: View {
                 Spacer()
                 // Pulldown Button
                 VStack {
-                    Button(action: {
-                        isPopoverVisible.toggle()
-                    }) {
-                        Text(selectedOption)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(guarapColor)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
-                        List {
-                            ForEach(options, id: \.self) { option in
-                                Button(action: {
-                                    selectedOption = option
-                                    category = option
-                                    isPopoverVisible.toggle()
-                                }) {
-                                    Text(option)
-                                }
-                            }
-                        }.foregroundColor(.black)
-                    }
+//                    Button(action: {
+//                        isPopoverVisible.toggle()
+//                    }) {
+//                        Text(selectedOption)
+//                            .frame(maxWidth: .infinity)
+//                            .padding()
+//                            .background(guarapColor)
+//                            .foregroundColor(.white)
+//                            .cornerRadius(10)
+//                    }
+//                    .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+//                        List {
+//                            ForEach(options, id: \.self) { option in
+//                                Button(action: {
+//                                    selectedOption = option
+//                                    category = option
+//                                    isPopoverVisible.toggle()
+//                                }) {
+//                                    Text(option)
+//                                }
+//                            }
+//                        }.foregroundColor(.black)
+//                    }
                 }// End Pulldown Button
                 .padding()
             }

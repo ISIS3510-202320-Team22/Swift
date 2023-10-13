@@ -15,11 +15,9 @@ class ImageDAOFirebase: ImageDAO {
     
     static var shared: ImageDAO = ImageDAOFirebase()
     
-    let firebaseProject = "gs://isis3510-guarap.appspot.com/"
-    
     func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void) {
         let storage = Storage.storage()
-        let storageRef = storage.reference(forURL: firebaseProject + url)
+        let storageRef = storage.reference(forURL: url)
         
         storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {

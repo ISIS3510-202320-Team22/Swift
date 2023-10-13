@@ -9,9 +9,10 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import Firebase
+import SwiftUI
 
 class AuthService{
-    
+    @AppStorage("userUID") var userUID = ""
     @Published var userSession: FirebaseAuth.User?
     
     static let shared = AuthService()
@@ -25,7 +26,8 @@ class AuthService{
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
-            
+            userUID = self.userSession!.uid
+            print(userUID)
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
             
@@ -59,6 +61,8 @@ class AuthService{
     func signOut (){
         try? Auth.auth().signOut()
         self.userSession = nil
+        userUID = ""
+        print(userUID)
     }
     
     private func uploadUserData(uid: String, username: String, email: String) async {

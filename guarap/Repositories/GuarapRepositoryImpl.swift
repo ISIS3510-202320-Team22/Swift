@@ -49,6 +49,9 @@ class GuarapRepositoryImpl: GuarapRepository {
     }
     
     func getPostsByCategory(categoryName: String) async throws -> [Post] {
+        print(1)
+        print(categoryName)
+        print(1)
         return try await GuarapRepositoryImpl.postDao.getPostsByCategory(categoryName: categoryName)
     }
     

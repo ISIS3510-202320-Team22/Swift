@@ -8,17 +8,24 @@
 import Foundation
 import Firebase
 import FirebaseFirestore.FIRGeoPoint
+import SwiftUI
 
 class FeedViewModel: ObservableObject{
+    @AppStorage("lastCategory") var lastCategory = "Generic"
     @Published var posts = [Post]()
+    @Published var categoryString = "Generic"
     let guarapRepo = GuarapRepositoryImpl.shared
     
     init(){
-        Task{ try await fetchPosts()}
+        if lastCategory == "" {
+            lastCategory = "Generic"
+        }
+        categoryString = lastCategory
+        Task{ try await fetchPosts(category: categoryString)}
     }
     
     @MainActor
-    func fetchPosts() async throws{
-        posts = try await guarapRepo.getPostsByCategory(categoryName: "atardeceres")
+    func fetchPosts(category: String) async throws{
+        posts = try await guarapRepo.getPostsByCategory(categoryName: category)
     }
 }

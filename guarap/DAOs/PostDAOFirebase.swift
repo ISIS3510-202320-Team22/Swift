@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore.FIRGeoPoint
 
 class PostDAOFirebase: PostDAO {
+    @AppStorage("userUID") var userUID = ""
     
     private init(){}
     
@@ -19,7 +20,7 @@ class PostDAOFirebase: PostDAO {
     func createPost(description: String, imageUrl: String, category: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
         let firestore = Firestore.firestore()
 
-        let user = "YourUser" // Replace with actual user data
+        let user = userUID // Replace with actual user data
         let upVotes = 0
         let downVotes = 0
         let reported = false

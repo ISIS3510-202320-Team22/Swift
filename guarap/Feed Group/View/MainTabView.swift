@@ -8,33 +8,45 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State private var selectedIndex = 0
     var body: some View {
-        TabView {
+        TabView(selection: $selectedIndex) {
             
             FeedView()
+                .onAppear(){
+                    selectedIndex = 0
+                }
                 .tabItem{
                     Image(systemName: "house")
-                }
+                }.tag(0)
             
-            PublishView()
+            PublishView(tabIndex: $selectedIndex)
+                .onAppear(){
+                    selectedIndex = 1
+                }
                 .tabItem {
                     Image(systemName: "camera.shutter.button.fill")
-                }
+                }.tag(1)
             
             SettingsView()
+                .onAppear(){
+                    selectedIndex = 2
+                }
                 .tabItem {
                     Image(systemName: "gear")
-                }
+                }.tag(2)
             
             AccountView()
+                .onAppear(){
+                    selectedIndex = 3
+                }
                 .tabItem {
                     Image(systemName: "person.crop.circle.fill")
-                }
+                }.tag(3)
             
             
         }
         .accentColor(.black)
-        Spacer()
     }
 }
 

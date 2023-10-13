@@ -55,7 +55,7 @@ struct FeedCell: View {
                 Button{
                     print("Up post")
                 } label: {
-                    Image(systemName: "arrow.up.heart.fill")
+                    Image(systemName: "hand.thumbsup.fill")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 35, height:35)
@@ -63,7 +63,7 @@ struct FeedCell: View {
                 Button{
                     print("Up post")
                 } label: {
-                    Image(systemName: "arrow.down.heart.fill")
+                    Image(systemName: "hand.thumbsdown.fill")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 35, height:35)

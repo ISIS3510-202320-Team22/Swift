@@ -122,6 +122,8 @@ struct PublishView: View {
                 Spacer()
                 // Pulldown Button
                 VStack {
+                    TextField("Category", text: $category)
+                        .padding()
 //                    Button(action: {
 //                        isPopoverVisible.toggle()
 //                    }) {

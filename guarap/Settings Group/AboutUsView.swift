@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AboutUsView: View {
     var body: some View {
-        Text("This is the About Us page")
+        Text("We are a group of students from the University of the Andes that want to make an app for the Uniandes community. Our purpose is to let everybody from the community to share posts and information through our platform.")
             .navigationTitle("About Us")
+            .padding()
     }
 }
 

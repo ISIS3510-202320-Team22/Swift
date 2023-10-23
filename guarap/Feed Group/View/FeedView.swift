@@ -17,55 +17,75 @@ struct FeedView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Button(action: {
-                    isPopoverVisible.toggle()
-                }) {
-                    Text(selectedOption)
-                }
-                .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
-                    List {
-                        ForEach(categories, id: \.self) { option in
-                            Button(action: {
-                                selectedOption = option
-                                lastCategory = option
-                                isPopoverVisible.toggle()
-                            }) {
-                                Text(option)
-                            }
-                        }
-                    }.foregroundColor(.black)
-                }
+            Button(action: {
+                isPopoverVisible.toggle()
+            }) {
+                Text(selectedOption)
             }
-            
-            TextField("Category", text: $viewModel.categoryString, onCommit: {
-                Task {
-                    do {
-                        if viewModel.categoryString == "" {
-                            viewModel.categoryString  = "Generic"
-                        }
-                        lastCategory = viewModel.categoryString
-                        try await viewModel.fetchPosts(category: viewModel.categoryString)
-                    } catch {
-                        print("Error fetching posts: \(error.localizedDescription)")
-                    }
-                }
-            })
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                .onChange(of: viewModel.categoryString) { newValue in
-                                if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
-                                    viewModel.categoryString = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
+            .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+                List {
+                    ForEach(categories, id: \.self) { option in
+                        Button(action: {
+                            selectedOption = option
+                            lastCategory = option
+                            viewModel.categoryString = option
+                            isPopoverVisible.toggle()
+                            
+                            Task {
+                                do {
+                                    if viewModel.categoryString == "" {
+                                        viewModel.categoryString = "Generic"
+                                    }
+                                    lastCategory = viewModel.categoryString
+                                    try await viewModel.fetchPosts(category: viewModel.categoryString)
+                                } catch {
+                                    print("Error fetching posts: \(error.localizedDescription)")
                                 }
                             }
-                
-            ScrollView {
-                LazyVStack(spacing: 30) {
-                    ForEach(viewModel.posts) { post in
-                        FeedCell(post: post)
+                        }) {
+                            Text(option)
+                        }
                     }
+                }.foregroundColor(.black)
+            }
+            
+            
+            //            TextField("Category", text: $viewModel.categoryString, onCommit: {
+            //                Task {
+            //                    do {
+            //                        if viewModel.categoryString == "" {
+            //                            viewModel.categoryString  = "Generic"
+            //                        }
+            //                        lastCategory = viewModel.categoryString
+            //                        try await viewModel.fetchPosts(category: viewModel.categoryString)
+            //                    } catch {
+            //                        print("Error fetching posts: \(error.localizedDescription)")
+            //                    }
+            //                }
+            //            })
+            //            .textFieldStyle(RoundedBorderTextFieldStyle())
+            //                .padding()
+            //                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+            //                .onChange(of: viewModel.categoryString) { newValue in
+            //                                if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
+            //                                    viewModel.categoryString = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
+            //                                }
+            //                            }
+            
+            ScrollView {
+                if !viewModel.posts.isEmpty {
+                    LazyVStack(spacing: 30) {
+                        ForEach(viewModel.posts) { post in
+                            FeedCell(post: post)
+                        }
+                    }
+                } else {
+                    Spacer()
+                    Text("There is nothing in this category for now")
+                        .padding()
+                    Spacer()
                 }
+                
             }
             .navigationTitle("Guarap")
             .navigationBarTitleDisplayMode(.inline)

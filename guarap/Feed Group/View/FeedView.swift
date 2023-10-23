@@ -10,6 +10,7 @@ import SwiftUI
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     @AppStorage("lastCategory") var lastCategory = "Generic"
+    private var MAX_CHARACTER_LIMIT = 20
     
     var body: some View {
         NavigationStack {
@@ -26,8 +27,14 @@ struct FeedView: View {
                     }
                 }
             })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                .onChange(of: viewModel.categoryString) { newValue in
+                                if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
+                                    viewModel.categoryString = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
+                                }
+                            }
                 
             ScrollView {
                 LazyVStack(spacing: 30) {

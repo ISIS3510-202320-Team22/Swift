@@ -43,8 +43,9 @@ struct PublishView: View {
                 // Cancel Button
                 HStack{
                     Spacer()
-                    Button{
+                    Button {
                         description = ""
+                        category = "Generic"
                         passedOnImage = nil
                         tabIndex = 0
                     } label: {
@@ -111,6 +112,14 @@ struct PublishView: View {
                         TextField("Enter your description", text: $description, axis: .vertical)
                             .frame(maxWidth: .infinity) // Expand to fill the width
                             .padding(.trailing, 15)
+                            .onChange(of: description) { newValue in
+                                            if newValue.count > MAX_DESCRIPTION_CHAR_LIMIT {
+                                                description = String(newValue.prefix(MAX_DESCRIPTION_CHAR_LIMIT))
+                                            }
+                                        }
+                            .onSubmit {
+                                
+                            }
                         
                     }
                     
@@ -125,32 +134,15 @@ struct PublishView: View {
                     VStack {
                         TextField("Category", text: $category)
                             .padding()
-                            .onSubmit {
+                            .onChange(of: category) { newValue in
+                                            if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
+                                                category = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
+                                            }
                                 
+                                        }
+                            .onSubmit {
                             }
-                        //                    Button(action: {
-                        //                        isPopoverVisible.toggle()
-                        //                    }) {
-                        //                        Text(selectedOption)
-                        //                            .frame(maxWidth: .infinity)
-                        //                            .padding()
-                        //                            .background(guarapColor)
-                        //                            .foregroundColor(.white)
-                        //                            .cornerRadius(10)
-                        //                    }
-                        //                    .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
-                        //                        List {
-                        //                            ForEach(options, id: \.self) { option in
-                        //                                Button(action: {
-                        //                                    selectedOption = option
-                        //                                    category = option
-                        //                                    isPopoverVisible.toggle()
-                        //                                }) {
-                        //                                    Text(option)
-                        //                                }
-                        //                            }
-                        //                        }.foregroundColor(.black)
-                        //                    }
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     }// End Pulldown Button
                     .padding()
                 }

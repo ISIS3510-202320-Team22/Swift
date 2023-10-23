@@ -32,7 +32,6 @@ class AuthService{
             print(email)
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
-            loginVar = "1"
             
         }
         

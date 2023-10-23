@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CompleteSignUpView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
 
     var body: some View {
         VStack(spacing: 12) {
@@ -30,7 +31,7 @@ struct CompleteSignUpView: View {
                     .foregroundColor(.white)
                     .frame(width: 360,
                            height: 44)
-                    .background(Color(.red))
+                    .background(guarapColor)
                     .cornerRadius(8)
             }
             .padding (.vertical)

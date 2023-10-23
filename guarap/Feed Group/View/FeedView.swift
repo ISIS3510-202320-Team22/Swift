@@ -10,10 +10,34 @@ import SwiftUI
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     @AppStorage("lastCategory") var lastCategory = "Generic"
-    private var MAX_CHARACTER_LIMIT = 20
+    
+    // Dropdown Menu States
+    @State private var isPopoverVisible = false
+    @State private var selectedOption: String = "Select a Category"
     
     var body: some View {
         NavigationStack {
+            VStack {
+                Button(action: {
+                    isPopoverVisible.toggle()
+                }) {
+                    Text(selectedOption)
+                }
+                .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+                    List {
+                        ForEach(categories, id: \.self) { option in
+                            Button(action: {
+                                selectedOption = option
+                                lastCategory = option
+                                isPopoverVisible.toggle()
+                            }) {
+                                Text(option)
+                            }
+                        }
+                    }.foregroundColor(.black)
+                }
+            }
+            
             TextField("Category", text: $viewModel.categoryString, onCommit: {
                 Task {
                     do {

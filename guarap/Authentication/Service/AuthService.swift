@@ -13,6 +13,7 @@ import SwiftUI
 
 class AuthService{
     @AppStorage("userUID") var userUID = ""
+    @AppStorage("username") var userName = ""
     @Published var userSession: FirebaseAuth.User?
     
     static let shared = AuthService()
@@ -27,9 +28,11 @@ class AuthService{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             userUID = self.userSession!.uid
-            print(userUID)
+            userName = email
+            print(email)
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
+            loginVar = "1"
             
         }
         
@@ -39,10 +42,12 @@ class AuthService{
         print("Email is \(email)")
         print("Password is \(password)")
         print("Username is \(username)")
+        
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             await self.uploadUserData(uid: result.user.uid, username: username, email: email)
+            userName = email
             print("DEBUG: Did upload user data...")
         } catch {
             print("DEBUG: Failed to register user with \(error.localizedDescription)")
@@ -55,6 +60,7 @@ class AuthService{
         self.userSession = Auth.auth().currentUser
         guard let currentUid = self.userSession?.uid else { return }
         let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
+        
         print("DEBUG: Snapshot data is \(snapshot.data())")
     }
     

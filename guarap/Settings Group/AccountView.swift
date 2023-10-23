@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountView: View {
     
-
+    @AppStorage("username") var username = ""
     
     var body: some View {
         NavigationStack {
@@ -34,7 +34,7 @@ struct AccountView: View {
                             Image(systemName: "person.crop.circle")
                                 .resizable()
                                 .frame(width: 200, height: 200, alignment: .topLeading)
-                            Text("---")
+                            Text(username)
                                 .font(.system(size: 30))
                             Text("Favorite Categories")
                                 .font(.system(size: 25))

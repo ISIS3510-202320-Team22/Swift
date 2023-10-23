@@ -27,7 +27,6 @@ struct PublishView: View {
     // Dropdown Menu States
     @State private var isPopoverVisible = false
     @State private var selectedOption: String = "Select a Category"
-    let options = ["chismes", "atardeceres"]
     
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
@@ -113,10 +112,10 @@ struct PublishView: View {
                             .frame(maxWidth: .infinity) // Expand to fill the width
                             .padding(.trailing, 15)
                             .onChange(of: description) { newValue in
-                                            if newValue.count > MAX_DESCRIPTION_CHAR_LIMIT {
-                                                description = String(newValue.prefix(MAX_DESCRIPTION_CHAR_LIMIT))
-                                            }
-                                        }
+                                if newValue.count > MAX_DESCRIPTION_CHAR_LIMIT {
+                                    description = String(newValue.prefix(MAX_DESCRIPTION_CHAR_LIMIT))
+                                }
+                            }
                             .onSubmit {
                                 
                             }
@@ -132,21 +131,45 @@ struct PublishView: View {
                     Spacer()
                     // Pulldown Button
                     VStack {
-                        TextField("Category", text: $category)
-                            .padding()
-                            .onChange(of: category) { newValue in
-                                            if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
-                                                category = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
-                                            }
-                                
-                                        }
-                            .onSubmit {
-                            }
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }// End Pulldown Button
-                    .padding()
-                }
-                .padding(.horizontal, 15)
+                        //                        TextField("Category", text: $category)
+                        //                            .padding()
+                        //                            .onChange(of: category) { newValue in
+                        //                                            if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
+                        //                                                category = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
+                        //                                            }
+                        //
+                        //                                        }
+                        //                            .onSubmit {
+                        //                            }
+                        //                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        Button(action: {
+                            isPopoverVisible.toggle()
+                        }) {
+                            Text(selectedOption)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(guarapColor)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+                            List {
+                                ForEach(categories, id: \.self) { option in
+                                    Button(action: {
+                                        selectedOption = option
+                                        category = option
+                                        isPopoverVisible.toggle()
+                                    }) {
+                                        Text(option)
+                                    }
+                                }
+                            }.foregroundColor(.black)
+                        }
+                    }
+                    .padding(.horizontal, 15)
+                }// End Pulldown Button
+                .padding()
                 
                 Spacer()
                 

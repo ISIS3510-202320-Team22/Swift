@@ -9,6 +9,9 @@ import SwiftUI
 
 struct CreateUsernameView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    @State private var isShowingAlert = false
+
     
     var body: some View {
         VStack(spacing: 12) {
@@ -29,19 +32,40 @@ struct CreateUsernameView: View {
                 .cornerRadius (10)
                 .padding (.horizontal, 24)
                 .padding (.top)
-            NavigationLink{
-                CreatePasswordView()
-            } label: {
-                Text ("Next" )
-                    .font (. subheadline)
-                    .fontWeight (.semibold)
+                .onChange(of: viewModel.username) { newValue in
+                    if newValue.count > MAX_USER_CHAR_LIMIT {
+                        viewModel.username = String(newValue.prefix(MAX_USER_CHAR_LIMIT))
+                    }
+                }
+
+            NavigationLink(destination: CreatePasswordView(), isActive: $viewModel.isNextButtonTapped1) {
+                EmptyView()
+            }
+            .opacity(0) // Hide the navigation link
+
+            Button(action: {
+                if viewModel.username.count < MIN_USER_CHAR_LIMIT {
+                    isShowingAlert = true
+                } else {
+                    viewModel.isNextButtonTapped1 = true // Activate the NavigationLink
+                }
+            }) {
+                Text("Next")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.white)
-                    .frame(width: 360,
-                           height: 44)
-                    .background(Color(.red))
+                    .frame(width: 360, height: 44)
+                    .background(guarapColor)
                     .cornerRadius(8)
             }
-            .padding (.vertical)
+            .padding(.vertical)
+        }
+        .alert(isPresented: $isShowingAlert) {
+            Alert(
+                title: Text("Invalid User"),
+                message: Text("User must have at least \(MIN_USER_CHAR_LIMIT) characters."),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }

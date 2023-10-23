@@ -11,6 +11,9 @@ class RegistrationViewModel: ObservableObject {
     @Published var username = ""
     @Published var email = ""
     @Published var password = ""
+    @Published var isNextButtonTapped = false
+    @Published var isNextButtonTapped1 = false
+    @Published var isNextButtonTapped2 = false
     
     func createUser() async throws{
         try await AuthService.shared.createUser(email: email, password: password, username: username)

@@ -11,12 +11,15 @@ struct LoginView: View {
 
     @State private var showingLoginScreen = false
     @StateObject var viewModel = LoginViewModel()
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    
     
     var body: some View {
         NavigationView{
             ZStack{
                 
                 VStack{
+                    Spacer()
                     Text("Guarap")
                         .font(.largeTitle)
                         .bold()
@@ -42,7 +45,7 @@ struct LoginView: View {
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
-                    .background(Color.red)
+                    .background(guarapColor)
                     .cornerRadius(10)
                     .padding()
                     
@@ -50,10 +53,15 @@ struct LoginView: View {
                     Button("Recover your account"){
                         
                     }
+                    
+                    Spacer()
                 }
+                
                 VStack{
+                    
+                    Spacer()
                     Text("Don't have an account?")
-                        .frame(maxHeight: .infinity, alignment: .bottom)
+                    
                     NavigationLink{
                         AddEmailView()
                     } label: {

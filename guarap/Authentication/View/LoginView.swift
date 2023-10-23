@@ -49,10 +49,6 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding()
                     
-                    Text("Forgot your logging details?")
-                    Button("Recover your account"){
-                        
-                    }
                     
                     Spacer()
                 }
@@ -70,6 +66,7 @@ struct LoginView: View {
                     }
                 }
             }
+            .ignoresSafeArea(.keyboard) // Evita que la pantalla se desplace hacia arriba cuando aparece el teclado
         }
         .navigationBarHidden(true)
         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
@@ -77,6 +74,8 @@ struct LoginView: View {
         }
     }
 }
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct CreatePasswordView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    @State private var isShowingAlert = false
+
 
     var body: some View {
         VStack(spacing: 12) {
@@ -16,7 +19,7 @@ struct CreatePasswordView: View {
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight (.bold)
                 .padding (.top)
-            Text("You'll use this password to sign in to your account. Your password should have at least 6 characters.")
+            Text("You'll use this password to sign in to your account. Your password should have at least 7 characters.")
                 .font (.footnote)
                 .foregroundColor (.gray)
                 .multilineTextAlignment (.center)
@@ -29,19 +32,40 @@ struct CreatePasswordView: View {
                 .cornerRadius (10)
                 .padding (.horizontal, 24)
                 .padding (.top)
-            NavigationLink{
-                CompleteSignUpView()
-            } label: {
-                Text ("Next" )
-                    .font (. subheadline)
-                    .fontWeight (.semibold)
+                .onChange(of: viewModel.password) { newValue in
+                    if newValue.count > MAX_PASSWORD_CHAR_LIMIT {
+                        viewModel.password = String(newValue.prefix(MAX_PASSWORD_CHAR_LIMIT))
+                    }
+                }
+
+            NavigationLink(destination: CompleteSignUpView(), isActive: $viewModel.isNextButtonTapped2) {
+                EmptyView()
+            }
+            .opacity(0) // Hide the navigation link
+
+            Button(action: {
+                if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
+                    isShowingAlert = true
+                } else {
+                    viewModel.isNextButtonTapped2 = true // Activate the NavigationLink
+                }
+            }) {
+                Text("Next")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.white)
-                    .frame(width: 360,
-                           height: 44)
-                    .background(Color(.red))
+                    .frame(width: 360, height: 44)
+                    .background(guarapColor)
                     .cornerRadius(8)
             }
-            .padding (.vertical)
+            .padding(.vertical)
+        }
+        .alert(isPresented: $isShowingAlert) {
+            Alert(
+                title: Text("Invalid Password"),
+                message: Text("Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters."),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }

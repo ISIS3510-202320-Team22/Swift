@@ -11,12 +11,15 @@ struct LoginView: View {
 
     @State private var showingLoginScreen = false
     @StateObject var viewModel = LoginViewModel()
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    
     
     var body: some View {
         NavigationView{
             ZStack{
                 
                 VStack{
+                    Spacer()
                     Text("Guarap")
                         .font(.largeTitle)
                         .bold()
@@ -42,18 +45,19 @@ struct LoginView: View {
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
-                    .background(Color.red)
+                    .background(guarapColor)
                     .cornerRadius(10)
                     .padding()
                     
-                    Text("Forgot your logging details?")
-                    Button("Recover your account"){
-                        
-                    }
+                    
+                    Spacer()
                 }
+                
                 VStack{
+                    
+                    Spacer()
                     Text("Don't have an account?")
-                        .frame(maxHeight: .infinity, alignment: .bottom)
+                    
                     NavigationLink{
                         AddEmailView()
                     } label: {
@@ -62,6 +66,7 @@ struct LoginView: View {
                     }
                 }
             }
+            .ignoresSafeArea(.keyboard) // Evita que la pantalla se desplace hacia arriba cuando aparece el teclado
         }
         .navigationBarHidden(true)
         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
@@ -69,6 +74,8 @@ struct LoginView: View {
         }
     }
 }
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

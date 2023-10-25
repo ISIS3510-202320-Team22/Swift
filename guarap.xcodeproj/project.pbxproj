@@ -40,6 +40,7 @@
 		CD3EC5EE2AD6320500051117 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E62AD6320500051117 /* LoginView.swift */; };
 		CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E72AD6320500051117 /* AddEmailView.swift */; };
 		CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E92AD6320500051117 /* AuthService.swift */; };
+		CD49C8402AE4A17B00C394E8 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */; };
 		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
 		CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E482ACCA1EA00D493B5 /* MainTabView.swift */; };
 		CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E4B2ACCB15800D493B5 /* Post.swift */; };
@@ -103,6 +104,7 @@
 		CD3EC5E62AD6320500051117 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CD3EC5E72AD6320500051117 /* AddEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
 		CD3EC5E92AD6320500051117 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD597E4B2ACCB15800D493B5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */,
 				CD0F415B2ABD0AF80016177A /* Preview Content */,
+				CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */,
 			);
 			path = guarap;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				CD597E622ACCB9EC00D493B5 /* PostDAOFirebase.swift in Sources */,
 				B52629682AD880FE00E0F4F0 /* User.swift in Sources */,
 				CD3C22CB2AC623B500D853EF /* SettingsView.swift in Sources */,
+				CD49C8402AE4A17B00C394E8 /* GlobalVariables.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
@@ -744,7 +748,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = F7NRPQ92RT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -775,7 +779,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = F7NRPQ92RT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;

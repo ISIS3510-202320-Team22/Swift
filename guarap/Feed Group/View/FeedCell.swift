@@ -6,9 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct FeedCell: View {
     @State var downloadedImage: UIImage?
+    
+    @State private var isLiked = false
+    @State private var isDisliked = false
+    
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    
     var guarapRepo = GuarapRepositoryImpl.shared
     let post : Post
     var body: some View {
@@ -21,18 +28,19 @@ struct FeedCell: View {
                     .frame(width: 60, height:60)
                     .clipShape(Circle())
                 VStack(alignment: .leading){
-                    Text("@juandicanu202")
+                    Text(post.user)
                         .font(.system(size: 20))
                         .font(.footnote)
                         .fontWeight(.semibold)
-                    Text("25/10 4:06pm")
-                        .font(.system(size: 15))
-                        .foregroundColor(.gray)
-                }
-                
-                Spacer()
-            }.padding(.leading)
-
+                    if let formattedTime = formatTime(post.dateTime) {
+                        Text(formattedTime)
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Spacer()
+                }.padding(.leading)
+            }
             
             if let image = downloadedImage {
                 Image(uiImage: image)
@@ -44,33 +52,70 @@ struct FeedCell: View {
                     .padding(15)
             }
             
-            
             // Action buttons
-            
-            HStack(spacing: 20){
-                // arrowtriangle.up.circle.fill
-                // hand.thumbsup.fill
-                // arrow.up.heart.fill
-                Spacer()
-                Button{
-                    print("Up post")
-                } label: {
-                    Image(systemName: "hand.thumbsup.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 35, height:35)
-                }
-                Button{
-                    print("Up post")
-                } label: {
-                    Image(systemName: "hand.thumbsdown.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 35, height:35)
-                }
-                
-            }.padding(.trailing)
-                .foregroundColor(.black)
+                        HStack(spacing: 20) {
+                            Spacer()
+                            Button(action: {
+                                
+                                    if isLiked {
+                                        // Unlike post
+                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
+                                            "upVotes": FieldValue.increment(Int64(-1))
+                                        ])
+
+
+                                    } else {
+                                        // Like post
+                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
+                                            "upVotes": FieldValue.increment(Int64(1))
+                                        ])
+
+                                    }
+                                    isLiked.toggle()
+                                    
+                                    // Also, reset isDisliked when liking a post
+                                    isDisliked = false
+                                
+                            }) {
+                                Image(systemName: isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundColor(isLiked ? guarapColor: .gray)
+                            }
+                            Text(String(post.upVotes))
+                                .font(.system(size: 10))
+                                .padding(.bottom)
+                            
+                            Button(action: {
+                                    if isDisliked {
+                                        // Undislike post
+                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
+                                            "downVotes": FieldValue.increment(Int64(-1))
+                                        ])
+                                    } else {
+                                        // Dislike post
+                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
+                                            "downVotes": FieldValue.increment(Int64(1))
+                                        ])
+                                    }
+                                    isDisliked.toggle()
+                                    
+                                    // Also, reset isLiked when disliking a post
+                                    isLiked = false
+
+                            }) {
+                                Image(systemName: isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundColor(isDisliked ? guarapColor: .gray)
+                            }
+                            Text(String(post.downVotes))
+                                .font(.system(size: 10))
+                                .padding(.bottom)
+                        }.padding(.trailing)
+                        .foregroundColor(.black)
             
             // Comments
             Text(post.description)
@@ -93,9 +138,16 @@ struct FeedCell: View {
             }
         }
     }
+    
+    func formatTime(_ time: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy - HH:mm"
+        return dateFormatter.string(from: time)
+    }
 }
-    //struct FeedCell_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        FeedCell(post: <#Post#>)
-    //    }
-    //}
+
+//struct FeedCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedCell(post: <#Post#>)
+//    }
+//}

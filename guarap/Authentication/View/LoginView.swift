@@ -12,7 +12,8 @@ struct LoginView: View {
     @State private var showingLoginScreen = false
     @StateObject var viewModel = LoginViewModel()
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
-    
+    @State private var isLoggingIn = false // Estado para mostrar la pantalla de carga
+
     
     var body: some View {
         NavigationView{
@@ -41,20 +42,32 @@ struct LoginView: View {
                         .padding (.horizontal, 24)
                         .padding (.top)
                     Button("Login") {
-                        Task { try await viewModel.signIn()}
+                        isLoggingIn = true // Mostrar la pantalla de carga
+                        Task {
+                            do {
+                                try await viewModel.signIn()
+                            } catch {
+                                // Maneja el error aquí
+                            }
+                            isLoggingIn = false // Oculta la pantalla de carga después de la autenticación
+                        }
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(guarapColor)
                     .cornerRadius(10)
                     .padding()
-                    
-                    
                     Spacer()
                 }
-                
+                .disabled(isLoggingIn) // Deshabilita la vista mientras se está autenticando
+
+                if isLoggingIn {
+                    Color.black.opacity(0.5) // Fondo oscuro detrás de la pantalla de carga
+                    ProgressView() // Pantalla de carga
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                }
                 VStack{
-                    
+                                    
                     Spacer()
                     Text("Don't have an account?")
                     
@@ -65,13 +78,11 @@ struct LoginView: View {
                         
                     }
                 }
+                .padding()
             }
-            .ignoresSafeArea(.keyboard) // Evita que la pantalla se desplace hacia arriba cuando aparece el teclado
+            .ignoresSafeArea(.keyboard)
         }
         .navigationBarHidden(true)
-        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
-            
-        }
     }
 }
 

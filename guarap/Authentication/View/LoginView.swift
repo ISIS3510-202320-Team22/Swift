@@ -57,10 +57,20 @@ struct LoginView: View {
                     .background(guarapColor)
                     .cornerRadius(10)
                     .padding()
+                
+                    Text("Forgot your logging details?")
+                    
+                    NavigationLink{
+                        RecoveryView()
+                    } label: {
+                        Text ("Recover your account" )
+                        
+                    }
                     Spacer()
+                    
                 }
                 .disabled(isLoggingIn) // Deshabilita la vista mientras se está autenticando
-
+                
                 if isLoggingIn {
                     Color.black.opacity(0.5) // Fondo oscuro detrás de la pantalla de carga
                     ProgressView() // Pantalla de carga

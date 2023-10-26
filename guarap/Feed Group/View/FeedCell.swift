@@ -6,13 +6,32 @@
 //
 
 import SwiftUI
+import Firebase
+import Foundation
 
 struct FeedCell: View {
     @State var downloadedImage: UIImage?
+    
+    @State private var isLiked = false
+    @State private var isDisliked = false
+    
+    let firestore = Firestore.firestore()
+    
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    
     var guarapRepo = GuarapRepositoryImpl.shared
     let post : Post
+    let category: String
+    
+    func updateVotes(toVote: Post, like: String, more: Int){
+        print("Trying to update votes on post id: \(toVote.id), regarding \(like)")
+        firestore.collection("categories").document(category).collection("posts").document(toVote.id.uuidString).updateData([
+            like: FieldValue.increment(Int64(more))
+        ])
+    }
+    
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             // Image and username + publishing time
             HStack{
                 Image("avatar")
@@ -21,18 +40,19 @@ struct FeedCell: View {
                     .frame(width: 60, height:60)
                     .clipShape(Circle())
                 VStack(alignment: .leading){
-                    Text("@juandicanu202")
+                    Text(post.user)
                         .font(.system(size: 20))
                         .font(.footnote)
                         .fontWeight(.semibold)
-                    Text("25/10 4:06pm")
-                        .font(.system(size: 15))
-                        .foregroundColor(.gray)
+                    if let formattedTime = formatTime(post.dateTime) {
+                        Text(formattedTime)
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Spacer()
                 }
-                
-                Spacer()
             }.padding(.leading)
-
             
             if let image = downloadedImage {
                 Image(uiImage: image)
@@ -44,36 +64,94 @@ struct FeedCell: View {
                     .padding(15)
             }
             
-            
             // Action buttons
-            
-            HStack(spacing: 20){
-                // arrowtriangle.up.circle.fill
-                // hand.thumbsup.fill
-                // arrow.up.heart.fill
+            let categoryRef = Firestore.firestore().collection("categories").document(category)
+            let postRef = categoryRef.collection("posts").document(post.id.uuidString)
+            //let postRef = categoryRef.collection("posts").document(post.id)
+            HStack(spacing: 20) {
                 Spacer()
-                Button{
-                    print("Up post")
-                } label: {
-                    Image(systemName: "hand.thumbsup.fill")
+
+                Button(action: {
+                    print("You are currently on category: \(category)")
+                    if isLiked {
+                            print("Unliking post")
+                            postRef.updateData([
+                                "upVotes": FieldValue.increment(Int64(-1))
+                            ]) { error in
+                                if let error = error {
+                                    print("Error unliking post: \(error)")
+                                }
+                            }
+                        
+                        } else {
+                            print("Liking post")
+                            postRef.updateData([
+                                "upVotes": FieldValue.increment(Int64(1))
+                            ]) { error in
+                                if let error = error {
+                                    print("Error liking post: \(error)")
+                                }
+                            }
+                        }
+                    isLiked.toggle()
+                    
+                    // Also, reset isDisliked when liking a post
+                    isDisliked = false
+                }) {
+                    Image(systemName: isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 35, height:35)
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(isLiked ? guarapColor: .gray)
                 }
-                Button{
-                    print("Up post")
-                } label: {
-                    Image(systemName: "hand.thumbsdown.fill")
+
+                Text(String(post.upVotes))
+                    .font(.system(size: 10))
+                    .padding(.bottom)
+
+                Button(action: {
+                    if isDisliked {
+                        print("Un-disliking post")
+                        postRef.updateData([
+                            "downVotes": FieldValue.increment(Int64(-1))
+                        ]) { error in
+                            if let error = error {
+                                print("Error un-disliking post: \(error)")
+                            }
+                        }
+                    } else {
+                        print("Disliking post")
+                        postRef.updateData([
+                            "downVotes": FieldValue.increment(Int64(1))
+                        ]) { error in
+                            if let error = error {
+                                print("Error disliking post: \(error)")
+                            }
+                        }
+                    }
+
+                    isDisliked.toggle()
+                    
+                    // Also, reset isLiked when disliking a post
+                    isLiked = false
+                }) {
+                    Image(systemName: isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 35, height:35)
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(isDisliked ? guarapColor: .gray)
                 }
-                
+
+                Text(String(post.downVotes))
+                    .font(.system(size: 10))
+                    .padding(.bottom)
             }.padding(.trailing)
-                .foregroundColor(.black)
+             .foregroundColor(.black)
+
             
             // Comments
             Text(post.description)
+                .padding(.leading,15)
             HStack{
                 Text("@sadiomane ").fontWeight(.semibold) +
                 Text("Grande calixx")
@@ -93,9 +171,16 @@ struct FeedCell: View {
             }
         }
     }
+    
+    func formatTime(_ time: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy - HH:mm"
+        return dateFormatter.string(from: time)
+    }
 }
-    //struct FeedCell_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        FeedCell(post: <#Post#>)
-    //    }
-    //}
+
+//struct FeedCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedCell(post: <#Post#>)
+//    }
+//}

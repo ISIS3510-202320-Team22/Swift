@@ -14,12 +14,15 @@ struct FeedCell: View {
     @State private var isLiked = false
     @State private var isDisliked = false
     
+    
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
     var guarapRepo = GuarapRepositoryImpl.shared
     let post : Post
+    let category: String
+    
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             // Image and username + publishing time
             HStack{
                 Image("avatar")
@@ -39,8 +42,8 @@ struct FeedCell: View {
                     }
                     
                     Spacer()
-                }.padding(.leading)
-            }
+                }
+            }.padding(.leading)
             
             if let image = downloadedImage {
                 Image(uiImage: image)
@@ -53,72 +56,74 @@ struct FeedCell: View {
             }
             
             // Action buttons
-                        HStack(spacing: 20) {
-                            Spacer()
-                            Button(action: {
-                                
-                                    if isLiked {
-                                        // Unlike post
-                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
-                                            "upVotes": FieldValue.increment(Int64(-1))
-                                        ])
+            let categoryRef = Firestore.firestore().collection("categories").document(category)
+            let postRef = categoryRef.collection("posts").document(post.id.uuidString)
 
+            HStack(spacing: 20) {
+                Spacer()
 
-                                    } else {
-                                        // Like post
-                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
-                                            "upVotes": FieldValue.increment(Int64(1))
-                                        ])
+                Button(action: {
+                    if isLiked {
+                        // Unlike post
+                        postRef.updateData([
+                            "upVotes": FieldValue.increment(Int64(-1)) // Specify the type explicitly
+                        ])
+                    } else {
+                        // Like post
+                        postRef.updateData([
+                            "upVotes": FieldValue.increment(Int64(1)) // Specify the type explicitly
+                        ])
+                    }
+                    isLiked.toggle()
+                    
+                    // Also, reset isDisliked when liking a post
+                    isDisliked = false
+                }) {
+                    Image(systemName: isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(isLiked ? guarapColor: .gray)
+                }
 
-                                    }
-                                    isLiked.toggle()
-                                    
-                                    // Also, reset isDisliked when liking a post
-                                    isDisliked = false
-                                
-                            }) {
-                                Image(systemName: isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 35, height: 35)
-                                    .foregroundColor(isLiked ? guarapColor: .gray)
-                            }
-                            Text(String(post.upVotes))
-                                .font(.system(size: 10))
-                                .padding(.bottom)
-                            
-                            Button(action: {
-                                    if isDisliked {
-                                        // Undislike post
-                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
-                                            "downVotes": FieldValue.increment(Int64(-1))
-                                        ])
-                                    } else {
-                                        // Dislike post
-                                        Firestore.firestore().collection("posts").document(post.id.uuidString).updateData([
-                                            "downVotes": FieldValue.increment(Int64(1))
-                                        ])
-                                    }
-                                    isDisliked.toggle()
-                                    
-                                    // Also, reset isLiked when disliking a post
-                                    isLiked = false
+                Text(String(post.upVotes))
+                    .font(.system(size: 10))
+                    .padding(.bottom)
 
-                            }) {
-                                Image(systemName: isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 35, height: 35)
-                                    .foregroundColor(isDisliked ? guarapColor: .gray)
-                            }
-                            Text(String(post.downVotes))
-                                .font(.system(size: 10))
-                                .padding(.bottom)
-                        }.padding(.trailing)
-                        .foregroundColor(.black)
+                Button(action: {
+                    if isDisliked {
+                        // Undislike post
+                        postRef.updateData([
+                            "downVotes": FieldValue.increment(Int64(-1)) // Specify the type explicitly
+                        ])
+                    } else {
+                        // Dislike post
+                        postRef.updateData([
+                            "downVotes": FieldValue.increment(Int64(1)) // Specify the type explicitly
+                        ])
+                    }
+                    isDisliked.toggle()
+                    
+                    // Also, reset isLiked when disliking a post
+                    isLiked = false
+                }) {
+                    Image(systemName: isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(isDisliked ? guarapColor: .gray)
+                }
+
+                Text(String(post.downVotes))
+                    .font(.system(size: 10))
+                    .padding(.bottom)
+            }.padding(.trailing)
+             .foregroundColor(.black)
+
             
             // Comments
             Text(post.description)
+                .padding(.leading,15)
             HStack{
                 Text("@sadiomane ").fontWeight(.semibold) +
                 Text("Grande calixx")

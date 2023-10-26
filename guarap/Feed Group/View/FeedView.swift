@@ -76,7 +76,7 @@ struct FeedView: View {
                 if !viewModel.posts.isEmpty {
                     LazyVStack(spacing: 30) {
                         ForEach(viewModel.posts) { post in
-                            FeedCell(post: post)
+                            FeedCell(post: post, category: lastCategory)
                         }
                     }
                 } else {

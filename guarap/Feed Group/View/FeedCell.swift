@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import Foundation
 
 struct FeedCell: View {
     @State var downloadedImage: UIImage?
@@ -14,12 +15,20 @@ struct FeedCell: View {
     @State private var isLiked = false
     @State private var isDisliked = false
     
+    let firestore = Firestore.firestore()
     
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
     var guarapRepo = GuarapRepositoryImpl.shared
     let post : Post
     let category: String
+    
+    func updateVotes(toVote: Post, like: String, more: Int){
+        print("Trying to update votes on post id: \(toVote.id), regarding \(like)")
+        firestore.collection("categories").document(category).collection("posts").document(toVote.id.uuidString).updateData([
+            like: FieldValue.increment(Int64(more))
+        ])
+    }
     
     var body: some View {
         VStack(alignment: .leading){
@@ -58,22 +67,32 @@ struct FeedCell: View {
             // Action buttons
             let categoryRef = Firestore.firestore().collection("categories").document(category)
             let postRef = categoryRef.collection("posts").document(post.id.uuidString)
-
+            //let postRef = categoryRef.collection("posts").document(post.id)
             HStack(spacing: 20) {
                 Spacer()
 
                 Button(action: {
+                    print("You are currently on category: \(category)")
                     if isLiked {
-                        // Unlike post
-                        postRef.updateData([
-                            "upVotes": FieldValue.increment(Int64(-1)) // Specify the type explicitly
-                        ])
-                    } else {
-                        // Like post
-                        postRef.updateData([
-                            "upVotes": FieldValue.increment(Int64(1)) // Specify the type explicitly
-                        ])
-                    }
+                            print("Unliking post")
+                            postRef.updateData([
+                                "upVotes": FieldValue.increment(Int64(-1))
+                            ]) { error in
+                                if let error = error {
+                                    print("Error unliking post: \(error)")
+                                }
+                            }
+                        
+                        } else {
+                            print("Liking post")
+                            postRef.updateData([
+                                "upVotes": FieldValue.increment(Int64(1))
+                            ]) { error in
+                                if let error = error {
+                                    print("Error liking post: \(error)")
+                                }
+                            }
+                        }
                     isLiked.toggle()
                     
                     // Also, reset isDisliked when liking a post
@@ -92,16 +111,25 @@ struct FeedCell: View {
 
                 Button(action: {
                     if isDisliked {
-                        // Undislike post
+                        print("Un-disliking post")
                         postRef.updateData([
-                            "downVotes": FieldValue.increment(Int64(-1)) // Specify the type explicitly
-                        ])
+                            "downVotes": FieldValue.increment(Int64(-1))
+                        ]) { error in
+                            if let error = error {
+                                print("Error un-disliking post: \(error)")
+                            }
+                        }
                     } else {
-                        // Dislike post
+                        print("Disliking post")
                         postRef.updateData([
-                            "downVotes": FieldValue.increment(Int64(1)) // Specify the type explicitly
-                        ])
+                            "downVotes": FieldValue.increment(Int64(1))
+                        ]) { error in
+                            if let error = error {
+                                print("Error disliking post: \(error)")
+                            }
+                        }
                     }
+
                     isDisliked.toggle()
                     
                     // Also, reset isLiked when disliking a post

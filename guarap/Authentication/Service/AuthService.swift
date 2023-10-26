@@ -82,5 +82,17 @@ class AuthService{
             print("Error al codificar y subir datos a Firestore: \(error)")
         }
     }
+    
+    @MainActor
+    func sendPasswordResetEmail(forEmail email: String) async throws {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+            // Envío de correo de restablecimiento exitoso, Firebase se encargará del resto
+            print("DEBUG: Password reset email sent successfully to \(email)")
+        } catch {
+            print("DEBUG: Failed to send password reset email with \(error.localizedDescription)")
+            throw error
+        }
+    }
 
 }

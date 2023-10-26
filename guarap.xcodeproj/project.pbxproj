@@ -53,6 +53,7 @@
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
+		CD6DB41A2AEA34A50047E1FC /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6DB4192AEA34A50047E1FC /* BannerView.swift */; };
 		CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */; };
 		CD7EF73A2AD646A400C9567B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7372AD646A400C9567B /* ContentViewModel.swift */; };
 		CD7EF73B2AD646A400C9567B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7392AD646A400C9567B /* ContentView.swift */; };
@@ -116,6 +117,7 @@
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
+		CD6DB4192AEA34A50047E1FC /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7372AD646A400C9567B /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7392AD646A400C9567B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
+				CD6DB4192AEA34A50047E1FC /* BannerView.swift */,
 			);
 			path = PublishView;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
 				CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */,
 				CD597E692ACCB9F900D493B5 /* GuarapRepository.swift in Sources */,
+				CD6DB41A2AEA34A50047E1FC /* BannerView.swift in Sources */,
 				CD597E682ACCB9F900D493B5 /* GuarapRepositoryImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,7 +752,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W89849Q4A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -779,7 +783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W89849Q4A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;

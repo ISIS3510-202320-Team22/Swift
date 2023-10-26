@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 let MAX_CATEGORY_CHAR_LIMIT = 20
 let MAX_DESCRIPTION_CHAR_LIMIT = 300

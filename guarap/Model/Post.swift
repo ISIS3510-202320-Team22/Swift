@@ -19,7 +19,6 @@ struct Post: Identifiable, Hashable, Codable {
     var downVotes: Int
     let reported: Bool
     let image: String
-    let latitude: Double
-    let longitude: Double
+    let address: String
     let dateTime: Date
 }

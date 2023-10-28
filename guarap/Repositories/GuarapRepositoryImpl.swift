@@ -17,10 +17,10 @@ class GuarapRepositoryImpl: GuarapRepository {
     static let postDao: PostDAO = PostDAOFirebase.shared
     static let imageDao: ImageDAO = ImageDAOFirebase.shared
     
-    func createPost(description: String, image: UIImage?, category: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
+    func createPost(description: String, image: UIImage?, category: String, address: String, completion: @escaping (Bool) -> Void) {
         
         guard category != "" else {
-            createPost(description: description, image: image, category: DEFAULT_CATEGORY, latitude: latitude, longitude: longitude, completion: completion)
+            createPost(description: description, image: image, category: DEFAULT_CATEGORY, address: address, completion: completion)
             return
         }
         
@@ -39,7 +39,7 @@ class GuarapRepositoryImpl: GuarapRepository {
                     // You can proceed with creating the post here.
                     let imageUrlString = url.absoluteString
                     
-                    GuarapRepositoryImpl.postDao.createPost(description: description, imageUrl: imageUrlString, category: category, latitude: latitude, longitude: longitude) { result in
+                    GuarapRepositoryImpl.postDao.createPost(description: description, imageUrl: imageUrlString, category: category, address: address) { result in
                         success = result
                         completion(success) // Call the completion closure with the result
                         return
@@ -53,7 +53,7 @@ class GuarapRepositoryImpl: GuarapRepository {
                 }
             }
         } else if image == nil {
-            GuarapRepositoryImpl.postDao.createPost(description: description, imageUrl: "", category: category, latitude: latitude, longitude: longitude) { result in
+            GuarapRepositoryImpl.postDao.createPost(description: description, imageUrl: "", category: category, address: address) { result in
                 success = result
                 completion(success) // Call the completion closure with the result
                 return

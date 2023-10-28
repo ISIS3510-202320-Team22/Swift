@@ -14,8 +14,7 @@ struct PublishView: View {
     // Post Atributes
     @State private var description = ""
     @State private var category = DEFAULT_CATEGORY
-    @State private var latitude = 0.0
-    @State private var longitude = 0.0
+    @State private var address = ""
     @State private var isBlockingUI = false
     
     // Image States
@@ -171,14 +170,13 @@ struct PublishView: View {
                                 isBlockingUI = true
                                 print(345)
                                 //try await Task.sleep(nanoseconds: 2000000000)
-                                let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, latitude: latitude, longitude: longitude) { success in
+                                let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: address) { success in
                                     
                                     if success {
                                         passedOnImage = nil
                                         description = ""
                                         category = ""
-                                        latitude = 0.0
-                                        longitude = 0.0
+                                        address = ""
                                         isBlockingUI = false
                                         showSuccessBanner = true
                                         hideBannerAfterDelay(3) // Show success banner for 3 seconds

@@ -23,7 +23,7 @@ struct BannerView: View {
                 .opacity(1)
                 .onAppear {
                     withAnimation {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             withAnimation {
                                 isShowing = false
                             }

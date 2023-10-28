@@ -153,8 +153,6 @@ struct FeedCell: View {
             Text(post.description)
                 .padding(.leading,15)
             HStack{
-                Text("@sadiomane ").fontWeight(.semibold) +
-                Text("Grande calixx")
             }
             .frame(maxWidth: .infinity, alignment:.leading)
             .font(.footnote)
@@ -178,9 +176,3 @@ struct FeedCell: View {
         return dateFormatter.string(from: time)
     }
 }
-
-//struct FeedCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedCell(post: <#Post#>)
-//    }
-//}

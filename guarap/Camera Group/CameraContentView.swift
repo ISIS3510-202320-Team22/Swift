@@ -43,7 +43,7 @@ struct CameraContentView: View {
                         }) {
                             Image(systemName: "xmark")
                                 .font(.system(size: 24))
-                                .foregroundColor(.white)
+                                .foregroundColor(.blue)
                                 .padding()
                         }
                     }
@@ -60,7 +60,7 @@ struct CameraContentView: View {
                             }) {
                                 Image(systemName: "xmark")
                                     .font(.system(size: 24))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.blue)
                                     .padding()
                             }
                         }
@@ -70,6 +70,12 @@ struct CameraContentView: View {
             }
             VStack {
                 Spacer()
+                if capturedImage == nil {
+                    Text("Press the camera icon to take a photo")
+                        .padding()
+                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                }
+                    
                 Button(action: {
                     isCustomCameraViewPresented.toggle()
                 }, label: {

@@ -17,7 +17,7 @@ class PostDAOFirebase: PostDAO {
     
     static var shared: PostDAO = PostDAOFirebase()
     
-    func createPost(description: String, imageUrl: String, category: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
+    func createPost(description: String, imageUrl: String, category: String, address: String, completion: @escaping (Bool) -> Void) {
         let firestore = Firestore.firestore()
 
         let user = userUID // Replace with actual user data
@@ -46,13 +46,12 @@ class PostDAOFirebase: PostDAO {
                 let postAttributes: [String: Any] = [
                     "user": user,
                     "description": description,
-                    "upVotes": upVotes,
-                    "downVotes": downVotes,
+                    "upvotes": upVotes,
+                    "downvotes": downVotes,
                     "reported": reported,
                     "image": imageUrl,
-                    "latitude": latitude,
-                    "longitude": longitude,
-                    "dateTime": Timestamp(date: dateTime)
+                    "address": address,
+                    "date": Timestamp(date: dateTime)
                 ]
                 transaction.setData(postAttributes, forDocument: postRef)
 
@@ -84,25 +83,18 @@ class PostDAOFirebase: PostDAO {
                 do {
                     if let user = postDict["user"] as? String,
                        let description = postDict["description"] as? String,
-                       let upVotes = postDict["upVotes"] as? Int,
-                       let downVotes = postDict["downVotes"] as? Int,
+                       let upVotes = postDict["upvotes"] as? Int,
+                       let downVotes = postDict["downvotes"] as? Int,
                        let reported = postDict["reported"] as? Bool,
-                       let dateTime = postDict["dateTime"] as? Timestamp {
+                       let address = postDict["address"] as? String,
+                       let dateTime = postDict["date"] as? Timestamp {
                         
                         var image = ""
                         if let unwrappedImage = postDict["image"] as? String {
                             image = unwrappedImage
                         }
-                        
-                        var latitude = 0.0
-                        var longitude = 0.0
-                        if let location = postDict["location"] as? GeoPoint {
-                            latitude = location.latitude
-                            longitude = location.longitude
-                        }
 
-
-                        let post = Post(id: UUID(), user: user, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, latitude: latitude, longitude: longitude, dateTime: dateTime.dateValue())
+                        let post = Post(id: UUID(), user: user, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, address: address, dateTime: dateTime.dateValue())
                             
                             posts.append(post)
                     }

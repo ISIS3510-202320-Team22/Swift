@@ -28,6 +28,21 @@ struct RecoveryView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 24)
                     .padding(.top)
+                    .onChange(of: email) { newValue in
+                        
+                        let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                        
+                        email = newValue.filter { !$0.isWhitespace }
+                        
+                        email = String(email.unicodeScalars.filter {
+                                    CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                                })
+                        
+                        
+                        if newValue.count > MAX_EMAIL_CHAR_LIMIT {
+                            email = String(newValue.prefix(MAX_EMAIL_CHAR_LIMIT))
+                        }
+                    }
                 
                 Button("Submit") {
                     isRecovering = true // Muestra la pantalla de carga
@@ -58,7 +73,6 @@ struct RecoveryView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
             }
         }
-        .navigationBarHidden(true)
     }
 }
 

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-
-    @State private var showingLoginScreen = false
     @StateObject var viewModel = LoginViewModel()
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isLoggingIn = false // Estado para mostrar la pantalla de carga
@@ -47,7 +45,7 @@ struct LoginView: View {
                             do {
                                 try await viewModel.signIn()
                             } catch {
-                                // Maneja el error aquí
+                                print(1)
                             }
                             isLoggingIn = false // Oculta la pantalla de carga después de la autenticación
                         }

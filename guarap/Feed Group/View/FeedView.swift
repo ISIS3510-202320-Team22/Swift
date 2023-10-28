@@ -42,7 +42,7 @@ struct FeedView: View {
                             }
                         }) {
                             Text(option)
-                        }
+                        }.foregroundColor(.red)
                     }
                 }.foregroundColor(.black)
             }

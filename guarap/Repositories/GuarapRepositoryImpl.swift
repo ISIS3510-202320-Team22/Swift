@@ -16,6 +16,7 @@ class GuarapRepositoryImpl: GuarapRepository {
     
     static let postDao: PostDAO = PostDAOFirebase.shared
     static let imageDao: ImageDAO = ImageDAOFirebase.shared
+    static let userDao: UserDAO = UserDAOFirebase.shared
     
     func createPost(description: String, image: UIImage?, category: String, address: String, completion: @escaping (Bool) -> Void) {
         

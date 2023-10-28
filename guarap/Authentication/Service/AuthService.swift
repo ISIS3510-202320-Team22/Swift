@@ -11,9 +11,9 @@ import FirebaseFirestore
 import Firebase
 import SwiftUI
 
-class AuthService{
+class AuthService {
     @AppStorage("userUID") var userUID = ""
-    @AppStorage("username") var userName = ""
+    @AppStorage("username") var username = ""
     @Published var userSession: FirebaseAuth.User?
     
     static let shared = AuthService()
@@ -28,15 +28,17 @@ class AuthService{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             userUID = self.userSession!.uid
-            userName = email
-            print(email)
+            
+            GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID)
+            
+            print(username)
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
         }
         
     }
     @MainActor
-    func createUser(email: String, password: String, username: String) async throws {
+    func createUser(email: String, password: String, userName: String) async throws {
         print("Email is \(email)")
         print("Password is \(password)")
         print("Username is \(username)")
@@ -45,7 +47,8 @@ class AuthService{
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             await self.uploadUserData(uid: result.user.uid, username: username, email: email)
-            userName = email
+            username = userName
+            print(username)
             print("DEBUG: Did upload user data...")
         } catch {
             print("DEBUG: Failed to register user with \(error.localizedDescription)")

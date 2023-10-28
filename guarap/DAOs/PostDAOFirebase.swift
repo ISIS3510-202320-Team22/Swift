@@ -8,10 +8,10 @@
 import Foundation
 import SwiftUI
 import Firebase
-import FirebaseFirestore.FIRGeoPoint
 
 class PostDAOFirebase: PostDAO {
-    @AppStorage("userUID") var userUID = ""
+    //@AppStorage("userUID") var userUID = ""
+    @AppStorage("username") var username = ""
     
     private init(){}
     
@@ -20,7 +20,7 @@ class PostDAOFirebase: PostDAO {
     func createPost(description: String, imageUrl: String, category: String, address: String, completion: @escaping (Bool) -> Void) {
         let firestore = Firestore.firestore()
 
-        let user = userUID // Replace with actual user data
+        let user = username // Replace with actual user data
         let upVotes = 0
         let downVotes = 0
         let reported = false

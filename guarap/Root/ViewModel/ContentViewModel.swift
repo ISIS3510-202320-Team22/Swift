@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import Combine
 import FirebaseAuth
+import SwiftUI
 
 class ContentViewModel: ObservableObject {
     

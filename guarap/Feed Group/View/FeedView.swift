@@ -9,24 +9,22 @@ import SwiftUI
 
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
-    @AppStorage("lastCategory") var lastCategory = "Generic"
+    @AppStorage("lastCategory") var lastCategory = DEFAULT_CATEGORY
     
     // Dropdown Menu States
     @State private var isPopoverVisible = false
-    @State private var selectedOption: String = "Select a Category"
     
     var body: some View {
         NavigationStack {
             Button(action: {
                 isPopoverVisible.toggle()
             }) {
-                Text(selectedOption)
+                Text(lastCategory)
             }
             .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
                 List {
                     ForEach(categories, id: \.self) { option in
                         Button(action: {
-                            selectedOption = option
                             lastCategory = option
                             viewModel.categoryString = option
                             isPopoverVisible.toggle()
@@ -49,29 +47,6 @@ struct FeedView: View {
                 }.foregroundColor(.black)
             }
             
-            
-            //            TextField("Category", text: $viewModel.categoryString, onCommit: {
-            //                Task {
-            //                    do {
-            //                        if viewModel.categoryString == "" {
-            //                            viewModel.categoryString  = "Generic"
-            //                        }
-            //                        lastCategory = viewModel.categoryString
-            //                        try await viewModel.fetchPosts(category: viewModel.categoryString)
-            //                    } catch {
-            //                        print("Error fetching posts: \(error.localizedDescription)")
-            //                    }
-            //                }
-            //            })
-            //            .textFieldStyle(RoundedBorderTextFieldStyle())
-            //                .padding()
-            //                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-            //                .onChange(of: viewModel.categoryString) { newValue in
-            //                                if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
-            //                                    viewModel.categoryString = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
-            //                                }
-            //                            }
-            
             ScrollView {
                 if !viewModel.posts.isEmpty {
                     LazyVStack(spacing: 30) {
@@ -89,6 +64,14 @@ struct FeedView: View {
             }
             .navigationTitle("Guarap")
             .navigationBarTitleDisplayMode(.inline)
+            .refreshable {
+                do {
+                    // This is the action to refresh the data
+                    try await viewModel.fetchPosts(category: viewModel.categoryString)
+                } catch {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                }
+            }
         }
         .onAppear {
             // Fetch posts when the view first appears

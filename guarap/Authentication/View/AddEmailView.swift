@@ -33,6 +33,16 @@ struct AddEmailView: View {
                 .padding(.horizontal, 24)
                 .padding(.top)
                 .onChange(of: viewModel.email) { newValue in
+                    
+                    let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                    
+                    viewModel.email = newValue.filter { !$0.isWhitespace }
+                    
+                    viewModel.email = String(viewModel.email.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                    
+                    
                     if newValue.count > MAX_EMAIL_CHAR_LIMIT {
                         viewModel.email = String(newValue.prefix(MAX_EMAIL_CHAR_LIMIT))
                     }

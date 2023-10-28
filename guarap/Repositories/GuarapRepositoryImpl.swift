@@ -20,7 +20,7 @@ class GuarapRepositoryImpl: GuarapRepository {
     func createPost(description: String, image: UIImage?, category: String, latitude: Double, longitude: Double, completion: @escaping (Bool) -> Void) {
         
         guard category != "" else {
-            createPost(description: description, image: image, category: "Generic", latitude: latitude, longitude: longitude, completion: completion)
+            createPost(description: description, image: image, category: DEFAULT_CATEGORY, latitude: latitude, longitude: longitude, completion: completion)
             return
         }
         

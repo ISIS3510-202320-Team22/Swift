@@ -16,5 +16,6 @@ let MIN_EMAIL_CHAR_LIMIT = 17
 let MAX_EMAIL_CHAR_LIMIT = 40
 let MIN_USER_CHAR_LIMIT = 5
 let MAX_USER_CHAR_LIMIT = 20
+let DEFAULT_CATEGORY = "Generic"
 
 let categories = ["Generic", "Chismes", "Atardeceres", "Looking For", "Emprendimientos"]

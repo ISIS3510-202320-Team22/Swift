@@ -13,7 +13,7 @@ struct PublishView: View {
     
     // Post Atributes
     @State private var description = ""
-    @State private var category = "Generic"
+    @State private var category = DEFAULT_CATEGORY
     @State private var latitude = 0.0
     @State private var longitude = 0.0
     @State private var isBlockingUI = false
@@ -26,7 +26,7 @@ struct PublishView: View {
     
     // Dropdown Menu States
     @State private var isPopoverVisible = false
-    @State private var selectedOption: String = "Select a Category"
+    @State private var selectedOption: String = "Select a category"
     
     @State private var showSuccessBanner = false
     @State private var showFailureBanner = false
@@ -48,7 +48,7 @@ struct PublishView: View {
                         Spacer()
                         Button {
                             description = ""
-                            category = "Generic"
+                            category = DEFAULT_CATEGORY
                             passedOnImage = nil
                             tabIndex = 0
                         } label: {
@@ -121,9 +121,8 @@ struct PublishView: View {
                                     }
                                 }
                                 .onSubmit {
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                    description = description.trimmingCharacters(in: .whitespacesAndNewlines)
                                 }
-                            
                         }
                         
                     }// End of Image and Text
@@ -135,18 +134,6 @@ struct PublishView: View {
                         Spacer()
                         // Pulldown Button
                         VStack {
-                            //                        TextField("Category", text: $category)
-                            //                            .padding()
-                            //                            .onChange(of: category) { newValue in
-                            //                                            if newValue.count > MAX_CATEGORY_CHAR_LIMIT {
-                            //                                                category = String(newValue.prefix(MAX_CATEGORY_CHAR_LIMIT))
-                            //                                            }
-                            //
-                            //                                        }
-                            //                            .onSubmit {
-                            //                            }
-                            //                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            
                             Button(action: {
                                 isPopoverVisible.toggle()
                             }) {
@@ -184,7 +171,7 @@ struct PublishView: View {
                                 isBlockingUI = true
                                 print(345)
                                 //try await Task.sleep(nanoseconds: 2000000000)
-                                let _: () = GuarapRepositoryImpl.shared.createPost(description: description, image: passedOnImage, category: category, latitude: latitude, longitude: longitude) { success in
+                                let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, latitude: latitude, longitude: longitude) { success in
                                     
                                     if success {
                                         passedOnImage = nil

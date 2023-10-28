@@ -33,6 +33,15 @@ struct CreatePasswordView: View {
                 .padding (.horizontal, 24)
                 .padding (.top)
                 .onChange(of: viewModel.password) { newValue in
+                    
+                    let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                    
+                    viewModel.password = newValue.filter { !$0.isWhitespace }
+                    
+                    viewModel.password = String(viewModel.password.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                    
                     if newValue.count > MAX_PASSWORD_CHAR_LIMIT {
                         viewModel.password = String(newValue.prefix(MAX_PASSWORD_CHAR_LIMIT))
                     }

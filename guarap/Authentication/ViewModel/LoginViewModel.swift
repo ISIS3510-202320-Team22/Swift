@@ -8,8 +8,8 @@
 import Foundation
 
 class LoginViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email = "e.gonzalez5@uniandes.edu.co"
+    @Published var password = "esteban"
     
     func signIn() async throws {
         try await AuthService.shared.login(withEmail: email, password: password)

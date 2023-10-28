@@ -33,6 +33,15 @@ struct CreateUsernameView: View {
                 .padding (.horizontal, 24)
                 .padding (.top)
                 .onChange(of: viewModel.username) { newValue in
+                    
+                    let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                    
+                    viewModel.username = newValue.filter { !$0.isWhitespace }
+                    
+                    viewModel.username = String(viewModel.username.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                    
                     if newValue.count > MAX_USER_CHAR_LIMIT {
                         viewModel.username = String(newValue.prefix(MAX_USER_CHAR_LIMIT))
                     }

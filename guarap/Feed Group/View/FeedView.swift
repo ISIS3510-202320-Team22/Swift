@@ -23,6 +23,20 @@ struct FeedView: View {
         NavigationStack {
             Spacer()
             HStack {
+                if networkManager.isConnectionBad {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                            .padding(.leading)
+                    Text("Slow connection")
+                }
+                
+                if !networkManager.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .padding(.leading)
+                    Text("No connection")
+                }
+                
                 Spacer()
                 Text("Category:")
                 Button(action: {
@@ -58,18 +72,6 @@ struct FeedView: View {
                         }
                     }
                     .foregroundColor(.black)
-                }
-                
-                if NetworkManager.shared.isConnectionBad {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.yellow)
-                    Text("Slow connection")
-                }
-                
-                if !NetworkManager.shared.isOnline {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.red)
-                    Text("No connection")
                 }
                 
                 Spacer()

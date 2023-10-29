@@ -42,14 +42,14 @@ struct PublishView: View {
                     Spacer()
                     // Cancel Button
                     HStack {
-                        if NetworkManager.shared.isConnectionBad {
+                        if networkManager.isConnectionBad {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundColor(.yellow)
                                     .padding(.leading)
                             Text("Slow connection")
                         }
                         
-                        if !NetworkManager.shared.isOnline {
+                        if !networkManager.isOnline {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundColor(.red)
                                     .padding(.leading)
@@ -234,7 +234,7 @@ struct PublishView: View {
             }
             
             if showNoInternetBanner {
-                BannerView(text: "Currently there is no internet connection.\nTry again latter.", color: .yellow)
+                BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
             }
         }
     }
@@ -244,6 +244,7 @@ struct PublishView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             showSuccessBanner = false
             showFailureBanner = false
+            showNoInternetBanner = false
         }
     }
 }

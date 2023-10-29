@@ -24,7 +24,7 @@ class FeedViewModel: ObservableObject{
     }
     
     @MainActor
-    func fetchPosts(category: String) async throws{
+    func fetchPosts(category: String) async throws {
         posts = try await guarapRepo.getPostsByCategory(categoryName: category)
     }
 }

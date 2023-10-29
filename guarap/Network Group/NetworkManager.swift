@@ -12,11 +12,13 @@ class NetworkManager: ObservableObject {
     static let shared = NetworkManager()
     
     @Published var isOnline = true
+    @Published var isConnectionBad = false
 
     private init() {
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
             self.isOnline = path.status == .satisfied
+            self.isConnectionBad = path.isExpensive
         }
         let queue = DispatchQueue(label: "NetworkMonitor")
         monitor.start(queue: queue)

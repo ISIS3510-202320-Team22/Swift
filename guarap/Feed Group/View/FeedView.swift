@@ -21,36 +21,52 @@ struct FeedView: View {
     
     var body: some View {
         NavigationStack {
-            Button(action: {
-                isPopoverVisible.toggle()
-            }) {
-                Text(lastCategory)
-            }
-            .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
-                List {
-                    ForEach(categories, id: \.self) { option in
-                        Button(action: {
-                            lastCategory = option
-                            viewModel.categoryString = option
-                            isPopoverVisible.toggle()
-                            
-                            Task {
-                                do {
-                                    if viewModel.categoryString == "" {
-                                        viewModel.categoryString = "Generic"
-                                    }
-                                    lastCategory = viewModel.categoryString
-                                    try await viewModel.fetchPosts(category: viewModel.categoryString)
-                                } catch {
-                                    print("Error fetching posts: \(error.localizedDescription)")
-                                }
-                            }
-                        }) {
-                            Text(option)
-                        }.foregroundColor(.red)
+            Spacer()
+            HStack {
+                Spacer()
+                Text("Category:")
+                Button(action: {
+                    isPopoverVisible.toggle()
+                }) {
+                    HStack {
+                        Text(lastCategory)
+                        Image(systemName: "chevron.down")
                     }
                 }
-                .foregroundColor(.black)
+                .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
+                    List {
+                        ForEach(categories, id: \.self) { option in
+                            Button(action: {
+                                lastCategory = option
+                                viewModel.categoryString = option
+                                isPopoverVisible.toggle()
+                                
+                                Task {
+                                    do {
+                                        if viewModel.categoryString == "" {
+                                            viewModel.categoryString = "Generic"
+                                        }
+                                        lastCategory = viewModel.categoryString
+                                        try await viewModel.fetchPosts(category: viewModel.categoryString)
+                                    } catch {
+                                        print("Error fetching posts: \(error.localizedDescription)")
+                                    }
+                                }
+                            }) {
+                                Text(option)
+                            }.foregroundColor(.red)
+                        }
+                    }
+                    .foregroundColor(.black)
+                }
+                
+                if NetworkManager.shared.isConnectionBad {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                    Text("Slow connection")
+                    }
+                
+                Spacer()
             }
             
             ScrollView {
@@ -67,12 +83,11 @@ struct FeedView: View {
                 }
                 
             }
-            .navigationTitle("Guarap")
-            .navigationBarTitleDisplayMode(.inline)
             .refreshable {
                 do {
                     // This is the action to refresh the data
                     if networkManager.isOnline {
+                        textWhenEmpty = Text("There is nothing in this category for now")
                         try await viewModel.fetchPosts(category: viewModel.categoryString)
                     } else {
                         textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
@@ -87,6 +102,7 @@ struct FeedView: View {
             Task {
                 do {
                     if networkManager.isOnline {
+                        textWhenEmpty = Text("There is nothing in this category for now")
                         try await viewModel.fetchPosts(category: viewModel.categoryString)
                     } else {
                         textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")

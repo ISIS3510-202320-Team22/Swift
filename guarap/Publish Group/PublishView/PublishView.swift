@@ -29,6 +29,7 @@ struct PublishView: View {
     
     @State private var showSuccessBanner = false
     @State private var showFailureBanner = false
+    @ObservedObject var networkManager = NetworkManager.shared
 
     
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
@@ -37,11 +38,7 @@ struct PublishView: View {
         ZStack {
             VStack {
                 ScrollView {
-                    // Guarap Title
-                    Text("Guarap")
-                        .padding(.top, 15)
-                        .font(.system(size: 35))
-                    Divider()
+                    Spacer()
                     // Cancel Button
                     HStack{
                         Spacer()
@@ -198,7 +195,8 @@ struct PublishView: View {
                     }
                     .frame(width: 300, height: 50)
                     Spacer()
-                } // End of VStack
+                }
+                // End of VStack
             }
             .disabled(isBlockingUI)
             
@@ -217,6 +215,7 @@ struct PublishView: View {
             }
         }
     }
+
     
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {

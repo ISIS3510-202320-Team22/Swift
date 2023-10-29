@@ -42,6 +42,8 @@
 		CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E72AD6320500051117 /* AddEmailView.swift */; };
 		CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3EC5E92AD6320500051117 /* AuthService.swift */; };
 		CD49C8402AE4A17B00C394E8 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */; };
+		CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5012412AEDB3B300D7194A /* UserDAO.swift */; };
+		CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */; };
 		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
 		CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E482ACCA1EA00D493B5 /* MainTabView.swift */; };
 		CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E4B2ACCB15800D493B5 /* Post.swift */; };
@@ -108,6 +110,8 @@
 		CD3EC5E72AD6320500051117 /* AddEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
 		CD3EC5E92AD6320500051117 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		CD5012412AEDB3B300D7194A /* UserDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAOFirebase.swift; sourceTree = "<group>"; };
 		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD597E4B2ACCB15800D493B5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 				CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */,
 				CD597E602ACCB9EC00D493B5 /* PostDAO.swift */,
 				CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */,
+				CD5012412AEDB3B300D7194A /* UserDAO.swift */,
+				CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -592,6 +598,8 @@
 				CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
+				CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */,
+				CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */,
 				CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */,
 				CD597E692ACCB9F900D493B5 /* GuarapRepository.swift in Sources */,
 				CD6DB41A2AEA34A50047E1FC /* BannerView.swift in Sources */,

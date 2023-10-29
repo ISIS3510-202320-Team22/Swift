@@ -31,9 +31,9 @@ struct FeedCell: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             // Image and username + publishing time
-            HStack{
+            HStack {
                 Image("avatar")
                     .resizable()
                     .scaledToFill()
@@ -52,7 +52,8 @@ struct FeedCell: View {
                     
                     Spacer()
                 }
-            }.padding(.leading)
+            }
+            .padding(.leading)
             
             if let image = downloadedImage {
                 Image(uiImage: image)
@@ -68,7 +69,11 @@ struct FeedCell: View {
             let categoryRef = Firestore.firestore().collection("categories").document(category)
             let postRef = categoryRef.collection("posts").document(post.id.uuidString)
             //let postRef = categoryRef.collection("posts").document(post.id)
+            Text(post.description)
+                .padding(.leading,15)
             HStack(spacing: 20) {
+                // Comments
+                
                 Spacer()
 
                 Button(action: {
@@ -145,26 +150,20 @@ struct FeedCell: View {
                 Text(String(post.downVotes))
                     .font(.system(size: 10))
                     .padding(.bottom)
-            }.padding(.trailing)
-             .foregroundColor(.black)
-
-            
-            // Comments
-            Text(post.description)
-                .padding(.leading,15)
-            HStack{
             }
+            .padding(.trailing)
+            .foregroundColor(.black)
             .frame(maxWidth: .infinity, alignment:.leading)
-            .font(.footnote)
+            //.font(.footnote)
             .padding(.leading,15)
             .padding(.top,1)
-            .onAppear {
-                // Fetch the image when the view appears
-                if !post.image.isEmpty {
-                    guarapRepo.getImageFromUrl(url: post.image) { image in
-                        // Update the downloadedImage state when the image is fetched
-                        downloadedImage = image
-                    }
+        }
+        .onAppear {
+            // Fetch the image when the view appears
+            if !post.image.isEmpty {
+                guarapRepo.getImageFromUrl(url: post.image) { image in
+                    // Update the downloadedImage state when the image is fetched
+                    downloadedImage = image
                 }
             }
         }

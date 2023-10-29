@@ -56,6 +56,7 @@
 		CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F02AC490D900CEAD52 /* CameraService.swift */; };
 		CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */; };
 		CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */; };
+		CD6531322AEDE9CC002492CE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6531312AEDE9CC002492CE /* NetworkManager.swift */; };
 		CD6DB41A2AEA34A50047E1FC /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6DB4192AEA34A50047E1FC /* BannerView.swift */; };
 		CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */; };
 		CD7EF73A2AD646A400C9567B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7372AD646A400C9567B /* ContentViewModel.swift */; };
@@ -123,6 +124,7 @@
 		CD61E8F02AC490D900CEAD52 /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		CD61E8F22AC49DE500CEAD52 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CD61E8F42AC49FA900CEAD52 /* CameraContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContentView.swift; sourceTree = "<group>"; };
+		CD6531312AEDE9CC002492CE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CD6DB4192AEA34A50047E1FC /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7372AD646A400C9567B /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
+				CD6531302AEDE9BB002492CE /* Network Group */,
 				CD7EF7352AD646A400C9567B /* Root */,
 				CD304B5F2AD640B2001AE8CE /* Publish Group */,
 				CD3EC5DF2AD6320500051117 /* Authentication */,
@@ -381,6 +384,14 @@
 				CD597E6C2ACCCCAA00D493B5 /* FeedViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CD6531302AEDE9BB002492CE /* Network Group */ = {
+			isa = PBXGroup;
+			children = (
+				CD6531312AEDE9CC002492CE /* NetworkManager.swift */,
+			);
+			path = "Network Group";
 			sourceTree = "<group>";
 		};
 		CD7EF7352AD646A400C9567B /* Root */ = {
@@ -567,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD6531322AEDE9CC002492CE /* NetworkManager.swift in Sources */,
 				CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */,
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
 				CD3EC5EB2AD6320500051117 /* CreatePasswordView.swift in Sources */,

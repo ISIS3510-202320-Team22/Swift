@@ -64,7 +64,13 @@ struct FeedView: View {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundColor(.yellow)
                     Text("Slow connection")
-                    }
+                }
+                
+                if !NetworkManager.shared.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                    Text("No connection")
+                }
                 
                 Spacer()
             }

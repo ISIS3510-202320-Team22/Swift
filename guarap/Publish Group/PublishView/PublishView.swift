@@ -29,6 +29,7 @@ struct PublishView: View {
     
     @State private var showSuccessBanner = false
     @State private var showFailureBanner = false
+    @State private var showNoInternetBanner = false
     @ObservedObject var networkManager = NetworkManager.shared
 
     
@@ -40,7 +41,20 @@ struct PublishView: View {
                 ScrollView {
                     Spacer()
                     // Cancel Button
-                    HStack{
+                    HStack {
+                        if NetworkManager.shared.isConnectionBad {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.yellow)
+                                    .padding(.leading)
+                            Text("Slow connection")
+                        }
+                        
+                        if !NetworkManager.shared.isOnline {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.red)
+                                    .padding(.leading)
+                            Text("No connection")
+                        }
                         Spacer()
                         Button {
                             description = ""
@@ -166,23 +180,28 @@ struct PublishView: View {
                             do {
                                 isBlockingUI = true
                                 print(345)
-                                //try await Task.sleep(nanoseconds: 2000000000)
-                                let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: address) { success in
-                                    
-                                    if success {
-                                        passedOnImage = nil
-                                        description = ""
-                                        category = ""
-                                        address = ""
-                                        isBlockingUI = false
-                                        showSuccessBanner = true
-                                        hideBannerAfterDelay(3) // Show success banner for 3 seconds
-                                        isBlockingUI = false
-                                    } else {
-                                        showFailureBanner = true
-                                        hideBannerAfterDelay(3) // Show failure banner for 3 seconds
-                                        isBlockingUI = false
+                                if networkManager.isOnline {
+                                    let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: address) { success in
+                                        
+                                        if success {
+                                            passedOnImage = nil
+                                            description = ""
+                                            category = ""
+                                            address = ""
+                                            isBlockingUI = false
+                                            showSuccessBanner = true
+                                            hideBannerAfterDelay(3) // Show success banner for 3 seconds
+                                            isBlockingUI = false
+                                        } else {
+                                            showFailureBanner = true
+                                            hideBannerAfterDelay(3) // Show failure banner for 3 seconds
+                                            isBlockingUI = false
+                                        }
                                     }
+                                } else {
+                                    showNoInternetBanner = true
+                                    hideBannerAfterDelay(3)
+                                    isBlockingUI = false
                                 }
                             }
                         }
@@ -207,11 +226,15 @@ struct PublishView: View {
             }
             
             if showSuccessBanner {
-                BannerView(text: "Post successfuly uploaded", color: .green)
+                BannerView(text: "Post successfuly uploaded.", color: .green)
             }
 
             if showFailureBanner {
-                BannerView(text: "Failure uploading post\nCheck there is at least an image or text", color: .red)
+                BannerView(text: "Failure uploading post\nCheck there is at least an image or text.", color: .red)
+            }
+            
+            if showNoInternetBanner {
+                BannerView(text: "Currently there is no internet connection.\nTry again latter.", color: .yellow)
             }
         }
     }

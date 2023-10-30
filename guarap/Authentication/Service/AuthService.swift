@@ -107,6 +107,14 @@ class AuthService {
         return !querySnapshot.documents.isEmpty
     }
 
+    @MainActor
+    func usernameExists(username: String) async -> Bool {
+        let querySnapshot = try await Firestore.firestore().collection("users")
+            .whereField("username", isEqualTo: username)
+            .getDocuments()
+            
+        return !querySnapshot.documents.isEmpty
+    }
 
 
 }

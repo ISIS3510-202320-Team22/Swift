@@ -64,6 +64,7 @@
 		CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */; };
 		CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9B7D22AC1CF970054F09E /* FeedView.swift */; };
 		CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */; };
+		CDCC57DF2AEF61F400269365 /* CategoryPostCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCC57DE2AEF61F400269365 /* CategoryPostCache.swift */; };
 		CDFC76172ACCE12B00D7943C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		CDA9B7D22AC1CF970054F09E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pattaya-Regular.ttf"; sourceTree = "<group>"; };
+		CDCC57DE2AEF61F400269365 /* CategoryPostCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPostCache.swift; sourceTree = "<group>"; };
 		CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				CD597E6C2ACCCCAA00D493B5 /* FeedViewModel.swift */,
+				CDCC57DE2AEF61F400269365 /* CategoryPostCache.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 			files = (
 				CD6531322AEDE9CC002492CE /* NetworkManager.swift in Sources */,
 				CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */,
+				CDCC57DF2AEF61F400269365 /* CategoryPostCache.swift in Sources */,
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
 				CD3EC5EB2AD6320500051117 /* CreatePasswordView.swift in Sources */,
 				CD597E622ACCB9EC00D493B5 /* PostDAOFirebase.swift in Sources */,

@@ -98,21 +98,15 @@ class AuthService {
         }
     }
     
-    func isEmailAlreadyRegistered(email: String, completion: @escaping (Bool, Error?) -> Void) {
-            Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
-                if let error = error {
-                    // Hubo un error al verificar el correo electrónico
-                    completion(false, error)
-                } else if let signInMethods = signInMethods {
-                    // Si signInMethods contiene métodos de inicio de sesión, el correo electrónico ya está registrado
-                    let isEmailRegistered = !signInMethods.isEmpty
-                    completion(isEmailRegistered, nil)
-                } else {
-                    // No se pudo determinar si el correo electrónico está registrado o no
-                    completion(false, nil)
-                }
-            }
-        }
+    @MainActor
+    func emailExists(email: String) async -> Bool {
+        let querySnapshot = try await Firestore.firestore().collection("users")
+            .whereField("email", isEqualTo: email)
+            .getDocuments()
+            
+        return !querySnapshot.documents.isEmpty
+    }
+
 
 
 }

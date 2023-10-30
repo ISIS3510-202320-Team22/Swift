@@ -25,7 +25,7 @@ struct CompleteSignUpView: View {
             Button{
                 Task{ try await viewModel.createUser()}
             } label: {
-                Text ("Complete Sing Up" )
+                Text ("Complete Sign Up" )
                     .font (. subheadline)
                     .fontWeight (.semibold)
                     .foregroundColor(.white)

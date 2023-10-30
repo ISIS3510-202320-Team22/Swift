@@ -17,5 +17,7 @@ let MAX_EMAIL_CHAR_LIMIT = 40
 let MIN_USER_CHAR_LIMIT = 5
 let MAX_USER_CHAR_LIMIT = 20
 let DEFAULT_CATEGORY = "Generic"
+let MAX_TIMEOUT = 5 // sec
+let PAGE_TITLE = "Guarap"
 
 let categories = ["Generic", "Chismes", "Atardeceres", "LookingFor", "Emprendimientos"]

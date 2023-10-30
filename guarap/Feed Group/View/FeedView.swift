@@ -61,6 +61,13 @@ struct FeedView: View {
                                             viewModel.categoryString = "Generic"
                                         }
                                         lastCategory = viewModel.categoryString
+                                        
+                                        if networkManager.isOnline {
+                                            textWhenEmpty = Text("There is nothing in this category for now")
+                                        } else {
+                                            textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
+                                        }
+                                        
                                         try await viewModel.fetchPosts(category: viewModel.categoryString)
                                     } catch {
                                         print("Error fetching posts: \(error.localizedDescription)")

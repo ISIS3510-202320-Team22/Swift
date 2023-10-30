@@ -8,13 +8,13 @@
 import Foundation
 
 class CategoryPostCache {
-    var cache = [String: [Post]]()
+    var cache = [String: [PostWithImage]]()
 
-    func setPosts(_ posts: [Post], forCategory category: String) {
+    func setPosts(_ posts: [PostWithImage], forCategory category: String) {
         cache[category] = posts
     }
 
-    func getPosts(forCategory category: String) -> [Post]? {
+    func getPosts(forCategory category: String) -> [PostWithImage]? {
         return cache[category]
     }
 

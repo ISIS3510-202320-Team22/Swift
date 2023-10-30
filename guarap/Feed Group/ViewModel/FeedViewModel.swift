@@ -11,7 +11,7 @@ import SwiftUI
 
 class FeedViewModel: ObservableObject {
     @AppStorage("lastCategory") var lastCategory = "Generic"
-    @Published var posts = [Post]()
+    @Published var posts = [PostWithImage]()
     @Published var categoryString = "Generic"
     let guarapRepo = GuarapRepositoryImpl.shared
     @ObservedObject var networkManager = NetworkManager.shared
@@ -33,11 +33,14 @@ class FeedViewModel: ObservableObject {
         // Then, update the posts by fetching from the repository
         Task {
             do {
-                let fetchedPosts = try await guarapRepo.getPostsByCategory(categoryName: categoryString)
-                // Update the posts property
-                posts = fetchedPosts
-                // Store the fetched posts in the cache
-                postCache.setPosts(fetchedPosts, forCategory: categoryString)
+                let fetchedPosts = try await guarapRepo.getPostsByCategory(categoryName: self.categoryString)
+                guarapRepo.getPostsWithImages(posts: fetchedPosts) { fetchedPostsWithImages in
+                    // Update the posts property
+                    self.posts = fetchedPostsWithImages
+                    // Store the fetched posts in the cache
+                    self.postCache.setPosts(fetchedPostsWithImages, forCategory: self.categoryString)
+                    print("Initial")
+                }
             } catch {
                 // Handle errors
                 print("Error fetching posts: \(error)")
@@ -52,11 +55,14 @@ class FeedViewModel: ObservableObject {
             print("Accessing cache")
         } else if networkManager.isOnline {
             let fetchedPosts = try await guarapRepo.getPostsByCategory(categoryName: category)
-            postCache.setPosts(fetchedPosts, forCategory: category)
-            posts = fetchedPosts
-            print("Accessing from web")
+            guarapRepo.getPostsWithImages(posts: fetchedPosts) { fetchedPostsWithImages in
+                self.postCache.setPosts(fetchedPostsWithImages, forCategory: category)
+                self.posts = fetchedPostsWithImages
+                print("Accessing from web")
+            }
+            
         } else {
-            posts = [Post]()
+            posts = [PostWithImage]()
         }
     }
     
@@ -64,9 +70,11 @@ class FeedViewModel: ObservableObject {
     func fetchPostsFromWeb(category: String) async throws {
         do {
             let webPosts = try await guarapRepo.getPostsByCategory(categoryName: category)
-            postCache.setPosts(webPosts, forCategory: category)
-            posts = webPosts
-            print("Get posts directly from the web")
+            guarapRepo.getPostsWithImages(posts: webPosts) { fetchedPostsWithImages in
+                self.postCache.setPosts(fetchedPostsWithImages, forCategory: category)
+                self.posts = fetchedPostsWithImages
+                print("Get posts directly from the web")
+            }
         } catch {
             // Handle errors
             print("Error fetching posts: \(error)")

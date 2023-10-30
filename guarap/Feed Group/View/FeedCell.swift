@@ -20,7 +20,7 @@ struct FeedCell: View {
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
     var guarapRepo = GuarapRepositoryImpl.shared
-    let post : Post
+    let post : PostWithImage
     let category: String
     
     func updateVotes(toVote: Post, like: String, more: Int){
@@ -161,10 +161,7 @@ struct FeedCell: View {
         .onAppear {
             // Fetch the image when the view appears
             if !post.image.isEmpty {
-                guarapRepo.getImageFromUrl(url: post.image) { image in
-                    // Update the downloadedImage state when the image is fetched
-                    downloadedImage = image
-                }
+                downloadedImage = post.uiimage
             }
         }
     }

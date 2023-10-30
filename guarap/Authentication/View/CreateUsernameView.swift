@@ -12,11 +12,26 @@ struct CreateUsernameView: View {
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isShowingAlert = false
     @State private var usernameExistsError = false
-
+    @State private var showAlertRepeat = false
+    @ObservedObject var networkManager = NetworkManager.shared
 
     
     var body: some View {
         VStack(spacing: 12) {
+            if networkManager.isConnectionBad {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.yellow)
+                        .padding(.leading)
+                Text("Slow connection")
+            }
+            
+            if !networkManager.isOnline {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.red)
+                    .padding(.leading)
+                Text("No connection")
+               
+            }
             Text ("Create username")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight (.bold)
@@ -57,7 +72,8 @@ struct CreateUsernameView: View {
             Button(action: {
                 Task {
                     if await viewModel.usernameExists(username: viewModel.username) {
-                        usernameExistsError = true
+                        showAlertRepeat = true
+                        hideBannerAfterDelay(3)
                     } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
                         isShowingAlert = true
                     } else {
@@ -74,6 +90,9 @@ struct CreateUsernameView: View {
                     .cornerRadius(8)
             }
             .padding(.vertical)
+            if showAlertRepeat {
+                BannerView(text: "The username you entered is already associated with an account.", color: .yellow)
+            }
         }
         .alert(isPresented: $isShowingAlert) {
             Alert(
@@ -82,14 +101,13 @@ struct CreateUsernameView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .alert(isPresented: $usernameExistsError) {
-            Alert(
-                title: Text("Username Already Exists"),
-                message: Text("The username you entered is already associated with an account."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+      
 
+    }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            showAlertRepeat = false
+        }
     }
 }
 

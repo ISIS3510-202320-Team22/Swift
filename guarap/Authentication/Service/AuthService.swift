@@ -100,21 +100,35 @@ class AuthService {
     
     @MainActor
     func emailExists(email: String) async -> Bool {
-        let querySnapshot = try await Firestore.firestore().collection("users")
-            .whereField("email", isEqualTo: email)
-            .getDocuments()
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("email", isEqualTo: email)
+                .getDocuments()
             
-        return !querySnapshot.documents.isEmpty
+            return !querySnapshot.documents.isEmpty
+        } catch {
+            // Manejar el error de alguna manera, por ejemplo, imprimirlo en la consola
+            print("Error: \(error)")
+            return false // O cualquier otro manejo de error que necesites
+        }
     }
+
 
     @MainActor
     func usernameExists(username: String) async -> Bool {
-        let querySnapshot = try await Firestore.firestore().collection("users")
-            .whereField("username", isEqualTo: username)
-            .getDocuments()
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("username", isEqualTo: username)
+                .getDocuments()
             
-        return !querySnapshot.documents.isEmpty
+            return !querySnapshot.documents.isEmpty
+        } catch {
+            // Manejar el error de alguna manera, por ejemplo, imprimirlo en la consola
+            print("Error: \(error)")
+            return false // O cualquier otro manejo de error que necesites
+        }
     }
+
 
 
 }

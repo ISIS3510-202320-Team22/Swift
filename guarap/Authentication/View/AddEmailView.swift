@@ -12,9 +12,26 @@ struct AddEmailView: View {
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var emailExistsError = false
     @State private var isShowingAlert = false
+    @State private var showAlertRepeat = false
+    @ObservedObject var networkManager = NetworkManager.shared
+
 
     var body: some View {
         VStack(spacing: 12) {
+            if networkManager.isConnectionBad {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.yellow)
+                        .padding(.leading)
+                Text("Slow connection")
+            }
+            
+            if !networkManager.isOnline {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.red)
+                    .padding(.leading)
+                Text("No connection")
+               
+            }
             Text("Add your email")
                 .font(.title)
                 .fontWeight(.bold)
@@ -56,7 +73,11 @@ struct AddEmailView: View {
             Button(action: {
                 Task {
                     if await viewModel.emailExists(email: viewModel.email) {
-                        emailExistsError = true
+                       
+                        showAlertRepeat = true
+                        hideBannerAfterDelay(3)
+                        
+                        
                     } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
                         isShowingAlert = true
                     } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
@@ -75,6 +96,10 @@ struct AddEmailView: View {
                     .cornerRadius(8)
             }
             .padding(.vertical)
+            if showAlertRepeat {
+                BannerView(text: "The email address you entered is already associated with an account.", color: .yellow)
+            }
+            
         }
         .alert(isPresented: $isShowingAlert) {
             Alert(
@@ -83,14 +108,13 @@ struct AddEmailView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .alert(isPresented: $emailExistsError) {
-            Alert(
-                title: Text("Email Already Exists"),
-                message: Text("The email address you entered is already associated with an account."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        
 
+    }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            showAlertRepeat = false
+        }
     }
 }
 

@@ -62,19 +62,22 @@ struct LoginView: View {
                         Task {
                             do {
                                 if networkManager.isOnline {
-                                    try await viewModel.signIn()
+                                    await viewModel.signIn() // Este ya maneja errores internamente.
+                                    if viewModel.didFailSignIn {
+                                        showErrorAlert = true
+                                        viewModel.didFailSignIn = false // Resetearlo para futuros intentos.
+                                    }
                                 } else {
                                     showNoInternetBanner = true
                                     hideBannerAfterDelay(3)
                                 }
-                            
-                                
                             } catch {
-                                print(1)
+                                print("Unexpected error.")
                             }
                             isLoggingIn = false // Oculta la pantalla de carga después de la autenticación
                         }
                     }
+
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(guarapColor)

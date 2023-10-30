@@ -27,4 +27,9 @@ class RegistrationViewModel: ObservableObject {
         return await AuthService.shared.emailExists(email: email)
     }
 
+    func usernameExists(username: String) async -> Bool {
+        return await AuthService.shared.usernameExists(username: username)
+    }
+
+
 }

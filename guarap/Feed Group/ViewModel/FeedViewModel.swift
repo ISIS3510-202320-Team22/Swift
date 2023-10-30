@@ -14,6 +14,7 @@ class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
     @Published var categoryString = "Generic"
     let guarapRepo = GuarapRepositoryImpl.shared
+    @ObservedObject var networkManager = NetworkManager.shared
 
     // Create a cache for posts
     private var postCache = CategoryPostCache()
@@ -49,11 +50,13 @@ class FeedViewModel: ObservableObject {
         if let cachedPosts = postCache.getPosts(forCategory: category) {
             posts = cachedPosts
             print("Accessing cache")
-        } else {
-            print("Accessing from web")
+        } else if networkManager.isOnline {
             let fetchedPosts = try await guarapRepo.getPostsByCategory(categoryName: category)
             postCache.setPosts(fetchedPosts, forCategory: category)
             posts = fetchedPosts
+            print("Accessing from web")
+        } else {
+            posts = [Post]()
         }
     }
     

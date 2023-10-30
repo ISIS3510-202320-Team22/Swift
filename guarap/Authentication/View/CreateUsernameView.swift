@@ -11,6 +11,8 @@ struct CreateUsernameView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isShowingAlert = false
+    @State private var usernameExistsError = false
+
 
     
     var body: some View {
@@ -53,10 +55,14 @@ struct CreateUsernameView: View {
             .opacity(0) // Hide the navigation link
 
             Button(action: {
-                if viewModel.username.count < MIN_USER_CHAR_LIMIT {
-                    isShowingAlert = true
-                } else {
-                    viewModel.isNextButtonTapped1 = true // Activate the NavigationLink
+                Task {
+                    if await viewModel.usernameExists(username: viewModel.username) {
+                        usernameExistsError = true
+                    } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
+                        isShowingAlert = true
+                    } else {
+                        viewModel.isNextButtonTapped1 = true // Activate the NavigationLink
+                    }
                 }
             }) {
                 Text("Next")
@@ -76,6 +82,14 @@ struct CreateUsernameView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .alert(isPresented: $usernameExistsError) {
+            Alert(
+                title: Text("Username Already Exists"),
+                message: Text("The username you entered is already associated with an account."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+
     }
 }
 

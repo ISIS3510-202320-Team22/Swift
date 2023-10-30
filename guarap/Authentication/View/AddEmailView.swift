@@ -10,7 +10,7 @@ import SwiftUI
 struct AddEmailView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
-
+    @State private var emailExistsError = false
     @State private var isShowingAlert = false
 
     var body: some View {
@@ -54,25 +54,15 @@ struct AddEmailView: View {
             .opacity(0) // Hide the navigation link
 
             Button(action: {
-                if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
-                    isShowingAlert = true
-                } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
-                    isShowingAlert = true
-                } else {
-                    // Llama a la función para verificar si el correo electrónico ya está registrado
-                    AuthService.shared.isEmailAlreadyRegistered(email: viewModel.email) { isRegistered, error in
-                        if let error = error {
-                            print("Error al verificar el correo electrónico: \(error.localizedDescription)")
-                            // Tratar el error, por ejemplo, mostrando una alerta al usuario
-                        } else {
-                            if isRegistered {
-                                // El correo electrónico ya está registrado, muestra una alerta al usuario
-                                isShowingAlert = true
-                            } else {
-                                // El correo electrónico no está registrado, puedes activar el NavigationLink
-                                viewModel.isNextButtonTapped = true
-                            }
-                        }
+                Task {
+                    if await viewModel.emailExists(email: viewModel.email) {
+                        emailExistsError = true
+                    } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
+                        isShowingAlert = true
+                    } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
+                        isShowingAlert = true
+                    } else {
+                        viewModel.isNextButtonTapped = true // Activate the NavigationLink
                     }
                 }
             }) {
@@ -93,6 +83,14 @@ struct AddEmailView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .alert(isPresented: $emailExistsError) {
+            Alert(
+                title: Text("Email Already Exists"),
+                message: Text("The email address you entered is already associated with an account."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+
     }
 }
 

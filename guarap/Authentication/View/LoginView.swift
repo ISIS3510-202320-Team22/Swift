@@ -11,6 +11,11 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isLoggingIn = false // Estado para mostrar la pantalla de carga
+    @ObservedObject var networkManager = NetworkManager.shared
+    @State private var showNoConnectionAlert = false
+    @State private var showNoInternetBanner = false
+
+
 
     
     var body: some View {
@@ -18,6 +23,21 @@ struct LoginView: View {
             ZStack{
                 
                 VStack{
+                    if networkManager.isConnectionBad {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.yellow)
+                                .padding(.leading)
+                        Text("Slow connection")
+                    }
+                    
+                    if !networkManager.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .padding(.leading)
+                        Text("No connection")
+                       
+                    }
+
                     Spacer()
                     Text("Guarap")
                         .font(.largeTitle)
@@ -43,7 +63,14 @@ struct LoginView: View {
                         isLoggingIn = true // Mostrar la pantalla de carga
                         Task {
                             do {
-                                try await viewModel.signIn()
+                                if networkManager.isOnline {
+                                    try await viewModel.signIn()
+                                } else {
+                                    showNoInternetBanner = true
+                                    hideBannerAfterDelay(3)
+                                }
+                            
+                                
                             } catch {
                                 print(1)
                             }
@@ -58,12 +85,17 @@ struct LoginView: View {
                 
                     Text("Forgot your logging details?")
                     
-                    NavigationLink{
-                        RecoveryView()
-                    } label: {
-                        Text ("Recover your account" )
-                        
+                    if networkManager.isOnline {
+                        NavigationLink(destination: RecoveryView()) {
+                            Text("Recover your account")
+                        }
+                    } else {
+                        Button("Recover your account") {
+                            showNoInternetBanner = true
+                            hideBannerAfterDelay(3)
+                        }
                     }
+
                     Spacer()
                     
                 }
@@ -79,18 +111,33 @@ struct LoginView: View {
                     Spacer()
                     Text("Don't have an account?")
                     
-                    NavigationLink{
-                        AddEmailView()
-                    } label: {
-                        Text ("Create Account" )
-                        
+                    if networkManager.isOnline {
+                        NavigationLink(destination: AddEmailView()) {
+                            Text("Create Account")
+                        }
+                    } else {
+                        Button("Create Account") {
+                            showNoInternetBanner = true
+                            hideBannerAfterDelay(3)
+                        }
                     }
                 }
                 .padding()
+                if showNoInternetBanner {
+                    BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
+                }
+
             }
             .ignoresSafeArea(.keyboard)
         }
         .navigationBarHidden(true)
+        
+    }
+    
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            showNoInternetBanner = false
+        }
     }
 }
 

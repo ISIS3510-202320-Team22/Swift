@@ -96,7 +96,7 @@ struct FeedView: View {
                     // This is the action to refresh the data
                     if networkManager.isOnline {
                         textWhenEmpty = Text("There is nothing in this category for now")
-                        try await viewModel.fetchPosts(category: viewModel.categoryString)
+                        try await viewModel.fetchPostsFromWeb(category: viewModel.categoryString)
                     } else {
                         textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
                     }
@@ -111,8 +111,9 @@ struct FeedView: View {
                 do {
                     if networkManager.isOnline {
                         textWhenEmpty = Text("There is nothing in this category for now")
-                        try await viewModel.fetchPosts(category: viewModel.categoryString)
+                        try await viewModel.fetchPostsFromWeb(category: viewModel.categoryString)
                     } else {
+                        try await viewModel.fetchPosts(category: viewModel.categoryString)
                         textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
                     }
                     

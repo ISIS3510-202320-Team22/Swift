@@ -14,9 +14,7 @@ struct LoginView: View {
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var showNoConnectionAlert = false
     @State private var showNoInternetBanner = false
-
-
-
+    @State private var showErrorAlert = false
     
     var body: some View {
         NavigationView{
@@ -131,6 +129,15 @@ struct LoginView: View {
             .ignoresSafeArea(.keyboard)
         }
         .navigationBarHidden(true)
+
+        .alert(isPresented: $showErrorAlert) {
+            Alert(
+                title: Text("Login Failed"),
+                message: Text("Incorrect email or password. Please try again."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+
         
     }
     

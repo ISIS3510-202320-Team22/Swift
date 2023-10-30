@@ -41,7 +41,7 @@ class AuthService {
     func createUser(email: String, password: String, userName: String) async throws {
         print("Email is \(email)")
         print("Password is \(password)")
-        print("Username is \(username)")
+        print("Username is \(userName)")
         
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -97,5 +97,22 @@ class AuthService {
             throw error
         }
     }
+    
+    func isEmailAlreadyRegistered(email: String, completion: @escaping (Bool, Error?) -> Void) {
+            Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
+                if let error = error {
+                    // Hubo un error al verificar el correo electrónico
+                    completion(false, error)
+                } else if let signInMethods = signInMethods {
+                    // Si signInMethods contiene métodos de inicio de sesión, el correo electrónico ya está registrado
+                    let isEmailRegistered = !signInMethods.isEmpty
+                    completion(isEmailRegistered, nil)
+                } else {
+                    // No se pudo determinar si el correo electrónico está registrado o no
+                    completion(false, nil)
+                }
+            }
+        }
+
 
 }

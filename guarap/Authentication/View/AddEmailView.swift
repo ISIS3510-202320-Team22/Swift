@@ -59,7 +59,21 @@ struct AddEmailView: View {
                 } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
                     isShowingAlert = true
                 } else {
-                    viewModel.isNextButtonTapped = true // Activate the NavigationLink
+                    // Llama a la función para verificar si el correo electrónico ya está registrado
+                    AuthService.shared.isEmailAlreadyRegistered(email: viewModel.email) { isRegistered, error in
+                        if let error = error {
+                            print("Error al verificar el correo electrónico: \(error.localizedDescription)")
+                            // Tratar el error, por ejemplo, mostrando una alerta al usuario
+                        } else {
+                            if isRegistered {
+                                // El correo electrónico ya está registrado, muestra una alerta al usuario
+                                isShowingAlert = true
+                            } else {
+                                // El correo electrónico no está registrado, puedes activar el NavigationLink
+                                viewModel.isNextButtonTapped = true
+                            }
+                        }
+                    }
                 }
             }) {
                 Text("Next")

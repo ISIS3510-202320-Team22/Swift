@@ -13,5 +13,5 @@ protocol UserDAO {
     
     static var shared: UserDAO { get }
     
-    func storeUsernameFromUserId(userId: String)
+    func storeUsernameFromUserId(userId: String, completion: @escaping (String) -> Void)
 }

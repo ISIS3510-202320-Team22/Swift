@@ -28,8 +28,13 @@ class AuthService {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             userUID = self.userSession!.uid
+
+            GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID) { name in
+                UserDefaults.standard.set(name, forKey: "username")
+            }
             
-            GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID)
+            print(username)
+
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
             throw error
@@ -45,7 +50,7 @@ class AuthService {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            await self.uploadUserData(uid: result.user.uid, username: username, email: email)
+            await self.uploadUserData(uid: result.user.uid, username: userName, email: email)
             username = userName
             print(username)
             print("DEBUG: Did upload user data...")
@@ -61,7 +66,7 @@ class AuthService {
         guard let currentUid = self.userSession?.uid else { return }
         let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
         
-        print("DEBUG: Snapshot data is \(snapshot.data())")
+        //print("DEBUG: Snapshot data is \(snapshot.data())")
     }
     
     func signOut (){

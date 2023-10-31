@@ -14,10 +14,10 @@ class UserDAOFirebase: UserDAO {
     @AppStorage("username") var username = ""
     
     private init(){}
-    
+
     static var shared: UserDAO = UserDAOFirebase()
     
-    func storeUsernameFromUserId(userId: String) {
+    func storeUsernameFromUserId(userId: String, completion: @escaping (String) -> Void) {
         
         let firestore = Firestore.firestore()
         let user = firestore.collection("users").document(userId)
@@ -27,7 +27,8 @@ class UserDAOFirebase: UserDAO {
                 let userDict = document.data()!
                 
                 if let name = userDict["username"] as? String {
-                    self.username = name
+                    UserDefaults.standard.set(name, forKey: "username")
+                    completion(name)
                 }
                 
             } else {

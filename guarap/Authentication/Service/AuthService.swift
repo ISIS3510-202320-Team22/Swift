@@ -29,7 +29,9 @@ class AuthService {
             self.userSession = result.user
             userUID = self.userSession!.uid
             
-            GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID)
+            GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID) { name in
+                UserDefaults.standard.set(name, forKey: "username")
+            }
             
             print(username)
         } catch {
@@ -41,12 +43,12 @@ class AuthService {
     func createUser(email: String, password: String, userName: String) async throws {
         print("Email is \(email)")
         print("Password is \(password)")
-        print("Username is \(username)")
+        print("Username is \(userName)")
         
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            await self.uploadUserData(uid: result.user.uid, username: username, email: email)
+            await self.uploadUserData(uid: result.user.uid, username: userName, email: email)
             username = userName
             print(username)
             print("DEBUG: Did upload user data...")

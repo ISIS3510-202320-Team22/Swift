@@ -22,4 +22,14 @@ class RegistrationViewModel: ObservableObject {
         email = ""
         password = ""
     }
+
+    func emailExists(email: String) async -> Bool {
+        return await AuthService.shared.emailExists(email: email)
+    }
+
+    func usernameExists(username: String) async -> Bool {
+        return await AuthService.shared.usernameExists(username: username)
+    }
+
+
 }

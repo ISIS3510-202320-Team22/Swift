@@ -14,14 +14,11 @@ struct LoginView: View {
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var showNoConnectionAlert = false
     @State private var showNoInternetBanner = false
-
-
-
+    @State private var showErrorAlert = false
     
     var body: some View {
         NavigationView{
             ZStack{
-                
                 VStack{
                     if networkManager.isConnectionBad {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -64,15 +61,19 @@ struct LoginView: View {
                         Task {
                             do {
                                 if networkManager.isOnline {
-                                    try await viewModel.signIn()
+                                    await viewModel.signIn() // Este ya maneja errores internamente.
+                                    if viewModel.didFailSignIn {
+                                        print("LOGIN INCORRECTO")
+                                        showErrorAlert = true
+                                        hideBannerAfterDelay(2)
+                                        viewModel.didFailSignIn = false // Resetearlo para futuros intentos.
+                                    }
                                 } else {
                                     showNoInternetBanner = true
-                                    hideBannerAfterDelay(3)
+                                    hideBannerAfterDelay(2)
                                 }
-                            
-                                
                             } catch {
-                                print(1)
+                                print("Unexpected error.")
                             }
                             isLoggingIn = false // Oculta la pantalla de carga después de la autenticación
                         }
@@ -97,7 +98,6 @@ struct LoginView: View {
                     }
 
                     Spacer()
-                    
                 }
                 .disabled(isLoggingIn) // Deshabilita la vista mientras se está autenticando
                 
@@ -126,6 +126,10 @@ struct LoginView: View {
                 if showNoInternetBanner {
                     BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
                 }
+                
+                if showErrorAlert {
+                    BannerView(text: "Incorrect email or password. Please try again.", color: .red)
+                }
 
             }
             .ignoresSafeArea(.keyboard)
@@ -137,6 +141,7 @@ struct LoginView: View {
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             showNoInternetBanner = false
+            showErrorAlert = false
         }
     }
 }

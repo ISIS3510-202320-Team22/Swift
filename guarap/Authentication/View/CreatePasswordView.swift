@@ -11,10 +11,25 @@ struct CreatePasswordView: View {
     @EnvironmentObject var viewModel: RegistrationViewModel
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isShowingAlert = false
+    @ObservedObject var networkManager = NetworkManager.shared
 
 
     var body: some View {
         VStack(spacing: 12) {
+            if networkManager.isConnectionBad {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.yellow)
+                        .padding(.leading)
+                Text("Slow connection")
+            }
+            
+            if !networkManager.isOnline {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.red)
+                    .padding(.leading)
+                Text("No connection")
+               
+            }
             Text ("Create a password")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight (.bold)
@@ -55,6 +70,8 @@ struct CreatePasswordView: View {
             Button(action: {
                 if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
                     isShowingAlert = true
+                    hideBannerAfterDelay(2)
+
                 } else {
                     viewModel.isNextButtonTapped2 = true // Activate the NavigationLink
                 }
@@ -68,13 +85,15 @@ struct CreatePasswordView: View {
                     .cornerRadius(8)
             }
             .padding(.vertical)
+            if isShowingAlert {
+                BannerView(text: "Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters.", color: .red)
+            }
         }
-        .alert(isPresented: $isShowingAlert) {
-            Alert(
-                title: Text("Invalid Password"),
-                message: Text("Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters."),
-                dismissButton: .default(Text("OK"))
-            )
+
+    }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            isShowingAlert = false
         }
     }
 }

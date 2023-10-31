@@ -10,8 +10,16 @@ import Foundation
 class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
+    @Published var didFailSignIn = false
     
-    func signIn() async throws {
-        try await AuthService.shared.login(withEmail: email, password: password)
+    func signIn() async {
+        do {
+            try await AuthService.shared.login(withEmail: email, password: password)
+           
+        } catch {
+            
+            didFailSignIn = true
+        }
     }
 }
+

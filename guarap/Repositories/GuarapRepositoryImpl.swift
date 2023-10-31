@@ -70,4 +70,22 @@ class GuarapRepositoryImpl: GuarapRepository {
     func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void) {
         GuarapRepositoryImpl.imageDao.getImageFromUrl(url: url, completion: completion)
     }
+    
+    func getPostsWithImages(posts: [Post], completion: @escaping ([PostWithImage]) -> Void) {
+        var postsWithImages = [PostWithImage]()
+        let dispatchGroup = DispatchGroup() // Create a dispatch group
+
+        for post in posts {
+            dispatchGroup.enter() // Enter the dispatch group
+            GuarapRepositoryImpl.shared.getImageFromUrl(url: post.image) { image in
+                postsWithImages.append(PostWithImage(id: post.id, user: post.user, description: post.description, upVotes: post.upVotes, downVotes: post.downVotes, reported: post.reported, image: post.image, address: post.address, dateTime: post.dateTime, uiimage: image))
+                dispatchGroup.leave() // Leave the dispatch group when the image is fetched
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            // All images have been fetched, call the completion handler
+            completion(postsWithImages)
+        }
+    }
 }

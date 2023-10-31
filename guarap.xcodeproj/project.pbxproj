@@ -44,6 +44,7 @@
 		CD49C8402AE4A17B00C394E8 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */; };
 		CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5012412AEDB3B300D7194A /* UserDAO.swift */; };
 		CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */; };
+		CD59622D2AF002E400DE7085 /* PostWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD59622C2AF002E400DE7085 /* PostWithImage.swift */; };
 		CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E462ACC858400D493B5 /* FeedCell.swift */; };
 		CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E482ACCA1EA00D493B5 /* MainTabView.swift */; };
 		CD597E4C2ACCB15800D493B5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD597E4B2ACCB15800D493B5 /* Post.swift */; };
@@ -114,6 +115,7 @@
 		CD49C83F2AE4A17B00C394E8 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		CD5012412AEDB3B300D7194A /* UserDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDAOFirebase.swift; sourceTree = "<group>"; };
+		CD59622C2AF002E400DE7085 /* PostWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWithImage.swift; sourceTree = "<group>"; };
 		CD597E462ACC858400D493B5 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		CD597E482ACCA1EA00D493B5 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		CD597E4B2ACCB15800D493B5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 			children = (
 				CD597E4B2ACCB15800D493B5 /* Post.swift */,
 				B52629672AD880FE00E0F4F0 /* User.swift */,
+				CD59622C2AF002E400DE7085 /* PostWithImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				CD49C8402AE4A17B00C394E8 /* GlobalVariables.swift in Sources */,
 				CD61E8F12AC490D900CEAD52 /* CameraService.swift in Sources */,
 				CD0F41582ABD0AF60016177A /* PublishView.swift in Sources */,
+				CD59622D2AF002E400DE7085 /* PostWithImage.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,

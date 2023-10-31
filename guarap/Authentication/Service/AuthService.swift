@@ -30,10 +30,9 @@ class AuthService {
             userUID = self.userSession!.uid
             
             GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID)
-            
-            print(username)
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
+            throw error
         }
         
     }

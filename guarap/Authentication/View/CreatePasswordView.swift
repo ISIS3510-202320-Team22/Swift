@@ -70,6 +70,8 @@ struct CreatePasswordView: View {
             Button(action: {
                 if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
                     isShowingAlert = true
+                    hideBannerAfterDelay(2)
+
                 } else {
                     viewModel.isNextButtonTapped2 = true // Activate the NavigationLink
                 }
@@ -83,13 +85,15 @@ struct CreatePasswordView: View {
                     .cornerRadius(8)
             }
             .padding(.vertical)
+            if isShowingAlert {
+                BannerView(text: "Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters.", color: .red)
+            }
         }
-        .alert(isPresented: $isShowingAlert) {
-            Alert(
-                title: Text("Invalid Password"),
-                message: Text("Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters."),
-                dismissButton: .default(Text("OK"))
-            )
+
+    }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            isShowingAlert = false
         }
     }
 }

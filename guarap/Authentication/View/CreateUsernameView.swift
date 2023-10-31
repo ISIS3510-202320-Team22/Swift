@@ -73,9 +73,10 @@ struct CreateUsernameView: View {
                 Task {
                     if await viewModel.usernameExists(username: viewModel.username) {
                         showAlertRepeat = true
-                        hideBannerAfterDelay(3)
+                        hideBannerAfterDelay(2)
                     } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
                         isShowingAlert = true
+                        hideBannerAfterDelay(2)
                     } else {
                         viewModel.isNextButtonTapped1 = true // Activate the NavigationLink
                     }
@@ -93,20 +94,18 @@ struct CreateUsernameView: View {
             if showAlertRepeat {
                 BannerView(text: "The username you entered is already associated with an account.", color: .yellow)
             }
+            
+            if isShowingAlert {
+                BannerView(text: "User must have at least \(MIN_USER_CHAR_LIMIT) characters.", color: .red)
+            }
+            
         }
-        .alert(isPresented: $isShowingAlert) {
-            Alert(
-                title: Text("Invalid User"),
-                message: Text("User must have at least \(MIN_USER_CHAR_LIMIT) characters."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
-      
 
     }
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             showAlertRepeat = false
+            isShowingAlert = false
         }
     }
 }

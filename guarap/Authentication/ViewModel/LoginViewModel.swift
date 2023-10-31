@@ -15,7 +15,9 @@ class LoginViewModel: ObservableObject {
     func signIn() async {
         do {
             try await AuthService.shared.login(withEmail: email, password: password)
+           
         } catch {
+            
             didFailSignIn = true
         }
     }

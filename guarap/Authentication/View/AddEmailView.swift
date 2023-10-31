@@ -75,13 +75,16 @@ struct AddEmailView: View {
                     if await viewModel.emailExists(email: viewModel.email) {
                        
                         showAlertRepeat = true
-                        hideBannerAfterDelay(3)
+                        hideBannerAfterDelay(2)
                         
                         
                     } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
                         isShowingAlert = true
+                        hideBannerAfterDelay(2)
+                        
                     } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
                         isShowingAlert = true
+                        hideBannerAfterDelay(2)
                     } else {
                         viewModel.isNextButtonTapped = true // Activate the NavigationLink
                     }
@@ -99,14 +102,10 @@ struct AddEmailView: View {
             if showAlertRepeat {
                 BannerView(text: "The email address you entered is already associated with an account.", color: .yellow)
             }
+            if isShowingAlert {
+                BannerView(text: "Email is not correct and must end with '@uniandes.edu.co'.", color: .red)
+            }
             
-        }
-        .alert(isPresented: $isShowingAlert) {
-            Alert(
-                title: Text("Invalid Email"),
-                message: Text("Email is not correct and must end with '@uniandes.edu.co'."),
-                dismissButton: .default(Text("OK"))
-            )
         }
         
 
@@ -114,6 +113,7 @@ struct AddEmailView: View {
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             showAlertRepeat = false
+            isShowingAlert = false
         }
     }
 }

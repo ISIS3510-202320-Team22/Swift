@@ -92,7 +92,6 @@ struct CompleteSignUpView: View {
                 
             }
         }
-        .navigationBarBackButtonHidden(true)
     }
 
     func hideBannerAfterDelay(_ seconds: Double) {

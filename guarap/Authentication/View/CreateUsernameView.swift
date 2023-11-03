@@ -14,7 +14,8 @@ struct CreateUsernameView: View {
     @State private var usernameExistsError = false
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
-    
+    @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
+
     @Binding var showing: Bool
     @State var showNext = false
     
@@ -71,6 +72,8 @@ struct CreateUsernameView: View {
                 
                 NavigationLink(destination: CreatePasswordView(showing: $showNext), isActive: $showNext) {
                     Button(action: {
+                        isCompletingAction = true // Mostrar la pantalla de carga
+
                         Task {
                             if await viewModel.usernameExists(username: viewModel.username) {
                                 showAlertRepeat = true
@@ -81,6 +84,8 @@ struct CreateUsernameView: View {
                             } else {
                                 showNext = true // Activate the NavigationLink
                             }
+                            isCompletingAction = false
+
                         }
                     }) {
                         Text("Next")
@@ -94,7 +99,14 @@ struct CreateUsernameView: View {
                     .padding(.vertical)
                 }
                 //.opacity(0) // Hide the navigation link
-                
+                .disabled(isCompletingAction)
+
+                if isCompletingAction {
+                    Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.5)
+                }
                 
                 
                 if showAlertRepeat {

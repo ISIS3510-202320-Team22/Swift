@@ -21,6 +21,7 @@
 		B526297F2AD8886600E0F4F0 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = B526297E2AD8886600E0F4F0 /* FirebasePerformance */; };
 		B52629812AD8886600E0F4F0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B52629802AD8886600E0F4F0 /* FirebaseStorage */; };
 		B55417322AEABD0800C89638 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55417312AEABD0800C89638 /* RecoveryView.swift */; };
+		B5C0B9772AF1BAC500A1ED97 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */; };
 		B5F32CF22AD7441A002A2D3B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */; };
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB782ACD383600ED324C /* ImageDAO.swift */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		B52629672AD880FE00E0F4F0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B55417312AEABD0800C89638 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0CCB782ACD383600ED324C /* ImageDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAO.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				CD0F41572ABD0AF60016177A /* PublishView.swift */,
 				CD6DB4192AEA34A50047E1FC /* BannerView.swift */,
+				B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */,
 			);
 			path = PublishView;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */,
 				CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */,
 				CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */,
+				B5C0B9772AF1BAC500A1ED97 /* LocationManager.swift in Sources */,
 				CD597E692ACCB9F900D493B5 /* GuarapRepository.swift in Sources */,
 				CD6DB41A2AEA34A50047E1FC /* BannerView.swift in Sources */,
 				CD597E682ACCB9F900D493B5 /* GuarapRepositoryImpl.swift in Sources */,
@@ -784,7 +788,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = F7NRPQ92RT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;

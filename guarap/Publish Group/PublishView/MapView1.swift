@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
-import CoreLocation 
+import CoreLocation
 import MapKit
+import CoreLocation
 
-struct ContentView: View {
+import SwiftUI
+import CoreLocation
+
+struct MapView1: View {
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 4.6097, longitude: -74.0817),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -69,8 +73,8 @@ struct ContentView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
+struct MapView1_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MapView1()
     }
 }

@@ -12,6 +12,7 @@ struct CreatePasswordView: View {
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     @State private var isShowingAlert = false
     @ObservedObject var networkManager = NetworkManager.shared
+    @State private var isCompletingAction = false // Estado para la pantalla de carga
 
     @Binding var showing: Bool
     @State var showNext = false
@@ -69,6 +70,8 @@ struct CreatePasswordView: View {
                 
                 NavigationLink(destination: CompleteSignUpView(showing: $showNext), isActive: $showNext) {
                     Button(action: {
+                        isCompletingAction = true // Mostrar la pantalla de carga
+
                         if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
                             isShowingAlert = true
                             hideBannerAfterDelay(2)
@@ -76,6 +79,8 @@ struct CreatePasswordView: View {
                         } else {
                             showNext = true // Activate the NavigationLink
                         }
+                        isCompletingAction = false // Ocultar la pantalla de carga
+
                     }) {
                         Text("Next")
                             .font(.subheadline)
@@ -88,8 +93,14 @@ struct CreatePasswordView: View {
                     .padding(.vertical)
                 }
                 //.opacity(0) // Hide the navigation link
-                
-                
+                .disabled(isCompletingAction)
+
+                if isCompletingAction {
+                    Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.5)
+                }
                 if isShowingAlert {
                     BannerView(text: "Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters.", color: .red)
                 }

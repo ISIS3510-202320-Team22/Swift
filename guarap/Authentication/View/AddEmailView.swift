@@ -14,7 +14,8 @@ struct AddEmailView: View {
     @State private var isShowingAlert = false
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
-    
+    @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
+
     @Binding var showing: Bool
     @State var showNext = false
     
@@ -73,6 +74,7 @@ struct AddEmailView: View {
                 
                 NavigationLink(destination: CreateUsernameView(showing: $showNext), isActive: $showNext) {
                     Button(action: {
+                        isCompletingAction = true
                         Task {
                             if await viewModel.emailExists(email: viewModel.email) {
                                 
@@ -90,6 +92,7 @@ struct AddEmailView: View {
                             } else {
                                 showNext = true // Activate the NavigationLink
                             }
+                            isCompletingAction = false
                         }
                     }) {
                         Text("Next")
@@ -102,7 +105,14 @@ struct AddEmailView: View {
                     }
                     .padding(.vertical)
                 }
-                //.opacity(0) // Hide the navigation link
+                .disabled(isCompletingAction)
+                
+                if isCompletingAction {
+                    Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.5)
+                }
                 
                 
                 
@@ -129,11 +139,9 @@ struct AddEmailView: View {
     }
 }
 
+struct AddEmailView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddEmailView(showing: .constant(true))
+    }
+}
 
-
-//struct AddEmailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddEmailView(showing: .constant(true))
-//    }
-//}
-//

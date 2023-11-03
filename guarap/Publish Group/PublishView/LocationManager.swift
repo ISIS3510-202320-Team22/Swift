@@ -16,11 +16,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var lastKnownLocation: CLLocation?
     
     override init() {
+        print("INIT DE PERMISO")
         super.init()
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
+    
+    
     
     func requestLocation() {
         locationManager.requestLocation()

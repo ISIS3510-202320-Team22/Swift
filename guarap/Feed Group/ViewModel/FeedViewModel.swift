@@ -81,4 +81,24 @@ class FeedViewModel: ObservableObject {
             print("Error getting directly from web")
         }
     }
+    
+    func updateLikes(for post: PostWithImage) {
+        print("Trying to find post with id: \(post.id)")
+            if let postIndex = posts.firstIndex(where: { $0.id == post.id }) {
+                // Check if the post is in the current list of posts
+                posts[postIndex].upVotes += 1
+                // Perform any other necessary actions (e.g., update in Firestore)
+                print("Updating likes of post with id: \(post.id)")
+            }
+        }
+
+        func updateDislikes(for post: PostWithImage) {
+            print("Trying to find post with id: \(post.id)")
+            if let postIndex = posts.firstIndex(where: { $0.id == post.id }) {
+                // Check if the post is in the current list of posts
+                posts[postIndex].downVotes += 1
+                // Perform any other necessary actions (e.g., update in Firestore)
+                print("Updating dislikes of post with id: \(post.id)")
+            }
+        }
 }

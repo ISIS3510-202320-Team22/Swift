@@ -19,16 +19,12 @@ struct FeedCell: View {
     
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
+    @StateObject var viewModel = FeedViewModel()
     var guarapRepo = GuarapRepositoryImpl.shared
+    
+    // Properties passed by FeedView
     let post : PostWithImage
     let category: String
-    
-    func updateVotes(toVote: Post, like: String, more: Int){
-        print("Trying to update votes on post id: \(toVote.id), regarding \(like)")
-        firestore.collection("categories").document(category).collection("posts").document(toVote.id.uuidString).updateData([
-            like: FieldValue.increment(Int64(more))
-        ])
-    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -75,29 +71,20 @@ struct FeedCell: View {
                 // Comments
                 
                 Spacer()
-
+                
+                //
+                // LIKING BUTTON
+                //
+                
                 Button(action: {
                     print("You are currently on category: \(category)")
+                    // UNLIKING
                     if isLiked {
-                            print("Unliking post")
-                            postRef.updateData([
-                                "upVotes": FieldValue.increment(Int64(-1))
-                            ]) { error in
-                                if let error = error {
-                                    print("Error unliking post: \(error)")
-                                }
-                            }
-                        
-                        } else {
-                            print("Liking post")
-                            postRef.updateData([
-                                "upVotes": FieldValue.increment(Int64(1))
-                            ]) { error in
-                                if let error = error {
-                                    print("Error liking post: \(error)")
-                                }
-                            }
-                        }
+                        viewModel.updateLikes(for: post)
+                    // LIKING
+                    } else {
+                        viewModel.updateLikes(for: post)
+                    }
                     isLiked.toggle()
                     
                     // Also, reset isDisliked when liking a post
@@ -109,11 +96,11 @@ struct FeedCell: View {
                         .frame(width: 35, height: 35)
                         .foregroundColor(isLiked ? guarapColor: .gray)
                 }
-
+                
                 Text(String(post.upVotes))
                     .font(.system(size: 10))
                     .padding(.bottom)
-
+                
                 Button(action: {
                     if isDisliked {
                         print("Un-disliking post")
@@ -134,7 +121,7 @@ struct FeedCell: View {
                             }
                         }
                     }
-
+                    
                     isDisliked.toggle()
                     
                     // Also, reset isLiked when disliking a post
@@ -146,7 +133,7 @@ struct FeedCell: View {
                         .frame(width: 35, height: 35)
                         .foregroundColor(isDisliked ? guarapColor: .gray)
                 }
-
+                
                 Text(String(post.downVotes))
                     .font(.system(size: 10))
                     .padding(.bottom)

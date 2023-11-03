@@ -15,9 +15,13 @@ struct CompleteSignUpView: View {
     @State private var showNoConnectionAlert = false
     @State private var showNoInternetBanner = false
     @State private var showErrorAlert = false
-
+    
+    @Binding var showing: Bool
+    
+    @AppStorage("creatingProfile") var creatingProfile = true
+    
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 VStack(spacing: 12) {
                     if networkManager.isConnectionBad {
@@ -47,11 +51,14 @@ struct CompleteSignUpView: View {
                     
                     Button("Complete Sign Up") {
                         isCompletingSignUp = true // Mostrar la pantalla de carga
+
                         Task {
                             do {
                                 if networkManager.isOnline {
                                     try await viewModel.createUser() // Este ya maneja errores internamente.
                                     // Lógica para manejar errores o mostrar alertas si es necesario
+                                    showing = false
+                                    creatingProfile = false
                                 } else {
                                     showNoInternetBanner = true
                                     hideBannerAfterDelay(2)
@@ -68,7 +75,6 @@ struct CompleteSignUpView: View {
                     .frame(width: 360, height: 44)
                     .background(guarapColor)
                     .cornerRadius(8)
-                    
                     .padding(.vertical)
                 }
                 
@@ -92,7 +98,6 @@ struct CompleteSignUpView: View {
                 
             }
         }
-        .navigationBarBackButtonHidden(true)
     }
 
     func hideBannerAfterDelay(_ seconds: Double) {
@@ -105,8 +110,8 @@ struct CompleteSignUpView: View {
 }
 
 
-struct CompleteSignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompleteSignUpView()
-    }
-}
+//struct CompleteSignUpView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CompleteSignUpView(showing: .constant(true))
+//    }
+//}

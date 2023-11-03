@@ -16,8 +16,12 @@ struct LoginView: View {
     @State private var showNoInternetBanner = false
     @State private var showErrorAlert = false
     
+    @State var showNext = false
+    
+    @AppStorage("creatingProfile") var creatingProfile = true
+    
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 VStack{
                     if networkManager.isConnectionBad {
@@ -72,8 +76,6 @@ struct LoginView: View {
                                     showNoInternetBanner = true
                                     hideBannerAfterDelay(2)
                                 }
-                            } catch {
-                                print("Unexpected error.")
                             }
                             isLoggingIn = false // Oculta la pantalla de carga después de la autenticación
                         }
@@ -112,8 +114,12 @@ struct LoginView: View {
                     Text("Don't have an account?")
                     
                     if networkManager.isOnline {
-                        NavigationLink(destination: AddEmailView()) {
-                            Text("Create Account")
+                        NavigationLink(destination: AddEmailView(showing: $showNext), isActive: $showNext) {
+                            Button(action: {
+                                showNext = true
+                            }) {
+                                Text("Create Account")
+                            }
                         }
                     } else {
                         Button("Create Account") {
@@ -123,6 +129,7 @@ struct LoginView: View {
                     }
                 }
                 .padding()
+                
                 if showNoInternetBanner {
                     BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
                 }
@@ -130,11 +137,18 @@ struct LoginView: View {
                 if showErrorAlert {
                     BannerView(text: "Incorrect email or password. Please try again.", color: .red)
                 }
-
             }
             .ignoresSafeArea(.keyboard)
         }
         .navigationBarHidden(true)
+        .onChange(of: showNext) { result in
+            if !creatingProfile {
+                creatingProfile = true
+            }
+        }
+        .onAppear() {
+            showNext = false
+        }
         
     }
     
@@ -148,8 +162,8 @@ struct LoginView: View {
 
 
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}

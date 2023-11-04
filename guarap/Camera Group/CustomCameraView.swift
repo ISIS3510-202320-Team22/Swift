@@ -12,6 +12,7 @@ struct CustomCameraView: View {
     let cameraService = CameraService()
     @Binding var capturedImage: UIImage?
     @Environment(\.presentationMode) private var presentationMode
+    @State private var isFrontCamera = false
     
     var body: some View {
         ZStack {
@@ -41,8 +42,23 @@ struct CustomCameraView: View {
                         .foregroundColor(.white)
                     }
                     .padding()
-                                }
+                }
                 Spacer()
+                HStack {
+                    Button(action: {
+                                // Toggle between front and rear camera
+                                isFrontCamera.toggle()
+                                cameraService.switchCameraPosition(isFrontCamera)
+                            }) {
+                                Image(systemName: "arrow.triangle.2.circlepath")
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(.black)
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.bottom)
+                }
                 Button(action: {
                     cameraService.capturePhoto()
                 }, label: {

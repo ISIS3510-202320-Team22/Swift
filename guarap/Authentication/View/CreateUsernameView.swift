@@ -15,7 +15,7 @@ struct CreateUsernameView: View {
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
-
+    
     @Binding var showing: Bool
     @State var showNext = false
     
@@ -23,84 +23,86 @@ struct CreateUsernameView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                if networkManager.isConnectionBad {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
-                        .padding(.leading)
-                    Text("Slow connection")
-                }
-                
-                if !networkManager.isOnline {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.red)
-                        .padding(.leading)
-                    Text("No connection")
+            ZStack {
+                VStack(spacing: 12) {
+                    if networkManager.isConnectionBad {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                            .padding(.leading)
+                        Text("Slow connection")
+                    }
                     
-                }
-                Text ("Create username")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .fontWeight (.bold)
-                    .padding (.top)
-                Text("You'll use this username to sign in to your account")
-                    .font (.footnote)
-                    .foregroundColor (.gray)
-                    .multilineTextAlignment (.center)
-                    .padding (.horizontal, 24)
-                TextField("Username", text: $viewModel.username)
-                    .autocapitalization(.none)
-                    .font (.subheadline)
-                    .padding (12)
-                    .background (Color(.systemGray6))
-                    .cornerRadius (10)
-                    .padding (.horizontal, 24)
-                    .padding (.top)
-                    .onChange(of: viewModel.username) { newValue in
+                    if !networkManager.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .padding(.leading)
+                        Text("No connection")
                         
-                        let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
-                        
-                        viewModel.username = newValue.filter { !$0.isWhitespace }
-                        
-                        viewModel.username = String(viewModel.username.unicodeScalars.filter {
-                            CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
-                        })
-                        
-                        if newValue.count > MAX_USER_CHAR_LIMIT {
-                            viewModel.username = String(newValue.prefix(MAX_USER_CHAR_LIMIT))
-                        }
                     }
-                
-                NavigationLink(destination: CreatePasswordView(showing: $showNext), isActive: $showNext) {
-                    Button(action: {
-                        isCompletingAction = true // Mostrar la pantalla de carga
-
-                        Task {
-                            if await viewModel.usernameExists(username: viewModel.username) {
-                                showAlertRepeat = true
-                                hideBannerAfterDelay(2)
-                            } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
-                                isShowingAlert = true
-                                hideBannerAfterDelay(2)
-                            } else {
-                                showNext = true // Activate the NavigationLink
+                    Text ("Create username")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .fontWeight (.bold)
+                        .padding (.top)
+                    Text("You'll use this username to sign in to your account")
+                        .font (.footnote)
+                        .foregroundColor (.gray)
+                        .multilineTextAlignment (.center)
+                        .padding (.horizontal, 24)
+                    TextField("Username", text: $viewModel.username)
+                        .autocapitalization(.none)
+                        .font (.subheadline)
+                        .padding (12)
+                        .background (Color(.systemGray6))
+                        .cornerRadius (10)
+                        .padding (.horizontal, 24)
+                        .padding (.top)
+                        .onChange(of: viewModel.username) { newValue in
+                            
+                            let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                            
+                            viewModel.username = newValue.filter { !$0.isWhitespace }
+                            
+                            viewModel.username = String(viewModel.username.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                            
+                            if newValue.count > MAX_USER_CHAR_LIMIT {
+                                viewModel.username = String(newValue.prefix(MAX_USER_CHAR_LIMIT))
                             }
-                            isCompletingAction = false
-
                         }
-                    }) {
-                        Text("Next")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 360, height: 44)
-                            .background(guarapColor)
-                            .cornerRadius(8)
+                    
+                    NavigationLink(destination: CreatePasswordView(showing: $showNext), isActive: $showNext) {
+                        Button(action: {
+                            isCompletingAction = true // Mostrar la pantalla de carga
+                            
+                            Task {
+                                if await viewModel.usernameExists(username: viewModel.username) {
+                                    showAlertRepeat = true
+                                    hideBannerAfterDelay(2)
+                                } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
+                                    isShowingAlert = true
+                                    hideBannerAfterDelay(2)
+                                } else {
+                                    showNext = true // Activate the NavigationLink
+                                }
+                                isCompletingAction = false
+                                
+                            }
+                        }) {
+                            Text("Next")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 360, height: 44)
+                                .background(guarapColor)
+                                .cornerRadius(8)
+                        }
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    //.opacity(0) // Hide the navigation link
+                    .disabled(isCompletingAction)
                 }
-                //.opacity(0) // Hide the navigation link
-                .disabled(isCompletingAction)
-
+                
                 if isCompletingAction {
                     Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
                     ProgressView()

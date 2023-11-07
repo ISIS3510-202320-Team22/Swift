@@ -15,97 +15,99 @@ struct AddEmailView: View {
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
-
+    
     @Binding var showing: Bool
     @State var showNext = false
     
     @AppStorage("creatingProfile") var creatingProfile = true
-
-
+    
+    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                if networkManager.isConnectionBad {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
-                        .padding(.leading)
-                    Text("Slow connection")
-                }
-                
-                if !networkManager.isOnline {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.red)
-                        .padding(.leading)
-                    Text("No connection")
+            ZStack {
+                VStack(spacing: 12) {
+                    if networkManager.isConnectionBad {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                            .padding(.leading)
+                        Text("Slow connection")
+                    }
                     
-                }
-                Text("Add your email")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                Text("You'll use this email to sign in to your account")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
-                TextField("Email", text: $viewModel.email)
-                    .autocapitalization(.none)
-                    .font(.subheadline)
-                    .padding(12)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 24)
-                    .padding(.top)
-                    .onChange(of: viewModel.email) { newValue in
+                    if !networkManager.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .padding(.leading)
+                        Text("No connection")
                         
-                        let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
-                        
-                        viewModel.email = newValue.filter { !$0.isWhitespace }
-                        
-                        viewModel.email = String(viewModel.email.unicodeScalars.filter {
-                            CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
-                        })
-                        
-                        
-                        if newValue.count > MAX_EMAIL_CHAR_LIMIT {
-                            viewModel.email = String(newValue.prefix(MAX_EMAIL_CHAR_LIMIT))
-                        }
                     }
-                
-                NavigationLink(destination: CreateUsernameView(showing: $showNext), isActive: $showNext) {
-                    Button(action: {
-                        isCompletingAction = true
-                        Task {
-                            if await viewModel.emailExists(email: viewModel.email) {
-                                
-                                showAlertRepeat = true
-                                hideBannerAfterDelay(2)
-                                
-                                
-                            } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
-                                isShowingAlert = true
-                                hideBannerAfterDelay(2)
-                                
-                            } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
-                                isShowingAlert = true
-                                hideBannerAfterDelay(2)
-                            } else {
-                                showNext = true // Activate the NavigationLink
+                    Text("Add your email")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.top)
+                    Text("You'll use this email to sign in to your account")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                    TextField("Email", text: $viewModel.email)
+                        .autocapitalization(.none)
+                        .font(.subheadline)
+                        .padding(12)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                        .padding(.horizontal, 24)
+                        .padding(.top)
+                        .onChange(of: viewModel.email) { newValue in
+                            
+                            let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                            
+                            viewModel.email = newValue.filter { !$0.isWhitespace }
+                            
+                            viewModel.email = String(viewModel.email.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                            
+                            
+                            if newValue.count > MAX_EMAIL_CHAR_LIMIT {
+                                viewModel.email = String(newValue.prefix(MAX_EMAIL_CHAR_LIMIT))
                             }
-                            isCompletingAction = false
                         }
-                    }) {
-                        Text("Next")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 360, height: 44)
-                            .background(guarapColor)
-                            .cornerRadius(8)
+                    
+                    NavigationLink(destination: CreateUsernameView(showing: $showNext), isActive: $showNext) {
+                        Button(action: {
+                            isCompletingAction = true
+                            Task {
+                                if await viewModel.emailExists(email: viewModel.email) {
+                                    
+                                    showAlertRepeat = true
+                                    hideBannerAfterDelay(2)
+                                    
+                                    
+                                } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
+                                    isShowingAlert = true
+                                    hideBannerAfterDelay(2)
+                                    
+                                } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
+                                    isShowingAlert = true
+                                    hideBannerAfterDelay(2)
+                                } else {
+                                    showNext = true // Activate the NavigationLink
+                                }
+                                isCompletingAction = false
+                            }
+                        }) {
+                            Text("Next")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 360, height: 44)
+                                .background(guarapColor)
+                                .cornerRadius(8)
+                        }
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    .disabled(isCompletingAction)
                 }
-                .disabled(isCompletingAction)
                 
                 if isCompletingAction {
                     Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
@@ -113,6 +115,7 @@ struct AddEmailView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(1.5)
                 }
+                
                 
                 
                 
@@ -139,9 +142,9 @@ struct AddEmailView: View {
     }
 }
 
-struct AddEmailView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddEmailView(showing: .constant(true))
-    }
-}
+//struct AddEmailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddEmailView(showing: .constant(true))
+//    }
+//}
 

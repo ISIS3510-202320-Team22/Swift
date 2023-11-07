@@ -77,13 +77,12 @@ struct FeedCell: View {
                 //
                 
                 Button(action: {
-                    print("You are currently on category: \(category)")
                     // UNLIKING
                     if isLiked {
-                        viewModel.updateLikes(for: post)
+                        viewModel.updateLikes(for: post, num:-1, cat:category)
                     // LIKING
                     } else {
-                        viewModel.updateLikes(for: post)
+                        viewModel.updateLikes(for: post, num:1, cat:category)
                     }
                     isLiked.toggle()
                     
@@ -101,25 +100,17 @@ struct FeedCell: View {
                     .font(.system(size: 10))
                     .padding(.bottom)
                 
+                //
+                // DISLIKING BUTTON
+                //
+                
+                
                 Button(action: {
+                    // UNDISLIKING
                     if isDisliked {
-                        print("Un-disliking post")
-                        postRef.updateData([
-                            "downVotes": FieldValue.increment(Int64(-1))
-                        ]) { error in
-                            if let error = error {
-                                print("Error un-disliking post: \(error)")
-                            }
-                        }
+                        viewModel.updateDislikes(for: post, num:-1, cat:category)
                     } else {
-                        print("Disliking post")
-                        postRef.updateData([
-                            "downVotes": FieldValue.increment(Int64(1))
-                        ]) { error in
-                            if let error = error {
-                                print("Error disliking post: \(error)")
-                            }
-                        }
+                        viewModel.updateDislikes(for: post, num:1, cat:category)
                     }
                     
                     isDisliked.toggle()

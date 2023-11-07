@@ -85,19 +85,20 @@ struct FeedView: View {
             }
             
             ScrollView {
-                if !viewModel.posts.isEmpty {
-                    LazyVStack(spacing: 30) {
-                        ForEach(viewModel.posts) { post in
-                            FeedCell(post: post, category: lastCategory)
+                            if !viewModel.posts.isEmpty {
+                                let sortedPosts = viewModel.posts.sorted(by: { $0.upVotes > $1.upVotes })
+
+                                LazyVStack(spacing: 30) {
+                                    ForEach(sortedPosts) { post in
+                                        FeedCell(post: post, category: lastCategory)
+                                    }
+                                }
+                            } else {
+                                Spacer()
+                                textWhenEmpty.padding()
+                                Spacer()
+                            }
                         }
-                    }
-                } else {
-                    Spacer()
-                    textWhenEmpty.padding()
-                    Spacer()
-                }
-                
-            }
             .refreshable {
                 do {
                     // This is the action to refresh the data

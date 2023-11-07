@@ -82,4 +82,59 @@ class FeedViewModel: ObservableObject {
             print("Error getting directly from web")
         }
     }
+    
+    func updateLikes(for post: PostWithImage, num: Int, cat: String) {
+        print(posts)
+        print("Trying to find post with id: \(post.id)")
+        
+        // Create a reference to the Firebase document
+        let categoryRef = Firestore.firestore().collection("categories").document(cat)
+        let postRef = categoryRef.collection("posts").document(post.id.uuidString)
+
+        if let postIndex = posts.firstIndex(where: { $0.id == post.id }) {
+            // Check if the post is in the current list of posts
+            posts[postIndex].upVotes += num // Update the local post data
+
+            // Perform the update in Firestore
+            postRef.updateData([
+                "upVotes": FieldValue.increment(Int64(num))
+            ]) { error in
+                if let error = error {
+                    print("Error updating upvotes in Firestore: \(error)")
+                } else {
+                    print("Successfully updated upvotes in Firestore")
+                }
+            }
+            
+            print("Updating likes of post with id: \(post.id)")
+        }
+    }
+
+
+    func updateDislikes(for post: PostWithImage, num: Int, cat: String) {
+        print("Trying to find post with id: \(post.id)")
+        
+        // Create a reference to the Firebase document
+        let categoryRef = Firestore.firestore().collection("categories").document(cat)
+        let postRef = categoryRef.collection("posts").document(post.id.uuidString)
+
+        if let postIndex = posts.firstIndex(where: { $0.id == post.id }) {
+            // Check if the post is in the current list of posts
+            posts[postIndex].downVotes += num // Update the local post data
+
+            // Perform the update in Firestore
+            postRef.updateData([
+                "downVotes": FieldValue.increment(Int64(num))
+            ]) { error in
+                if let error = error {
+                    print("Error updating downvotes in Firestore: \(error)")
+                } else {
+                    print("Successfully updated downvotes in Firestore")
+                }
+            }
+            
+            print("Updating dislikes of post with id: \(post.id)")
+        }
+    }
+
 }

@@ -21,79 +21,81 @@ struct CreatePasswordView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                if networkManager.isConnectionBad {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.yellow)
-                        .padding(.leading)
-                    Text("Slow connection")
-                }
-                
-                if !networkManager.isOnline {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.red)
-                        .padding(.leading)
-                    Text("No connection")
+            ZStack {
+                VStack(spacing: 12) {
+                    if networkManager.isConnectionBad {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.yellow)
+                            .padding(.leading)
+                        Text("Slow connection")
+                    }
                     
-                }
-                Text ("Create a password")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .fontWeight (.bold)
-                    .padding (.top)
-                Text("You'll use this password to sign in to your account. Your password should have at least 7 characters.")
-                    .font (.footnote)
-                    .foregroundColor (.gray)
-                    .multilineTextAlignment (.center)
-                    .padding (.horizontal, 24)
-                SecureField("Password", text: $viewModel.password)
-                    .autocapitalization(.none)
-                    .font (.subheadline)
-                    .padding (12)
-                    .background (Color(.systemGray6))
-                    .cornerRadius (10)
-                    .padding (.horizontal, 24)
-                    .padding (.top)
-                    .onChange(of: viewModel.password) { newValue in
+                    if !networkManager.isOnline {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .padding(.leading)
+                        Text("No connection")
                         
-                        let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
-                        
-                        viewModel.password = newValue.filter { !$0.isWhitespace }
-                        
-                        viewModel.password = String(viewModel.password.unicodeScalars.filter {
-                            CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
-                        })
-                        
-                        if newValue.count > MAX_PASSWORD_CHAR_LIMIT {
-                            viewModel.password = String(newValue.prefix(MAX_PASSWORD_CHAR_LIMIT))
-                        }
                     }
-                
-                NavigationLink(destination: CompleteSignUpView(showing: $showNext), isActive: $showNext) {
-                    Button(action: {
-                        isCompletingAction = true // Mostrar la pantalla de carga
-
-                        if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
-                            isShowingAlert = true
-                            hideBannerAfterDelay(2)
+                    Text ("Create a password")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .fontWeight (.bold)
+                        .padding (.top)
+                    Text("You'll use this password to sign in to your account. Your password should have at least 7 characters.")
+                        .font (.footnote)
+                        .foregroundColor (.gray)
+                        .multilineTextAlignment (.center)
+                        .padding (.horizontal, 24)
+                    SecureField("Password", text: $viewModel.password)
+                        .autocapitalization(.none)
+                        .font (.subheadline)
+                        .padding (12)
+                        .background (Color(.systemGray6))
+                        .cornerRadius (10)
+                        .padding (.horizontal, 24)
+                        .padding (.top)
+                        .onChange(of: viewModel.password) { newValue in
                             
-                        } else {
-                            showNext = true // Activate the NavigationLink
+                            let allowedSymbols = CharacterSet(charactersIn: "!@#$%^&*()-+{}[]~_=\\/?<>.,:;\"\'`")
+                            
+                            viewModel.password = newValue.filter { !$0.isWhitespace }
+                            
+                            viewModel.password = String(viewModel.password.unicodeScalars.filter {
+                                CharacterSet.alphanumerics.union(allowedSymbols).contains($0)
+                            })
+                            
+                            if newValue.count > MAX_PASSWORD_CHAR_LIMIT {
+                                viewModel.password = String(newValue.prefix(MAX_PASSWORD_CHAR_LIMIT))
+                            }
                         }
-                        isCompletingAction = false // Ocultar la pantalla de carga
-
-                    }) {
-                        Text("Next")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 360, height: 44)
-                            .background(guarapColor)
-                            .cornerRadius(8)
+                    
+                    NavigationLink(destination: CompleteSignUpView(showing: $showNext), isActive: $showNext) {
+                        Button(action: {
+                            isCompletingAction = true // Mostrar la pantalla de carga
+                            
+                            if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
+                                isShowingAlert = true
+                                hideBannerAfterDelay(2)
+                                
+                            } else {
+                                showNext = true // Activate the NavigationLink
+                            }
+                            isCompletingAction = false // Ocultar la pantalla de carga
+                            
+                        }) {
+                            Text("Next")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(width: 360, height: 44)
+                                .background(guarapColor)
+                                .cornerRadius(8)
+                        }
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    //.opacity(0) // Hide the navigation link
+                    .disabled(isCompletingAction)
                 }
-                //.opacity(0) // Hide the navigation link
-                .disabled(isCompletingAction)
 
                 if isCompletingAction {
                     Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)

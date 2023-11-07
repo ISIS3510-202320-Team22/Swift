@@ -92,7 +92,7 @@ colores = ['#aa003e', '#ff914c', '#aa003e', '#ff914c', '#aa003e']
 
 # Diseño del dashboard
 app.layout = html.Div([
-    html.H1("Business Questions type 5", style={'text-align': 'center', 'font-family': 'Arial', 'color': '#aa003e'}),
+    html.H1("Business Questions", style={'text-align': 'center', 'font-family': 'Arial', 'color': '#aa003e'}),
     html.Div([
         dcc.Graph(
             id='upvotes-bar-chart',

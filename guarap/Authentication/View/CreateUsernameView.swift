@@ -15,7 +15,8 @@ struct CreateUsernameView: View {
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
-    
+    @State private var showNoInternetBanner = false
+
     @Binding var showing: Bool
     @State var showNext = false
     
@@ -76,15 +77,25 @@ struct CreateUsernameView: View {
                             isCompletingAction = true // Mostrar la pantalla de carga
                             
                             Task {
-                                if await viewModel.usernameExists(username: viewModel.username) {
-                                    showAlertRepeat = true
-                                    hideBannerAfterDelay(2)
-                                } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
-                                    isShowingAlert = true
-                                    hideBannerAfterDelay(2)
-                                } else {
-                                    showNext = true // Activate the NavigationLink
+                                do {
+                                    if networkManager.isOnline {
+                                        
+                                        if await viewModel.usernameExists(username: viewModel.username) {
+                                            showAlertRepeat = true
+                                            hideBannerAfterDelay(2)
+                                        } else if viewModel.username.count < MIN_USER_CHAR_LIMIT {
+                                            isShowingAlert = true
+                                            hideBannerAfterDelay(2)
+                                        } else {
+                                            showNext = true // Activate the NavigationLink
+                                        }
+                                        
+                                    } else {
+                                        showNoInternetBanner = true
+                                        hideBannerAfterDelay(2)
+                                    }
                                 }
+                                
                                 isCompletingAction = false
                                 
                             }
@@ -109,7 +120,9 @@ struct CreateUsernameView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(1.5)
                 }
-                
+                if showNoInternetBanner {
+                    BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
+                }
                 
                 if showAlertRepeat {
                     BannerView(text: "The username you entered is already associated with an account.", color: .yellow)

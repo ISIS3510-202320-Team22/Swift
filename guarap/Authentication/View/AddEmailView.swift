@@ -15,7 +15,8 @@ struct AddEmailView: View {
     @State private var showAlertRepeat = false
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var isCompletingAction = false // Estado para mostrar la pantalla de carga
-    
+    @State private var showNoInternetBanner = false
+
     @Binding var showing: Bool
     @State var showNext = false
     
@@ -77,22 +78,33 @@ struct AddEmailView: View {
                         Button(action: {
                             isCompletingAction = true
                             Task {
-                                if await viewModel.emailExists(email: viewModel.email) {
+                                do {
+                                    if networkManager.isOnline {
+                                        
+                                        if await viewModel.emailExists(email: viewModel.email) {
+                                            
+                                            showAlertRepeat = true
+                                            hideBannerAfterDelay(2)
+                                            
+                                            
+                                        } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
+                                            isShowingAlert = true
+                                            hideBannerAfterDelay(2)
+                                            
+                                        } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
+                                            isShowingAlert = true
+                                            hideBannerAfterDelay(2)
+                                        } else {
+                                            showNext = true // Activate the NavigationLink
+                                        }
+                                        
+                                    } else {
+                                        showNoInternetBanner = true
+                                        hideBannerAfterDelay(2)
+                                    }
                                     
-                                    showAlertRepeat = true
-                                    hideBannerAfterDelay(2)
-                                    
-                                    
-                                } else if viewModel.email.count < MIN_EMAIL_CHAR_LIMIT {
-                                    isShowingAlert = true
-                                    hideBannerAfterDelay(2)
-                                    
-                                } else if !viewModel.email.hasSuffix("@uniandes.edu.co") {
-                                    isShowingAlert = true
-                                    hideBannerAfterDelay(2)
-                                } else {
-                                    showNext = true // Activate the NavigationLink
                                 }
+                                
                                 isCompletingAction = false
                             }
                         }) {
@@ -117,7 +129,9 @@ struct AddEmailView: View {
                 }
                 
                 
-                
+                if showNoInternetBanner {
+                    BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
+                }
                 
                 if showAlertRepeat {
                     BannerView(text: "The email address you entered is already associated with an account.", color: .yellow)

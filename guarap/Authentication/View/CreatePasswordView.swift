@@ -13,6 +13,7 @@ struct CreatePasswordView: View {
     @State private var isShowingAlert = false
     @ObservedObject var networkManager = NetworkManager.shared
     @State private var isCompletingAction = false // Estado para la pantalla de carga
+    @State private var showNoInternetBanner = false
 
     @Binding var showing: Bool
     @State var showNext = false
@@ -72,14 +73,25 @@ struct CreatePasswordView: View {
                     NavigationLink(destination: CompleteSignUpView(showing: $showNext), isActive: $showNext) {
                         Button(action: {
                             isCompletingAction = true // Mostrar la pantalla de carga
-                            
-                            if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
-                                isShowingAlert = true
-                                hideBannerAfterDelay(2)
-                                
-                            } else {
-                                showNext = true // Activate the NavigationLink
+                            Task {
+                                do {
+                                    if networkManager.isOnline {
+                                        
+                                        if viewModel.password.count < MIN_PASSWORD_CHAR_LIMIT {
+                                            isShowingAlert = true
+                                            hideBannerAfterDelay(2)
+                                            
+                                        } else {
+                                            showNext = true // Activate the NavigationLink
+                                        }
+                                        
+                                    }else {
+                                        showNoInternetBanner = true
+                                        hideBannerAfterDelay(2)
+                                    }
+                                }
                             }
+                            
                             isCompletingAction = false // Ocultar la pantalla de carga
                             
                         }) {
@@ -103,6 +115,10 @@ struct CreatePasswordView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(1.5)
                 }
+                if showNoInternetBanner {
+                    BannerView(text: "Currently there is no internet connection.\nTry again later.", color: .yellow)
+                }
+                
                 if isShowingAlert {
                     BannerView(text: "Password must have at least \(MIN_PASSWORD_CHAR_LIMIT) characters.", color: .red)
                 }

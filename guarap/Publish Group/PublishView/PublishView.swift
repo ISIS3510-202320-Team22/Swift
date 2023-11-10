@@ -170,8 +170,10 @@ struct PublishView: View {
                                             selectedOption = option
                                             category = option
                                             isPopoverVisible.toggle()
+                                            
                                         }) {
                                             Text(option)
+                                                .foregroundColor(.red)
                                         }
                                     }
                                 }.foregroundColor(.black)

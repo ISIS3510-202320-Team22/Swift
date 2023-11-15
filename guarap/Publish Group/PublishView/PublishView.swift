@@ -8,13 +8,23 @@
 //
 
 import SwiftUI
+import CoreLocation
+import MapKit
 
 struct PublishView: View {
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 4.6097, longitude: -74.0817),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    )
+    
+    @StateObject var locationManager = LocationManager()
+    @State private var selectedAddress: String?
+    @State private var address = ""
+
     
     // Post Atributes
     @State private var description = ""
     @State private var category = DEFAULT_CATEGORY
-    @State private var address = ""
     @State private var isBlockingUI = false
     
     // Image States
@@ -31,7 +41,6 @@ struct PublishView: View {
     @State private var showFailureBanner = false
     @State private var showNoInternetBanner = false
     @ObservedObject var networkManager = NetworkManager.shared
-
     
     let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
     
@@ -161,8 +170,10 @@ struct PublishView: View {
                                             selectedOption = option
                                             category = option
                                             isPopoverVisible.toggle()
+                                            
                                         }) {
                                             Text(option)
+                                                .foregroundColor(.red)
                                         }
                                     }
                                 }.foregroundColor(.black)
@@ -214,6 +225,38 @@ struct PublishView: View {
                     }
                     .frame(width: 300, height: 50)
                     Spacer()
+                    
+                    //MAPA --------------
+//                    VStack {
+//                        Map(coordinateRegion: $region, showsUserLocation: true)
+//                            .onAppear(perform: {
+//                                locationManager.requestLocation()
+//                                if let location = locationManager.lastKnownLocation {
+//                                    region.center = location.coordinate
+//                                    reverseGeocode(location: location)
+//                                }
+//                            })
+//                            .frame(width: 250, height: 250)
+//                        
+//                        Button(action: {
+//                            if let selectedAddress = selectedAddress {
+//                                // Aquí puedes usar la dirección para compartir
+//                                address = selectedAddress
+//                                print("Dirección: \(selectedAddress)")
+//                            }
+//                        }) {
+//                            Text("Share")
+//                                .font(.headline)
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .background(Color.blue)
+//                                .cornerRadius(10)
+//                        }
+//                    }
+                    
+                    
+                    
+                    
                 }
                 // End of VStack
             }
@@ -239,6 +282,24 @@ struct PublishView: View {
         }
     }
 
+    private func reverseGeocode(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let placemark = placemarks?.first {
+                if let name = placemark.name,
+                   let locality = placemark.locality,
+                   let administrativeArea = placemark.administrativeArea,
+                   let postalCode = placemark.postalCode,
+                   let country = placemark.country {
+                    self.selectedAddress = "\(name), \(locality), \(administrativeArea) \(postalCode), \(country)"
+                } else {
+                    self.selectedAddress = "Dirección no disponible"
+                }
+            } else {
+                self.selectedAddress = "Dirección no disponible"
+            }
+        }
+    }
     
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {

@@ -12,13 +12,11 @@ struct ContentView: View {
     @StateObject var registrationViewModel = RegistrationViewModel()
     
     var body: some View {
-        Group {
-            if $viewModel.userSession.wrappedValue == nil {
-                LoginView()
-                    .environmentObject(registrationViewModel)
-            } else {
-                MainTabView()
-            }
+        if $viewModel.userSession.wrappedValue == nil {
+            LoginView()
+                .environmentObject(registrationViewModel)
+        } else {
+            MainTabView()
         }
     }
 }

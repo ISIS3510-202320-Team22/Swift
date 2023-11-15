@@ -50,19 +50,20 @@ class FeedViewModel: ObservableObject {
     
     @MainActor
     func fetchPosts(category: String) async throws {
-        if let cachedPosts = postCache.getPosts(forCategory: category) {
-            posts = cachedPosts
-            print("Accessing cache")
-        } else if networkManager.isOnline {
+        if networkManager.isOnline {
             let fetchedPosts = try await guarapRepo.getPostsByCategory(categoryName: category)
             guarapRepo.getPostsWithImages(posts: fetchedPosts) { fetchedPostsWithImages in
                 self.postCache.setPosts(fetchedPostsWithImages, forCategory: category)
                 self.posts = fetchedPostsWithImages
                 print("Accessing from web")
             }
-            
         } else {
-            posts = [PostWithImage]()
+            if let cachedPosts = postCache.getPosts(forCategory: category) {
+                posts = cachedPosts
+                print("Accessing cache")
+            } else {
+                posts = [PostWithImage]()
+            }
         }
     }
     

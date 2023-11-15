@@ -68,4 +68,35 @@ class CameraService {
     func capturePhoto(with settings: AVCapturePhotoSettings = AVCapturePhotoSettings()) {
         output.capturePhoto(with: settings, delegate: delegate!)
     }
+    
+    func switchCameraPosition(_ useFrontCamera: Bool) {
+        session?.beginConfiguration()
+
+        // Remove the current input
+        if let currentInput = session?.inputs.first {
+            session?.removeInput(currentInput)
+        }
+
+        // Determine the position based on the boolean value
+        let newPosition: AVCaptureDevice.Position = useFrontCamera ? .front : .back
+
+        // Find and add the new camera input
+        if let newCamera = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: newPosition
+        ).devices.first {
+            do {
+                let newInput = try AVCaptureDeviceInput(device: newCamera)
+                if session!.canAddInput(newInput) {
+                    session!.addInput(newInput)
+                }
+            } catch {
+                print("Error switching camera: \(error.localizedDescription)")
+            }
+        }
+
+        session?.commitConfiguration()
+    }
+
 }

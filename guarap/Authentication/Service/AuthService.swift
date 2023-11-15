@@ -28,14 +28,16 @@ class AuthService {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             userUID = self.userSession!.uid
-            
+
             GuarapRepositoryImpl.userDao.storeUsernameFromUserId(userId: userUID) { name in
                 UserDefaults.standard.set(name, forKey: "username")
             }
             
             print(username)
+
         } catch {
             print("DEBUG: Failed to log in with \(error.localizedDescription)")
+            throw error
         }
         
     }
@@ -99,5 +101,38 @@ class AuthService {
             throw error
         }
     }
+    
+    @MainActor
+    func emailExists(email: String) async -> Bool {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("email", isEqualTo: email)
+                .getDocuments()
+            
+            return !querySnapshot.documents.isEmpty
+        } catch {
+            // Manejar el error de alguna manera, por ejemplo, imprimirlo en la consola
+            print("Error: \(error)")
+            return false // O cualquier otro manejo de error que necesites
+        }
+    }
+
+
+    @MainActor
+    func usernameExists(username: String) async -> Bool {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("username", isEqualTo: username)
+                .getDocuments()
+            
+            return !querySnapshot.documents.isEmpty
+        } catch {
+            // Manejar el error de alguna manera, por ejemplo, imprimirlo en la consola
+            print("Error: \(error)")
+            return false // O cualquier otro manejo de error que necesites
+        }
+    }
+
+
 
 }

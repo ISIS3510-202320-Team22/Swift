@@ -42,7 +42,7 @@ class PostDAOFirebase: PostDAO {
                 }
 
                 // Create the post and add it to the category
-                let postRef = categoryRef.collection("posts").document()
+                let postRef = categoryRef.collection("posts").document(UUID().uuidString)
                 let postAttributes: [String: Any] = [
                     "user": user,
                     "description": description,
@@ -78,6 +78,8 @@ class PostDAOFirebase: PostDAO {
         do {
             let queryPosts = try await snapshot.getDocuments()
             for document in queryPosts.documents {
+                let documentId = document.documentID
+                print("Thsi is the id: " + documentId)
                 let postDict = document.data()
                 
                 do {
@@ -94,7 +96,7 @@ class PostDAOFirebase: PostDAO {
                             image = unwrappedImage
                         }
 
-                        let post = Post(id: UUID(), user: user, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, address: address, dateTime: dateTime.dateValue())
+                        let post = Post(id: UUID(uuidString: documentId) ?? UUID(), user: user, description: description, upVotes: upVotes, downVotes: downVotes, reported: reported, image: image, address: address, dateTime: dateTime.dateValue())
                             
                             posts.append(post)
                     }

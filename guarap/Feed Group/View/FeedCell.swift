@@ -83,6 +83,10 @@ struct FeedCell: View {
                     // LIKING
                     } else {
                         viewModel.updateLikes(for: post, num:1, cat:category)
+                        // if post was already disliked undo it
+                        if isDisliked{
+                            viewModel.updateDislikes(for: post, num:-1, cat:category)
+                        }
                     }
                     isLiked.toggle()
                     
@@ -109,8 +113,14 @@ struct FeedCell: View {
                     // UNDISLIKING
                     if isDisliked {
                         viewModel.updateDislikes(for: post, num:-1, cat:category)
+                        
+                    // DISLIKING
                     } else {
                         viewModel.updateDislikes(for: post, num:1, cat:category)
+                        // if the post was already liked undo it
+                        if isLiked{
+                            viewModel.updateLikes(for: post, num:-1, cat:category)
+                        }
                     }
                     
                     isDisliked.toggle()

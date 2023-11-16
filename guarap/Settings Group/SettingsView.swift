@@ -45,6 +45,12 @@ struct SettingsView: View {
                         Text("About Us")
                     }
                 }
+                
+                Section(header: Text("Report a bug")) {
+                    NavigationLink(destination: BugReportView()) {
+                        Text("Report a bug or issue")
+                    }
+                }
             }
             .navigationTitle("Settings")
         }

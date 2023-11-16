@@ -17,6 +17,7 @@ class GuarapRepositoryImpl: GuarapRepository {
     static let postDao: PostDAO = PostDAOFirebase.shared
     static let imageDao: ImageDAO = ImageDAOFirebase.shared
     static let userDao: UserDAO = UserDAOFirebase.shared
+    static let bugReportDao: BugReportDAO = BugReportDAOFirebase.shared
     
     func createPost(description: String, image: UIImage?, category: String, address: String, completion: @escaping (Bool) -> Void) {
         
@@ -87,5 +88,9 @@ class GuarapRepositoryImpl: GuarapRepository {
             // All images have been fetched, call the completion handler
             completion(postsWithImages)
         }
+    }
+    
+    func sendBugReport(title: String, description: String, completion: @escaping (Bool) -> Void) {
+        GuarapRepositoryImpl.bugReportDao.sendBugReport(title: title, description: description, completion: completion)
     }
 }

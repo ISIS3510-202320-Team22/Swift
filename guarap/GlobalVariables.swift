@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 let MAX_CATEGORY_CHAR_LIMIT = 20
 let MAX_DESCRIPTION_CHAR_LIMIT = 300
@@ -21,3 +22,4 @@ let MAX_TIMEOUT = 5 // sec
 let PAGE_TITLE = "Guarap"
 
 let categories = ["Generic", "Chismes", "Atardeceres", "LookingFor", "Emprendimientos"]
+let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)

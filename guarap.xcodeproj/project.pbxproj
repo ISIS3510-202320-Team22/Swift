@@ -23,6 +23,9 @@
 		B55417322AEABD0800C89638 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55417312AEABD0800C89638 /* RecoveryView.swift */; };
 		B5C0B9772AF1BAC500A1ED97 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */; };
 		B5F32CF22AD7441A002A2D3B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */; };
+		CD095A152B05C40F003C4748 /* BugReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD095A142B05C40F003C4748 /* BugReportView.swift */; };
+		CD095A172B05CF74003C4748 /* BugReportDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD095A162B05CF74003C4748 /* BugReportDAO.swift */; };
+		CD095A192B05CF81003C4748 /* BugReportDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD095A182B05CF81003C4748 /* BugReportDAOFirebase.swift */; };
 		CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0B6E272AC48DB500A99AF0 /* CameraView.swift */; };
 		CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB782ACD383600ED324C /* ImageDAO.swift */; };
 		CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */; };
@@ -92,6 +95,9 @@
 		B55417312AEABD0800C89638 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CD095A142B05C40F003C4748 /* BugReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportView.swift; sourceTree = "<group>"; };
+		CD095A162B05CF74003C4748 /* BugReportDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportDAO.swift; sourceTree = "<group>"; };
+		CD095A182B05CF81003C4748 /* BugReportDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugReportDAOFirebase.swift; sourceTree = "<group>"; };
 		CD0B6E272AC48DB500A99AF0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		CD0CCB782ACD383600ED324C /* ImageDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAO.swift; sourceTree = "<group>"; };
 		CD0CCB7A2ACD387700ED324C /* ImageDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDAOFirebase.swift; sourceTree = "<group>"; };
@@ -291,6 +297,7 @@
 				CD3EBFA02AC8FE5200F83C1B /* AccountView.swift */,
 				CD3C22CA2AC623B500D853EF /* SettingsView.swift */,
 				CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */,
+				CD095A142B05C40F003C4748 /* BugReportView.swift */,
 			);
 			path = "Settings Group";
 			sourceTree = "<group>";
@@ -363,6 +370,8 @@
 				CD597E5E2ACCB9EC00D493B5 /* PostDAOFirebase.swift */,
 				CD5012412AEDB3B300D7194A /* UserDAO.swift */,
 				CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */,
+				CD095A162B05CF74003C4748 /* BugReportDAO.swift */,
+				CD095A182B05CF81003C4748 /* BugReportDAOFirebase.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -587,6 +596,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD095A192B05CF81003C4748 /* BugReportDAOFirebase.swift in Sources */,
 				CD6531322AEDE9CC002492CE /* NetworkManager.swift in Sources */,
 				CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */,
 				CDCC57DF2AEF61F400269365 /* CategoryPostCache.swift in Sources */,
@@ -620,7 +630,9 @@
 				CD3EC5EC2AD6320500051117 /* CompleteSignUpView.swift in Sources */,
 				CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */,
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
+				CD095A152B05C40F003C4748 /* BugReportView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
+				CD095A172B05CF74003C4748 /* BugReportDAO.swift in Sources */,
 				CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */,
 				CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */,
 				CD3EC5F02AD6320500051117 /* AuthService.swift in Sources */,
@@ -788,7 +800,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = J7967XZTSM;
+				DEVELOPMENT_TEAM = W89849Q4A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -819,7 +831,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = J7967XZTSM;
+				DEVELOPMENT_TEAM = W89849Q4A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;

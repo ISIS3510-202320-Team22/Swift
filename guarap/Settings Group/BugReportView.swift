@@ -56,7 +56,7 @@ struct BugReportView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
-                    .background(Color.blue)
+                    .background(guarapColor)
                     .cornerRadius(8)
                 }
             }

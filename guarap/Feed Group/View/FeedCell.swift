@@ -10,6 +10,12 @@ import Firebase
 import Foundation
 
 struct FeedCell: View {
+    
+    let firestore = Firestore.firestore()
+    var guarapRepo = GuarapRepositoryImpl.shared
+    
+    @StateObject var viewModel = FeedViewModel()
+    
     @State var downloadedImage: UIImage?
     
     @State private var isLiked = false
@@ -18,29 +24,23 @@ struct FeedCell: View {
     @State private var downVotes: Int
     
     private let userDefaults = UserDefaults.standard
+    private let likedPostsKey = "likedPosts"
+    private let dislikedPostsKey = "dislikedPosts"
+        
+    // Properties passed by FeedView
+    let post : PostWithImage
+    let category: String
     
-    init(post: PostWithImage, category: String) {
+    init(post: PostWithImage, category: String, isLiked: Bool, isDisliked: Bool) {
         self.post = post
         self.category = category
         self._upVotes = State(initialValue: post.upVotes)
         self._downVotes = State(initialValue: post.downVotes)
         
-        // Check if the user has previously liked or disliked this post
-        self._isLiked = State(initialValue: userDefaults.bool(forKey: "\(post.id)_liked"))
-        self._isDisliked = State(initialValue: userDefaults.bool(forKey: "\(post.id)_disliked"))
+        self._isLiked = State(initialValue: isLiked)
+        self._isDisliked = State(initialValue: isDisliked)
+        
     }
-    
-    
-    let firestore = Firestore.firestore()
-    
-    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
-    
-    @StateObject var viewModel = FeedViewModel()
-    var guarapRepo = GuarapRepositoryImpl.shared
-    
-    // Properties passed by FeedView
-    let post : PostWithImage
-    let category: String
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -89,18 +89,40 @@ struct FeedCell: View {
                 //
                 
                 Button(action: {
-                    // UNLIKING
-                    if !isLiked {
-                        viewModel.updateLikes(for: post, num: 1, cat: category)
-                        upVotes += 1
-                        userDefaults.setValue(true, forKey: "\(post.id)_liked")
+                    let postId = post.id.uuidString
+                    
+                    // Is already liked and you are unliking it
+                    if isLiked {
+                        viewModel.updateLikes(for: post, num: -1, cat: category)
+                        upVotes -= 1
                         
+                        // Remove liked post ID from UserDefaults
+                        var likedPosts = Set(userDefaults.stringArray(forKey: likedPostsKey) ?? [])
+                        likedPosts.remove(postId)
+                        userDefaults.set(Array(likedPosts), forKey: likedPostsKey)
+                    }
+                    // First time liking it
+                    else
+                    {
                         // If the post was previously disliked, undo the dislike
                         if isDisliked {
                             viewModel.updateDislikes(for: post, num: -1, cat: category)
                             downVotes -= 1
-                            userDefaults.removeObject(forKey: "\(post.id)_disliked")
+                            
+                            // Remove disliked post ID from UserDefaults
+                            var dislikedPosts = Set(userDefaults.stringArray(forKey: dislikedPostsKey) ?? [])
+                            dislikedPosts.remove(postId)
+                            userDefaults.set(Array(dislikedPosts), forKey: dislikedPostsKey)
                         }
+                        // Like
+                        viewModel.updateLikes(for: post, num: 1, cat: category)
+                        upVotes += 1
+                        
+                        // Save liked post ID to UserDefaults
+                        var likedPosts = Set(userDefaults.stringArray(forKey: likedPostsKey) ?? [])
+                        likedPosts.insert(postId)
+                        userDefaults.set(Array(likedPosts), forKey: likedPostsKey)
+                        
                     }
                     isLiked.toggle()
                     
@@ -127,18 +149,39 @@ struct FeedCell: View {
                 
                 
                 Button(action: {
-                    // UNDISLIKING
-                    if !isDisliked {
-                        viewModel.updateDislikes(for: post, num: 1, cat: category)
-                        downVotes += 1
-                        userDefaults.setValue(true, forKey: "\(post.id)_disliked")
+                    let postId = post.id.uuidString
+                    // Is already disliked and you are undisliking it
+                    if isDisliked {
+                        viewModel.updateDislikes(for: post, num: -1, cat: category)
+                        downVotes -= 1
                         
-                        // If the post was previously liked, undo the like
+                        // Remove disliked post ID from UserDefaults
+                        var dislikedPosts = Set(userDefaults.stringArray(forKey: dislikedPostsKey) ?? [])
+                        dislikedPosts.remove(postId)
+                        userDefaults.set(Array(dislikedPosts), forKey: dislikedPostsKey)
+                    }
+                    // First time disliking it
+                    else
+                    {
+                        // If the post was previously liked, undo de like
                         if isLiked {
                             viewModel.updateLikes(for: post, num: -1, cat: category)
                             upVotes -= 1
-                            userDefaults.removeObject(forKey: "\(post.id)_liked")
+                            
+                            // Remove liked post ID from UserDefaults
+                            var likedPosts = Set(userDefaults.stringArray(forKey: likedPostsKey) ?? [])
+                            likedPosts.remove(postId)
+                            userDefaults.set(Array(likedPosts), forKey: likedPostsKey)
                         }
+                        // Dislike
+                        viewModel.updateDislikes(for: post, num: 1, cat: category)
+                        downVotes += 1
+                        
+                        // Save disliked post ID to UserDefaults
+                        var dislikedPosts = Set(userDefaults.stringArray(forKey: dislikedPostsKey) ?? [])
+                        dislikedPosts.insert(postId)
+                        userDefaults.set(Array(dislikedPosts), forKey: dislikedPostsKey)
+                        
                     }
                     
                     isDisliked.toggle()

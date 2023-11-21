@@ -18,22 +18,21 @@ struct FeedView: View {
     
     @State var textWhenEmpty = Text("")
     
-    
     var body: some View {
         NavigationStack {
             Spacer()
             HStack {
                 if networkManager.isConnectionBad {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.yellow)
-                            .padding(.leading)
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.yellow)
+                        .padding(.leading)
                     Text("Slow connection")
                 }
                 
                 if !networkManager.isOnline {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.red)
-                            .padding(.leading)
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.red)
+                        .padding(.leading)
                     Text("No connection")
                 }
                 
@@ -85,20 +84,30 @@ struct FeedView: View {
             }
             
             ScrollView {
-                            if !viewModel.posts.isEmpty {
-                                let sortedPosts = viewModel.posts.sorted(by: { $0.upVotes > $1.upVotes })
-
-                                LazyVStack(spacing: 30) {
-                                    ForEach(sortedPosts) { post in
-                                        FeedCell(post: post, category: lastCategory)
-                                    }
-                                }
-                            } else {
-                                Spacer()
-                                textWhenEmpty.padding()
-                                Spacer()
-                            }
+                if !viewModel.posts.isEmpty {
+                    let sortedPosts = viewModel.posts.sorted(by: { $0.upVotes > $1.upVotes })
+                    
+                    LazyVStack(spacing: 30) {
+                        ForEach(sortedPosts) { post in
+                            let postId = post.id.uuidString
+                            let likedPosts = Set(UserDefaults.standard.stringArray(forKey: "likedPosts") ?? [])
+                            
+                            let dislikedPosts = Set(UserDefaults.standard.stringArray(forKey: "dislikedPosts") ?? [])
+                            
+                            FeedCell(
+                                post: post,
+                                category: lastCategory,
+                                isLiked: likedPosts.contains(postId),
+                                isDisliked: dislikedPosts.contains(postId)
+                            )
                         }
+                    }
+                } else {
+                    Spacer()
+                    textWhenEmpty.padding()
+                    Spacer()
+                }
+            }
             .refreshable {
                 do {
                     // This is the action to refresh the data

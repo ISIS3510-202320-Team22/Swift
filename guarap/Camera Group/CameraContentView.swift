@@ -13,6 +13,8 @@ struct CameraContentView: View {
     @State private var isCustomCameraViewPresented = false
     @Environment(\.presentationMode) var presentationMode
     
+    let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)
+    
     var body: some View {
         ZStack {
             if capturedImage != nil {
@@ -32,7 +34,7 @@ struct CameraContentView: View {
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(.blue)
+                                .background(guarapColor)
                                 .cornerRadius(10)
                         }
                         .padding()
@@ -43,7 +45,7 @@ struct CameraContentView: View {
                         }) {
                             Image(systemName: "xmark")
                                 .font(.system(size: 24))
-                                .foregroundColor(.blue)
+                                .foregroundColor(guarapColor)
                                 .padding()
                         }
                     }
@@ -60,7 +62,7 @@ struct CameraContentView: View {
                             }) {
                                 Image(systemName: "xmark")
                                     .font(.system(size: 24))
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(guarapColor)
                                     .padding()
                             }
                         }
@@ -73,7 +75,7 @@ struct CameraContentView: View {
                 if capturedImage == nil {
                     Text("Press the camera icon to take a photo")
                         .padding()
-                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(guarapColor)
                 }
                     
                 Button(action: {
@@ -82,7 +84,7 @@ struct CameraContentView: View {
                     Image(systemName: "camera.fill")
                         .font(.largeTitle)
                         .padding()
-                        .background(.black)
+                        .background(guarapColor)
                         .foregroundColor(.white)
                         .clipShape(Circle())
                 })

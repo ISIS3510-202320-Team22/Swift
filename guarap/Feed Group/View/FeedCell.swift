@@ -14,6 +14,22 @@ struct FeedCell: View {
     
     @State private var isLiked = false
     @State private var isDisliked = false
+    @State private var upVotes: Int
+    @State private var downVotes: Int
+    
+    private let userDefaults = UserDefaults.standard
+    
+    init(post: PostWithImage, category: String) {
+        self.post = post
+        self.category = category
+        self._upVotes = State(initialValue: post.upVotes)
+        self._downVotes = State(initialValue: post.downVotes)
+        
+        // Check if the user has previously liked or disliked this post
+        self._isLiked = State(initialValue: userDefaults.bool(forKey: "\(post.id)_liked"))
+        self._isDisliked = State(initialValue: userDefaults.bool(forKey: "\(post.id)_disliked"))
+    }
+    
     
     let firestore = Firestore.firestore()
     
@@ -61,10 +77,6 @@ struct FeedCell: View {
                     .padding(15)
             }
             
-            // Action buttons
-            let categoryRef = Firestore.firestore().collection("categories").document(category)
-            let postRef = categoryRef.collection("posts").document(post.id.uuidString)
-            //let postRef = categoryRef.collection("posts").document(post.id)
             Text(post.description)
                 .padding(.leading,15)
             HStack(spacing: 20) {
@@ -78,14 +90,16 @@ struct FeedCell: View {
                 
                 Button(action: {
                     // UNLIKING
-                    if isLiked {
-                        viewModel.updateLikes(for: post, num:-1, cat:category)
-                    // LIKING
-                    } else {
-                        viewModel.updateLikes(for: post, num:1, cat:category)
-                        // if post was already disliked undo it
-                        if isDisliked{
-                            viewModel.updateDislikes(for: post, num:-1, cat:category)
+                    if !isLiked {
+                        viewModel.updateLikes(for: post, num: 1, cat: category)
+                        upVotes += 1
+                        userDefaults.setValue(true, forKey: "\(post.id)_liked")
+                        
+                        // If the post was previously disliked, undo the dislike
+                        if isDisliked {
+                            viewModel.updateDislikes(for: post, num: -1, cat: category)
+                            downVotes -= 1
+                            userDefaults.removeObject(forKey: "\(post.id)_disliked")
                         }
                     }
                     isLiked.toggle()
@@ -100,9 +114,12 @@ struct FeedCell: View {
                         .foregroundColor(isLiked ? guarapColor: .gray)
                 }
                 
-                Text(String(post.upVotes))
+                Text(String(upVotes))
                     .font(.system(size: 10))
                     .padding(.bottom)
+                    .foregroundColor(Color.secondary)
+                    .colorMultiply(Color.primary)
+                
                 
                 //
                 // DISLIKING BUTTON
@@ -111,15 +128,16 @@ struct FeedCell: View {
                 
                 Button(action: {
                     // UNDISLIKING
-                    if isDisliked {
-                        viewModel.updateDislikes(for: post, num:-1, cat:category)
+                    if !isDisliked {
+                        viewModel.updateDislikes(for: post, num: 1, cat: category)
+                        downVotes += 1
+                        userDefaults.setValue(true, forKey: "\(post.id)_disliked")
                         
-                    // DISLIKING
-                    } else {
-                        viewModel.updateDislikes(for: post, num:1, cat:category)
-                        // if the post was already liked undo it
-                        if isLiked{
-                            viewModel.updateLikes(for: post, num:-1, cat:category)
+                        // If the post was previously liked, undo the like
+                        if isLiked {
+                            viewModel.updateLikes(for: post, num: -1, cat: category)
+                            upVotes -= 1
+                            userDefaults.removeObject(forKey: "\(post.id)_liked")
                         }
                     }
                     
@@ -135,9 +153,11 @@ struct FeedCell: View {
                         .foregroundColor(isDisliked ? guarapColor: .gray)
                 }
                 
-                Text(String(post.downVotes))
+                Text(String(downVotes))
                     .font(.system(size: 10))
                     .padding(.bottom)
+                    .foregroundColor(Color.secondary)
+                    .colorMultiply(Color.primary)
             }
             .padding(.trailing)
             .foregroundColor(.black)

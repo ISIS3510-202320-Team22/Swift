@@ -97,7 +97,7 @@ class FeedViewModel: ObservableObject {
 
             // Perform the update in Firestore
             postRef.updateData([
-                "upVotes": FieldValue.increment(Int64(num))
+                "upvotes": FieldValue.increment(Int64(num))
             ]) { error in
                 if let error = error {
                     print("Error updating upvotes in Firestore: \(error)")
@@ -124,7 +124,7 @@ class FeedViewModel: ObservableObject {
 
             // Perform the update in Firestore
             postRef.updateData([
-                "downVotes": FieldValue.increment(Int64(num))
+                "downvotes": FieldValue.increment(Int64(num))
             ]) { error in
                 if let error = error {
                     print("Error updating downvotes in Firestore: \(error)")

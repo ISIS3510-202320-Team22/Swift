@@ -7,8 +7,8 @@ struct PostReportView: View {
     @State private var showSuccessBanner = false
     @State private var showFailureBanner = false
     @State private var showNoInternetBanner = false
-    var id_post: String // El ID de la publicación a reportar
-    var id_user_post: String // El ID del usuario que publicó la publicación
+    @Binding var id_post: String
+    @Binding var id_user_post: String
 
     @State private var isBlockingUI = false
     

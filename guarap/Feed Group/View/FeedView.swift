@@ -13,8 +13,8 @@ struct FeedView: View {
     @State private var isReportViewActive = false
     // Dropdown Menu States
     @State private var isPopoverVisible = false
-    @State private var idPostToReport: String = ""
-    @State private var idUserPostToReport: String = ""
+    @State var idPostToReport: String = ""
+    @State var idUserPostToReport: String = ""
     @ObservedObject var networkManager = NetworkManager.shared
     
     @State var textWhenEmpty = Text("")
@@ -102,12 +102,9 @@ struct FeedView: View {
                                 isDisliked: dislikedPosts.contains(postId)
                             )
                             .onTapGesture {
-                                // Cuando se presiona la publicación, activa la vista de reporte
-                                isReportViewActive = true
-
-                                idPostToReport = post.id.uuidString// Variable para almacenar el ID del post
-                                idUserPostToReport = post.user // ID del usuario que publicó el post
-                                
+                                idPostToReport = post.id.uuidString // Actualiza el ID del post
+                                idUserPostToReport = post.user // Actualiza el ID del usuario
+                                isReportViewActive = true // Activa la vista de reporte
                             }
                         }
                     }
@@ -137,7 +134,7 @@ struct FeedView: View {
         }
         
         .sheet(isPresented: $isReportViewActive) {
-            PostReportView(id_post: idPostToReport, id_user_post: idUserPostToReport)
+            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport)
         }
         
         .onAppear {

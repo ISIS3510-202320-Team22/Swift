@@ -16,7 +16,8 @@ struct FeedView: View {
     @State var idPostToReport: String = ""
     @State var idUserPostToReport: String = ""
     @ObservedObject var networkManager = NetworkManager.shared
-    
+    @State private var showReportAlert = false
+
     @State var textWhenEmpty = Text("")
     
     var body: some View {
@@ -110,6 +111,8 @@ struct FeedView: View {
                                     isReportViewActive = true
                                     
                                 } else {
+                                    showReportAlert = true
+                                    hideBannerAfterDelay(2)
                                     print("Ya se reportò")
                                 }
                             }
@@ -121,6 +124,8 @@ struct FeedView: View {
                     textWhenEmpty.padding()
                     Spacer()
                 }
+                
+                
    
             }
             .refreshable {
@@ -138,12 +143,15 @@ struct FeedView: View {
                     print("Error fetching posts: \(error.localizedDescription)")
                 }
             }
-            
+            if  showReportAlert {
+                BannerView(text: "The post has already been reported.", color: .red)
+            }
         }
         
         .sheet(isPresented: $isReportViewActive) {
             PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport)
         }
+        
         
         .onAppear {
             // Fetch posts when the view first appears
@@ -161,6 +169,11 @@ struct FeedView: View {
                     print("Error fetching posts: \(error.localizedDescription)")
                 }
             }
+        }
+    }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            showReportAlert = false
         }
     }
 }

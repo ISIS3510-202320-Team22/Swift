@@ -16,7 +16,8 @@ struct FeedView: View {
     @State var idPostToReport: String = ""
     @State var idUserPostToReport: String = ""
     @ObservedObject var networkManager = NetworkManager.shared
-    
+    @State private var showReportAlert = false
+
     @State var textWhenEmpty = Text("")
     
     var body: some View {
@@ -102,10 +103,20 @@ struct FeedView: View {
                                 isDisliked: dislikedPosts.contains(postId)
                             )
                             .onTapGesture {
-                                idPostToReport = post.id.uuidString // Actualiza el ID del post
-                                idUserPostToReport = post.user // Actualiza el ID del usuario
-                                isReportViewActive = true // Activa la vista de reporte
+                                let reportedPosts = Set(UserDefaults.standard.stringArray(forKey: "reportedPosts") ?? [])
+                                
+                                if !reportedPosts.contains(post.id.uuidString) {
+                                    idPostToReport = post.id.uuidString
+                                    idUserPostToReport = post.user
+                                    isReportViewActive = true
+                                    
+                                } else {
+                                    showReportAlert = true
+                                    hideBannerAfterDelay(2)
+                                    print("Ya se reportò")
+                                }
                             }
+
                         }
                     }
                 } else {
@@ -113,6 +124,8 @@ struct FeedView: View {
                     textWhenEmpty.padding()
                     Spacer()
                 }
+                
+                
    
             }
             .refreshable {
@@ -130,12 +143,19 @@ struct FeedView: View {
                     print("Error fetching posts: \(error.localizedDescription)")
                 }
             }
-            
+            if  showReportAlert {
+                BannerView(text: "The post has already been reported.", color: .red)
+            }
         }
         
         .sheet(isPresented: $isReportViewActive) {
-            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport)
+            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport, onReportSuccess: {
+                // Esto se ejecutará cuando el reporte se envíe con éxito
+                isReportViewActive = false // Esto cerrará la vista de reporte
+            })
         }
+
+        
         
         .onAppear {
             // Fetch posts when the view first appears
@@ -155,7 +175,19 @@ struct FeedView: View {
             }
         }
     }
+    func hideBannerAfterDelay(_ seconds: Double) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            showReportAlert = false
+        }
+    }
 }
+
+func saveReportedPost(id: String) {
+    var reportedPosts = Set(UserDefaults.standard.stringArray(forKey: "reportedPosts") ?? [])
+    reportedPosts.insert(id)
+    UserDefaults.standard.set(Array(reportedPosts), forKey: "reportedPosts")
+}
+
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {

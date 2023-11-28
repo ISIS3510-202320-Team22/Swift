@@ -21,4 +21,6 @@ protocol GuarapRepository {
     func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void)
     func getPostsWithImages(posts: [Post], completion: @escaping ([PostWithImage]) -> Void)
     func sendBugReport(title: String, description: String, completion: @escaping (Bool) -> Void)
+    func sendPostReport(description: String, id_post: String, id_user_post: String, completion: @escaping (Bool) -> Void)
+
 }

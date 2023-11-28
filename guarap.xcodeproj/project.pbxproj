@@ -20,6 +20,9 @@
 		B526297D2AD8886600E0F4F0 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B526297C2AD8886600E0F4F0 /* FirebaseFirestoreSwift */; };
 		B526297F2AD8886600E0F4F0 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = B526297E2AD8886600E0F4F0 /* FirebasePerformance */; };
 		B52629812AD8886600E0F4F0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B52629802AD8886600E0F4F0 /* FirebaseStorage */; };
+		B52C3E522B16793D004C4BE5 /* ReportPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C3E512B16793D004C4BE5 /* ReportPostView.swift */; };
+		B52C3E542B167C24004C4BE5 /* PostReportDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C3E532B167C24004C4BE5 /* PostReportDAO.swift */; };
+		B52C3E562B167D21004C4BE5 /* PostReportDAOFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52C3E552B167D21004C4BE5 /* PostReportDAOFirebase.swift */; };
 		B55417322AEABD0800C89638 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55417312AEABD0800C89638 /* RecoveryView.swift */; };
 		B5C0B9772AF1BAC500A1ED97 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */; };
 		B5F32CF22AD7441A002A2D3B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */; };
@@ -92,6 +95,9 @@
 
 /* Begin PBXFileReference section */
 		B52629672AD880FE00E0F4F0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B52C3E512B16793D004C4BE5 /* ReportPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPostView.swift; sourceTree = "<group>"; };
+		B52C3E532B167C24004C4BE5 /* PostReportDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportDAO.swift; sourceTree = "<group>"; };
+		B52C3E552B167D21004C4BE5 /* PostReportDAOFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportDAOFirebase.swift; sourceTree = "<group>"; };
 		B55417312AEABD0800C89638 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		B5C0B9762AF1BAC500A1ED97 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B5F32CF12AD7441A002A2D3B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -372,6 +378,8 @@
 				CD5012432AEDB47C00D7194A /* UserDAOFirebase.swift */,
 				CD095A162B05CF74003C4748 /* BugReportDAO.swift */,
 				CD095A182B05CF81003C4748 /* BugReportDAOFirebase.swift */,
+				B52C3E532B167C24004C4BE5 /* PostReportDAO.swift */,
+				B52C3E552B167D21004C4BE5 /* PostReportDAOFirebase.swift */,
 			);
 			path = DAOs;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 				CD597E482ACCA1EA00D493B5 /* MainTabView.swift */,
 				CD597E462ACC858400D493B5 /* FeedCell.swift */,
 				CDA9B7D22AC1CF970054F09E /* FeedView.swift */,
+				B52C3E512B16793D004C4BE5 /* ReportPostView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,9 +605,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B52C3E522B16793D004C4BE5 /* ReportPostView.swift in Sources */,
 				CD095A192B05CF81003C4748 /* BugReportDAOFirebase.swift in Sources */,
 				CD6531322AEDE9CC002492CE /* NetworkManager.swift in Sources */,
 				CD0CCB792ACD383600ED324C /* ImageDAO.swift in Sources */,
+				B52C3E542B167C24004C4BE5 /* PostReportDAO.swift in Sources */,
 				CDCC57DF2AEF61F400269365 /* CategoryPostCache.swift in Sources */,
 				CD61E8F52AC49FA900CEAD52 /* CameraContentView.swift in Sources */,
 				CD3EC5EB2AD6320500051117 /* CreatePasswordView.swift in Sources */,
@@ -626,6 +637,7 @@
 				CD61E8F32AC49DE500CEAD52 /* CustomCameraView.swift in Sources */,
 				CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */,
 				CD3EC5ED2AD6320500051117 /* CreateUsernameView.swift in Sources */,
+				B52C3E562B167D21004C4BE5 /* PostReportDAOFirebase.swift in Sources */,
 				CD3EC5EE2AD6320500051117 /* LoginView.swift in Sources */,
 				CD3EC5EC2AD6320500051117 /* CompleteSignUpView.swift in Sources */,
 				CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */,

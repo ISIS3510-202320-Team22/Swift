@@ -45,7 +45,7 @@ struct FeedCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Image and username + publishing time
-            HStack {
+            HStack(spacing: 20)  {
                 Image("avatar")
                     .resizable()
                     .scaledToFill()
@@ -63,6 +63,21 @@ struct FeedCell: View {
                     }
                     
                     Spacer()
+                }
+                // BOTÓN DE REPORTAR
+                //
+                Button(action: {
+                    // Aquí debes abrir la vista para reportar la publicación
+                    // Puedes utilizar NavigationLink o presentar un nuevo ViewModal
+                    // Dependiendo de la estructura de tu app y navegación.
+                    // Por ejemplo:
+                    // navigationLinkReportActive = true
+                }) {
+                    Image(systemName: "flag")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.red)
                 }
             }
             .padding(.leading)

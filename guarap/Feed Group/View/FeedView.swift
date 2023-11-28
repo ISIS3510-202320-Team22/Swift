@@ -10,10 +10,11 @@ import SwiftUI
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     @AppStorage("lastCategory") var lastCategory = DEFAULT_CATEGORY
-    
+    @State private var isReportViewActive = false
     // Dropdown Menu States
     @State private var isPopoverVisible = false
-    
+    @State var idPostToReport: String = ""
+    @State var idUserPostToReport: String = ""
     @ObservedObject var networkManager = NetworkManager.shared
     
     @State var textWhenEmpty = Text("")
@@ -100,6 +101,11 @@ struct FeedView: View {
                                 isLiked: likedPosts.contains(postId),
                                 isDisliked: dislikedPosts.contains(postId)
                             )
+                            .onTapGesture {
+                                idPostToReport = post.id.uuidString // Actualiza el ID del post
+                                idUserPostToReport = post.user // Actualiza el ID del usuario
+                                isReportViewActive = true // Activa la vista de reporte
+                            }
                         }
                     }
                 } else {
@@ -107,12 +113,15 @@ struct FeedView: View {
                     textWhenEmpty.padding()
                     Spacer()
                 }
+   
             }
             .refreshable {
                 do {
                     // This is the action to refresh the data
                     if networkManager.isOnline {
                         textWhenEmpty = Text("There is nothing in this category for now")
+                        print(idPostToReport)
+                        print(idUserPostToReport)
                         try await viewModel.fetchPostsFromWeb(category: viewModel.categoryString)
                     } else {
                         textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
@@ -121,7 +130,13 @@ struct FeedView: View {
                     print("Error fetching posts: \(error.localizedDescription)")
                 }
             }
+            
         }
+        
+        .sheet(isPresented: $isReportViewActive) {
+            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport)
+        }
+        
         .onAppear {
             // Fetch posts when the view first appears
             Task {

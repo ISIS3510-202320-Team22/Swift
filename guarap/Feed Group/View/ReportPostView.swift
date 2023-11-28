@@ -15,59 +15,62 @@ struct PostReportView: View {
     @ObservedObject var networkManager = NetworkManager.shared
     
     var body: some View {
-        
-        ZStack {
-            Form {
-                Section(header: Text("Description of the Issue")) {
-                    TextField("Description", text: $description)
-                        .frame(height: 200)
-                        .cornerRadius(8)
-                        .padding(.vertical, 8)
-                        .onChange(of: description) { newValue in
-                            // Limit the character count if necessary
-                            // Your character limit logic here...
-                        }
-                        .onSubmit {
-                            description = description.trimmingCharacters(in: .whitespacesAndNewlines)
-                        }
-                }
-                
-                Section {
-                    Button(action: {
-                        // Add your post reporting logic here
-                        self.submitPostReport()
-                    }) {
-                        Text("Submit Report")
-                            .foregroundColor(.white)
+        NavigationStack{
+            ZStack{
+            ZStack {
+                Form {
+                    Section(header: Text("Description of the Issue")) {
+                        TextField("Description", text: $description)
+                            .frame(height: 200)
+                            .cornerRadius(8)
+                            .padding(.vertical, 8)
+                            .onChange(of: description) { newValue in
+                                // Limit the character count if necessary
+                                // Your character limit logic here...
+                            }
+                            .onSubmit {
+                                description = description.trimmingCharacters(in: .whitespacesAndNewlines)
+                            }
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding()
-                    .background(guarapColor)
-                    .cornerRadius(8)
+                    
+                    Section {
+                        Button(action: {
+                            // Add your post reporting logic here
+                            self.submitPostReport()
+                        }) {
+                            Text("Submit Report")
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                        .background(guarapColor)
+                        .cornerRadius(8)
+                    }
+                }
+                .navigationBarTitle("Report Post")
+            
+                if isBlockingUI {
+                    Color.black.opacity(0.5)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    
+                }
+                
+                if showSuccessBanner {
+                    BannerView(text: "Post report sent.", color: .green)
+                }
+                
+                if showFailureBanner {
+                    BannerView(text: "Failed to send report.\nMake sure to describe the issue.", color: .red)
+                }
+                
+                if showNoInternetBanner {
+                    BannerView(text: "No internet connection.\nTry again later.", color: .yellow)
                 }
             }
-            .navigationBarTitle("Report Post")
-        
-            if isBlockingUI {
-                Color.black.opacity(0.5)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                
             }
-            
-            if showSuccessBanner {
-                BannerView(text: "Post report sent.", color: .green)
-            }
-            
-            if showFailureBanner {
-                BannerView(text: "Failed to send report.\nMake sure to describe the issue.", color: .red)
-            }
-            
-            if showNoInternetBanner {
-                BannerView(text: "No internet connection.\nTry again later.", color: .yellow)
-            }
+            .disabled(isBlockingUI)
         }
-        .disabled(isBlockingUI)
     }
     
     func submitPostReport() {

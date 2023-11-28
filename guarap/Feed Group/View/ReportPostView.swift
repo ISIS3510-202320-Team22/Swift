@@ -14,6 +14,7 @@ struct PostReportView: View {
     
     @ObservedObject var networkManager = NetworkManager.shared
     
+    var onReportSuccess: () -> Void
     var body: some View {
         NavigationStack{
             ZStack{
@@ -25,8 +26,9 @@ struct PostReportView: View {
                             .cornerRadius(8)
                             .padding(.vertical, 8)
                             .onChange(of: description) { newValue in
-                                // Limit the character count if necessary
-                                // Your character limit logic here...
+                                if newValue.count > MAX_DESCRIPTION_CHAR_LIMIT {
+                                    description = String(newValue.prefix(MAX_DESCRIPTION_CHAR_LIMIT))
+                                }
                             }
                             .onSubmit {
                                 description = description.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -94,7 +96,7 @@ struct PostReportView: View {
                     showSuccessBanner = true
                     description = ""
                     saveReportedPost(id: id_post)
-
+                    onReportSuccess() // Llamamos al closure
                 } else {
                     showFailureBanner = true
                 }

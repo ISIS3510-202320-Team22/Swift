@@ -149,8 +149,12 @@ struct FeedView: View {
         }
         
         .sheet(isPresented: $isReportViewActive) {
-            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport)
+            PostReportView(id_post: $idPostToReport, id_user_post: $idUserPostToReport, onReportSuccess: {
+                // Esto se ejecutará cuando el reporte se envíe con éxito
+                isReportViewActive = false // Esto cerrará la vista de reporte
+            })
         }
+
         
         
         .onAppear {

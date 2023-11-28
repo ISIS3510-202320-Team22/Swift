@@ -90,7 +90,7 @@ struct PostReportView: View {
                 if result {
                     showSuccessBanner = true
                     description = ""
-
+                    saveReportedPost(id: id_post)
 
                 } else {
                     showFailureBanner = true
@@ -110,6 +110,8 @@ struct PostReportView: View {
             showNoInternetBanner = false
         }
     }
+    
+    
 }
 
 

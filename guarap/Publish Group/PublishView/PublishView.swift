@@ -12,12 +12,9 @@ import CoreLocation
 import MapKit
 
 struct PublishView: View {
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 4.6097, longitude: -74.0817),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-    )
+    @StateObject private var userLocationManager = mapViewModel()
     
-    @StateObject var locationManager = LocationManager()
+    
     @State private var selectedAddress: String?
     @State private var address = ""
 
@@ -186,29 +183,44 @@ struct PublishView: View {
                     Spacer()
                     
                     // Share button
+                    // ... (dentro del cuerpo de tu Vista)
+
                     Button(action: {
                         Task {
                             do {
                                 isBlockingUI = true
                                 print(345)
                                 if networkManager.isOnline {
-                                    let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: address) { success in
-                                        
-                                        if success {
-                                            passedOnImage = nil
-                                            description = ""
-                                            category = ""
-                                            address = ""
-                                            isBlockingUI = false
-                                            showSuccessBanner = true
-                                            hideBannerAfterDelay(3) // Show success banner for 3 seconds
-                                            isBlockingUI = false
+                                    
+                                    // Obtener la dirección actual
+                                    userLocationManager.getAddressFromCoordinates { obtainedAddress in
+                                        if let obtainedAddress = obtainedAddress {
+                                            print("Dirección obtenida: \(obtainedAddress)")
+                                            // Usar la dirección obtenida para subir el post
+                                            let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: obtainedAddress) { success in
+                                                if success {
+                                                    passedOnImage = nil
+                                                    description = ""
+                                                    category = ""
+                                                    address = ""
+                                                    isBlockingUI = false
+                                                    showSuccessBanner = true
+                                                    hideBannerAfterDelay(3) // Show success banner for 3 seconds
+                                                    isBlockingUI = false
+                                                } else {
+                                                    showFailureBanner = true
+                                                    hideBannerAfterDelay(3) // Show failure banner for 3 seconds
+                                                    isBlockingUI = false
+                                                }
+                                            }
                                         } else {
-                                            showFailureBanner = true
-                                            hideBannerAfterDelay(3) // Show failure banner for 3 seconds
-                                            isBlockingUI = false
+                                            // Manejar el caso en el que no se pudo obtener la dirección
+                                            // (puede que no haya conexión, etc.)
+                                            print("No se pudo obtener la dirección actual.")
+                                            // Resto de tu lógica...
                                         }
                                     }
+                                    
                                 } else {
                                     showNoInternetBanner = true
                                     hideBannerAfterDelay(3)
@@ -223,44 +235,30 @@ struct PublishView: View {
                             .background(guarapColor)
                             .cornerRadius(15)
                     }
+
                     .frame(width: 300, height: 50)
                     Spacer()
                     
-                    //MAPA --------------
-//                    VStack {
-//                        Map(coordinateRegion: $region, showsUserLocation: true)
-//                            .onAppear(perform: {
-//                                locationManager.requestLocation()
-//                                if let location = locationManager.lastKnownLocation {
-//                                    region.center = location.coordinate
-//                                    reverseGeocode(location: location)
-//                                }
-//                            })
-//                            .frame(width: 250, height: 250)
-//                        
-//                        Button(action: {
-//                            if let selectedAddress = selectedAddress {
-//                                // Aquí puedes usar la dirección para compartir
-//                                address = selectedAddress
-//                                print("Dirección: \(selectedAddress)")
-//                            }
-//                        }) {
-//                            Text("Share")
-//                                .font(.headline)
-//                                .foregroundColor(.white)
-//                                .padding()
-//                                .background(Color.blue)
-//                                .cornerRadius(10)
-//                        }
-//                    }
-                    
-                    
+
+                    //MAPA 2.0 --------------
+                    VStack {
+                        Map(coordinateRegion: $userLocationManager.region, showsUserLocation: true)
+                            .ignoresSafeArea()
+                            .accentColor(guarapColor)
+                            .onAppear{
+                                userLocationManager.checkIfLocationServicesIsEnable()
+                            }
+                            .frame(width: 250, height: 250)
+                    }
                     
                     
                 }
                 // End of VStack
             }
             .disabled(isBlockingUI)
+//            .alert("Error", isPresented: $locationManager.showError) {
+//                        Button("OK", role: .cancel) {}
+//                    }
             
             if isBlockingUI {
                 Color.black.opacity(0.5) // Fondo oscuro detrás de la pantalla de carga
@@ -282,24 +280,7 @@ struct PublishView: View {
         }
     }
 
-    private func reverseGeocode(location: CLLocation) {
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            if let placemark = placemarks?.first {
-                if let name = placemark.name,
-                   let locality = placemark.locality,
-                   let administrativeArea = placemark.administrativeArea,
-                   let postalCode = placemark.postalCode,
-                   let country = placemark.country {
-                    self.selectedAddress = "\(name), \(locality), \(administrativeArea) \(postalCode), \(country)"
-                } else {
-                    self.selectedAddress = "Dirección no disponible"
-                }
-            } else {
-                self.selectedAddress = "Dirección no disponible"
-            }
-        }
-    }
+
     
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
@@ -318,3 +299,68 @@ struct PublishView_Previews: PreviewProvider {
     }
 }
 
+final class mapViewModel: NSObject ,ObservableObject, CLLocationManagerDelegate {
+    
+    @Published var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 4.6097, longitude: -74.0817),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    )
+    
+    var locationManager: CLLocationManager?
+    
+    func checkIfLocationServicesIsEnable ( ) {
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
+            
+        } else {
+            print("Show an alert letting them know this is off and to go turn it on.")
+        }
+    }
+    
+    private func checkLocationAuthorization(){
+        guard let locationManager = locationManager else { return }
+        
+        switch locationManager.authorizationStatus {
+            
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            locationManager.requestWhenInUseAuthorization()
+        case .denied:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedAlways, .authorizedWhenInUse:
+            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
+    }
+    
+    
+    func getAddressFromCoordinates(completion: @escaping (String?) -> Void) {
+        guard let locationManager = locationManager else { return }
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(locationManager.location!) { placemarks, error in
+                if let error = error {
+                    print("Error getting address: \(error.localizedDescription)")
+                    completion(nil)
+                } else if let placemark = placemarks?.first {
+                    let address = "\(placemark.thoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? "")"
+                    completion(address)
+                } else {
+                    completion(nil)
+                }
+            }
+        } else {
+            completion("") // Si no hay permisos, envía una cadena vacía
+        }
+    }
+
+    
+}

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+    <key>NSLocationAlwaysUsageDescription</key>
+<string>Explicación sobre por qué necesitas acceder a la ubicación del usuario incluso cuando la aplicación no esté en primer plano.</string>
+
+<!-- Permiso para usar la ubicación siempre e incluir en el fondo (iOS 11 o posterior) -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location for offering location-based content even when the app is in the background</string>
+</dict>
 </plist>

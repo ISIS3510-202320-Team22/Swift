@@ -1,32 +1,20 @@
-//
-//  LocationManager.swift
-//  guarap
-//
-//  Created by Quiroga Alfaro Nathalia Alexandra on 31/10/23.
-//
-
 import Foundation
-
 import CoreLocation
-import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @Published var lastKnownLocation: CLLocation?
+    @Published var showError = false // Para mostrar el error
+    
     private var locationManager = CLLocationManager()
     
-    @Published var lastKnownLocation: CLLocation?
-    
     override init() {
-        print("INIT DE PERMISO")
         super.init()
         self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
     }
     
-    
-    
     func requestLocation() {
-        locationManager.requestLocation()
+        locationManager.requestAlwaysAuthorization() // Cambio aquí
+        locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -34,6 +22,23 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error obteniendo ubicación: \(error)")
+        print("Error obteniendo ubicación: \(error.localizedDescription)")
+        showError = true // Mostrar el error
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            print("Se autorizó el uso de la ubicación cuando la app está en uso")
+            locationManager.startUpdatingLocation()
+        case .denied:
+            print("El usuario denegó el acceso a la ubicación")
+            // Aquí puedes mostrar un mensaje o guiar al usuario a configurar los permisos en Ajustes
+        case .notDetermined:
+            print("Los permisos de ubicación aún no se han determinado")
+            locationManager.requestAlwaysAuthorization() // Cambio aquí
+        default:
+            break
+        }
     }
 }

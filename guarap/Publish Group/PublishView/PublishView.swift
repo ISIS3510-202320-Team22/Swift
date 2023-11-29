@@ -128,7 +128,7 @@ struct PublishView: View {
                         
                         // Text
                         VStack{
-                            TextField("Enter your description", text: $description)
+                            TextField("300 char description", text: $description)
                                 .frame(maxWidth: .infinity) // Expand to fill the width
                                 .padding(.trailing, 15)
                                 .onChange(of: description) { newValue in

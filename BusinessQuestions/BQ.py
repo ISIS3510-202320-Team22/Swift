@@ -1,11 +1,14 @@
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import credentials, firestore
 from dash import Dash, dcc, html
+import dash_leaflet as dl
+from geopy.geocoders import Nominatim
 import plotly.graph_objs as go
 
+
+
 # Inicializa la aplicación de Firebase
-cred = credentials.Certificate("isis3510-guarap-firebase-adminsdk-dditz-f230210cac.json")
+cred = credentials.Certificate("BusinessQuestions\isis3510-guarap-firebase-adminsdk-dditz-f230210cac.json")
 firebase_admin.initialize_app(cred)
 
 # Accede a la colección 'categories'
@@ -84,6 +87,58 @@ for category_doc in categories_ref.stream():
 
 percentage_with_sign = [f"{percentage:.2f}%" for percentage in category_percentages]
 
+def obtener_lat_long(direccion):
+    geolocator = Nominatim(user_agent="myGeocoder")
+    location = geolocator.geocode(direccion)
+    if location:
+        return [location.latitude, location.longitude]
+    else:
+        return None
+
+# Función para obtener las ubicaciones de los posts
+def obtener_ubicaciones():
+    ubicaciones = {}
+    for category_doc in categories_ref.stream():
+        posts_ref = category_doc.reference.collection('posts')
+        for post_doc in posts_ref.stream():
+            post_data = post_doc.to_dict()
+            direccion = post_data.get('address')
+            if direccion:
+                if direccion not in ubicaciones:
+                    ubicaciones[direccion] = 1
+                else:
+                    ubicaciones[direccion] += 1
+    return ubicaciones
+
+def obtener_centroide(coordenadas):
+    total_latitud = sum([coord[0] for coord in coordenadas])
+    total_longitud = sum([coord[1] for coord in coordenadas])
+    cantidad = len(coordenadas)
+    centro_latitud = total_latitud / cantidad
+    centro_longitud = total_longitud / cantidad
+    return [centro_latitud, centro_longitud]
+
+# Obtener las ubicaciones y contar el número de posts en cada ubicación
+ubicaciones_posts = obtener_ubicaciones()
+
+# Crear puntos en el mapa para cada ubicación con la cantidad de posts como el tamaño del marcador
+puntos_mapa = []
+coordenadas_posts = []
+for direccion, cantidad_posts in ubicaciones_posts.items():
+    coordenadas = obtener_lat_long(direccion)
+    if coordenadas:
+        coordenadas_posts.append(coordenadas)
+        puntos_mapa.append(
+            dl.Marker(
+                position=coordenadas,
+                children=dl.Tooltip(f"{direccion}: {cantidad_posts} posts"),
+            )
+        )
+
+# Calcular el centroide de las coordenadas de los posts
+centroide = obtener_centroide(coordenadas_posts)
+
+
 # Inicializa la aplicación Dash
 app = Dash(__name__)
 
@@ -153,6 +208,15 @@ app.layout = html.Div([
             }
         ),
         html.H2(f"What percentage of the uploaded content is categorized by the user so that others can search by category?", style={'text-align': 'center', 'font-family': 'Arial'}),
+
+        html.Div([
+        dl.Map(center=centroide, zoom=10, children=[
+            dl.TileLayer(),
+            *puntos_mapa
+        ], style={'width': '100%', 'height': '50vh'}),
+    ], style={'margin': '30px auto', 'text-align': 'center'}),
+        html.H2(f"From which locations are users posting?", style={'text-align': 'center', 'font-family': 'Arial'}),
+
     ]),
 ])
 

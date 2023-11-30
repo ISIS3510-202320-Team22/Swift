@@ -351,7 +351,7 @@ final class mapViewModel: NSObject ,ObservableObject, CLLocationManagerDelegate 
                     print("Error getting address: \(error.localizedDescription)")
                     completion(nil)
                 } else if let placemark = placemarks?.first {
-                    let address = "\(placemark.thoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? "")"
+                    let address = "\(placemark.thoroughfare ?? ""), \(placemark.subThoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? "")"
                     completion(address)
                 } else {
                     completion(nil)

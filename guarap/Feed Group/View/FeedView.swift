@@ -64,7 +64,8 @@ struct FeedView: View {
                                         lastCategory = viewModel.categoryString
                                         
                                         if networkManager.isOnline {
-                                            textWhenEmpty = Text("There is nothing in this category for now")
+                                            
+                                            textWhenEmpty = Text("There is nothing in this category for now. Please refresh the page to bring changes from internet.") //CAMBIO 2
                                         } else {
                                             textWhenEmpty = Text("Currently there is no internet connetion so we cannot fetch any new posts")
                                         }

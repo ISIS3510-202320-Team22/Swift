@@ -69,6 +69,8 @@
 		CD7582A32AD85CA50036BB74 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */; };
 		CD7EF73A2AD646A400C9567B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7372AD646A400C9567B /* ContentViewModel.swift */; };
 		CD7EF73B2AD646A400C9567B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EF7392AD646A400C9567B /* ContentView.swift */; };
+		CD900D392B1A44E70033F871 /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD900D382B1A44E70033F871 /* AdView.swift */; };
+		CD900D3B2B1A45630033F871 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD900D3A2B1A45630033F871 /* ImagePicker.swift */; };
 		CD9A16FB2AC8F9B2005B9DA7 /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */; };
 		CDA9B7D32AC1CF970054F09E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA9B7D22AC1CF970054F09E /* FeedView.swift */; };
 		CDA9B7D72AC1F0710054F09E /* Pattaya-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */; };
@@ -146,6 +148,8 @@
 		CD7582A22AD85CA40036BB74 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7372AD646A400C9567B /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		CD7EF7392AD646A400C9567B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD900D382B1A44E70033F871 /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
+		CD900D3A2B1A45630033F871 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CD9A16FA2AC8F9B2005B9DA7 /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		CDA9B7D22AC1CF970054F09E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		CDA9B7D62AC1F0710054F09E /* Pattaya-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pattaya-Regular.ttf"; sourceTree = "<group>"; };
@@ -233,16 +237,17 @@
 		CD0F41542ABD0AF60016177A /* guarap */ = {
 			isa = PBXGroup;
 			children = (
-				CD6531302AEDE9BB002492CE /* Network Group */,
-				CD7EF7352AD646A400C9567B /* Root */,
+				CD900D372B1A44C90033F871 /* Ad Group */,
+				CD3EBF9A2AC8FD4800F83C1B /* Camera Group */,
+				CD597E452ACC856700D493B5 /* Feed Group */,
 				CD304B5F2AD640B2001AE8CE /* Publish Group */,
+				CD6531302AEDE9BB002492CE /* Network Group */,
+				CD3EBF9B2AC8FD5F00F83C1B /* Settings Group */,
+				CD7EF7352AD646A400C9567B /* Root */,
 				CD3EC5DF2AD6320500051117 /* Authentication */,
 				CD597E652ACCB9F900D493B5 /* Repositories */,
 				CD597E5C2ACCB9EC00D493B5 /* DAOs */,
 				CD597E4A2ACCB14900D493B5 /* Model */,
-				CD597E452ACC856700D493B5 /* Feed Group */,
-				CD3EBF9B2AC8FD5F00F83C1B /* Settings Group */,
-				CD3EBF9A2AC8FD4800F83C1B /* Camera Group */,
 				CD0F41552ABD0AF60016177A /* guarapApp.swift */,
 				CD0F41592ABD0AF80016177A /* Assets.xcassets */,
 				CDFC76162ACCE12B00D7943C /* GoogleService-Info.plist */,
@@ -446,6 +451,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		CD900D372B1A44C90033F871 /* Ad Group */ = {
+			isa = PBXGroup;
+			children = (
+				CD900D382B1A44E70033F871 /* AdView.swift */,
+				CD900D3A2B1A45630033F871 /* ImagePicker.swift */,
+			);
+			path = "Ad Group";
+			sourceTree = "<group>";
+		};
 		CDA9B7D82AC1F1750054F09E /* proyect_fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,6 +636,7 @@
 				CD59622D2AF002E400DE7085 /* PostWithImage.swift in Sources */,
 				CD597E472ACC858400D493B5 /* FeedCell.swift in Sources */,
 				CD3EC5EF2AD6320500051117 /* AddEmailView.swift in Sources */,
+				CD900D3B2B1A45630033F871 /* ImagePicker.swift in Sources */,
 				CD3EBFA12AC8FE5200F83C1B /* AccountView.swift in Sources */,
 				CD7EF73B2AD646A400C9567B /* ContentView.swift in Sources */,
 				CD0CCB7B2ACD387700ED324C /* ImageDAOFirebase.swift in Sources */,
@@ -644,6 +659,7 @@
 				CD0B6E282AC48DB500A99AF0 /* CameraView.swift in Sources */,
 				CD095A152B05C40F003C4748 /* BugReportView.swift in Sources */,
 				CD597E492ACCA1EA00D493B5 /* MainTabView.swift in Sources */,
+				CD900D392B1A44E70033F871 /* AdView.swift in Sources */,
 				CD095A172B05CF74003C4748 /* BugReportDAO.swift in Sources */,
 				CD5012422AEDB3B300D7194A /* UserDAO.swift in Sources */,
 				CD5012442AEDB47C00D7194A /* UserDAOFirebase.swift in Sources */,
@@ -812,7 +828,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = J7967XZTSM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -828,7 +844,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.guarapo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guarapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -844,7 +860,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"guarap/Preview Content\"";
-				DEVELOPMENT_TEAM = W89849Q4A8;
+				DEVELOPMENT_TEAM = J7967XZTSM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Guarap;
@@ -860,7 +876,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.guarapo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.guarapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

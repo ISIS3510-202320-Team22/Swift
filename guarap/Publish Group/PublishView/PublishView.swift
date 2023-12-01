@@ -17,7 +17,7 @@ struct PublishView: View {
     
     @State private var selectedAddress: String?
     @State private var address = ""
-
+    
     
     // Post Atributes
     @State private var description = ""
@@ -29,6 +29,9 @@ struct PublishView: View {
     @State private var isCustomCameraViewPresented = false
     @StateObject var viewModel = PublishViewModel()
     @Binding var tabIndex: Int
+    
+    // Ad States
+    @State private var isAdViewPresented = false
     
     // Dropdown Menu States
     @State private var isPopoverVisible = false
@@ -49,16 +52,16 @@ struct PublishView: View {
                     // Cancel Button
                     HStack {
                         if networkManager.isConnectionBad {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.yellow)
-                                    .padding(.leading)
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.yellow)
+                                .padding(.leading)
                             Text("Slow connection")
                         }
                         
                         if !networkManager.isOnline {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.red)
-                                    .padding(.leading)
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.red)
+                                .padding(.leading)
                             Text("No connection")
                         }
                         Spacer()
@@ -77,6 +80,20 @@ struct PublishView: View {
                     // Post Title
                     Text("New Post")
                         .font(.system(size: 25))
+                    
+                    // Change to ad view
+                    Button(action: {
+                        isAdViewPresented.toggle()
+                    }) {
+                        Text("I want to post an ad")
+                            .font(.system(size: 15))
+                            .foregroundColor(guarapColor)
+                            .padding()
+                    }
+                    .padding(.bottom)
+                    .sheet(isPresented: $isAdViewPresented) {
+                        AdView()
+                    }
                     
                     // Image and Text
                     
@@ -162,29 +179,30 @@ struct PublishView: View {
                             }
                             .popover(isPresented: $isPopoverVisible, arrowEdge: .top) {
                                 List {
-                                    ForEach(categories, id: \.self) { option in
+                                    ForEach(categories.filter { $0 != "Promociones" }, id: \.self) { option in
                                         Button(action: {
                                             selectedOption = option
                                             category = option
                                             isPopoverVisible.toggle()
-                                            
                                         }) {
                                             Text(option)
                                                 .foregroundColor(.red)
                                         }
                                     }
-                                }.foregroundColor(.black)
+                                }
+                                .foregroundColor(.black)
                             }
                         }
                         .padding(.horizontal, 15)
                     }// End Pulldown Button
                     .padding()
                     
+                    
                     Spacer()
                     
                     // Share button
                     // ... (dentro del cuerpo de tu Vista)
-
+                    
                     Button(action: {
                         Task {
                             do {
@@ -235,11 +253,11 @@ struct PublishView: View {
                             .background(guarapColor)
                             .cornerRadius(15)
                     }
-
+                    
                     .frame(width: 300, height: 50)
                     Spacer()
                     
-
+                    
                     //MAPA 2.0 --------------
                     VStack {
                         Map(coordinateRegion: $userLocationManager.region, showsUserLocation: true)
@@ -256,9 +274,9 @@ struct PublishView: View {
                 // End of VStack
             }
             .disabled(isBlockingUI)
-//            .alert("Error", isPresented: $locationManager.showError) {
-//                        Button("OK", role: .cancel) {}
-//                    }
+            //            .alert("Error", isPresented: $locationManager.showError) {
+            //                        Button("OK", role: .cancel) {}
+            //                    }
             
             if isBlockingUI {
                 Color.black.opacity(0.5) // Fondo oscuro detrás de la pantalla de carga
@@ -269,7 +287,7 @@ struct PublishView: View {
             if showSuccessBanner {
                 BannerView(text: "Post successfuly uploaded.", color: .green)
             }
-
+            
             if showFailureBanner {
                 BannerView(text: "Failure uploading post\nCheck there is at least an image or text.", color: .red)
             }
@@ -279,8 +297,8 @@ struct PublishView: View {
             }
         }
     }
-
-
+    
+    
     
     func hideBannerAfterDelay(_ seconds: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
@@ -361,6 +379,6 @@ final class mapViewModel: NSObject ,ObservableObject, CLLocationManagerDelegate 
             completion("") // Si no hay permisos, envía una cadena vacía
         }
     }
-
+    
     
 }

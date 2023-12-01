@@ -17,6 +17,7 @@ protocol GuarapRepository {
     static var userDao: UserDAO { get }
     
     func createPost(description: String, image: UIImage?, category: String, address: String, completion: @escaping (Bool) -> Void)
+    func createPostWithLikes(description: String, image: UIImage?, likes: Int, category: String, address: String, completion: @escaping (Bool) -> Void)
     func getPostsByCategory(categoryName: String) async throws -> [Post]
     func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void)
     func getPostsWithImages(posts: [Post], completion: @escaping ([PostWithImage]) -> Void)

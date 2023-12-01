@@ -13,5 +13,6 @@ protocol PostDAO {
     static var shared: PostDAO { get }
     
     func createPost(description: String, imageUrl: String, category: String, address: String, completion: @escaping (Bool) -> Void)
+    func createPostWithLikes(description: String, imageUrl: String, category: String, likes: Int, address: String, completion: @escaping (Bool) -> Void)
     func getPostsByCategory(categoryName: String) async throws -> [Post]
 }

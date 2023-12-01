@@ -9,6 +9,37 @@ import SwiftUI
 import CoreLocation
 import MapKit
 
+// Required module for caching
+import Foundation
+
+// Class for managing cache
+class AdCacheManager {
+    static let shared = AdCacheManager()
+
+    private let cache = NSCache<NSString, AnyObject>()
+
+    func saveAd(_ ad: SavedAd) {
+        cache.setObject(ad as AnyObject, forKey: "savedAd")
+    }
+
+    func loadSavedAd() -> SavedAd? {
+        if let savedAd = cache.object(forKey: "savedAd") as? SavedAd {
+            return savedAd
+        }
+        return nil
+    }
+}
+
+// Small structure to create saved ad
+struct SavedAd {
+    let description: String
+    let category: String
+    let address: String
+    let selectedAmount: String
+    let passedOnImage: UIImage?
+}
+
+// Actual ad view
 struct AdView: View {
     
     @State private var region = MKCoordinateRegion(
@@ -20,6 +51,8 @@ struct AdView: View {
     @State private var selectedAddress: String?
     @State private var address = ""
     
+    // Caching Atributes
+    @State private var savedAd: SavedAd?
     
     // Post Atributes
     @State private var description = ""
@@ -180,6 +213,34 @@ struct AdView: View {
                     }
                     .frame(width: 300, height: 50)
                     Spacer()
+                    
+                    // Save button
+                    HStack {
+                            Spacer()
+                            // Save button
+                            Button(action: {
+                                saveAd()
+                            }) {
+                                Text("Save Ad")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(guarapColor)
+                                    .cornerRadius(15)
+                            }
+
+                            // Load saved ad button
+                            Button(action: {
+                                loadSavedAd()
+                            }) {
+                                Text("Load Saved Ad")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(guarapColor)
+                                    .cornerRadius(15)
+                            }
+                            Spacer() // Adjust width as needed
+                        }
+                        Spacer()
                 }
                 // End of VStack
             }
@@ -228,6 +289,22 @@ struct AdView: View {
             showSuccessBanner = false
             showFailureBanner = false
             showNoInternetBanner = false
+        }
+    }
+    
+    private func saveAd() {
+        let savedAd = SavedAd(description: description, category: category, address: address, selectedAmount: selectedAmount, passedOnImage: passedOnImage)
+        AdCacheManager.shared.saveAd(savedAd)
+    }
+    
+    private func loadSavedAd() {
+        if let savedAd = AdCacheManager.shared.loadSavedAd() {
+            self.savedAd = savedAd
+            description = savedAd.description
+            category = savedAd.category
+            address = savedAd.address
+            selectedAmount = savedAd.selectedAmount
+            passedOnImage = savedAd.passedOnImage
         }
     }
 }

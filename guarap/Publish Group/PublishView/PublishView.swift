@@ -30,6 +30,9 @@ struct PublishView: View {
     @StateObject var viewModel = PublishViewModel()
     @Binding var tabIndex: Int
     
+    // Ad States
+    @State private var isAdViewPresented = false
+    
     // Dropdown Menu States
     @State private var isPopoverVisible = false
     @State private var selectedOption: String = "Select a category"
@@ -77,6 +80,20 @@ struct PublishView: View {
                     // Post Title
                     Text("New Post")
                         .font(.system(size: 25))
+                    
+                    // Change to ad view
+                    Button(action: {
+                        isAdViewPresented.toggle()
+                    }) {
+                        Text("I want to post an ad")
+                                .font(.system(size: 15))
+                                .foregroundColor(guarapColor)
+                                .padding()
+                    }
+                    .padding(.bottom)
+                    .sheet(isPresented: $isAdViewPresented) {
+                        AdView()
+                    }
                     
                     // Image and Text
                     

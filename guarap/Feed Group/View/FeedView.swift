@@ -133,7 +133,7 @@ struct FeedView: View {
                 do {
                     // This is the action to refresh the data
                     if networkManager.isOnline {
-                        textWhenEmpty = Text("There is nothing in this category for now")
+                        textWhenEmpty = Text("There is nothing in this category for now. Please refresh the page to bring changes from internet.") //CAMBIO 2
                         print(idPostToReport)
                         print(idUserPostToReport)
                         try await viewModel.fetchPostsFromWeb(category: viewModel.categoryString)
@@ -163,7 +163,7 @@ struct FeedView: View {
             Task {
                 do {
                     if networkManager.isOnline {
-                        textWhenEmpty = Text("There is nothing in this category for now")
+                        textWhenEmpty = Text("There is nothing in this category for now. Please refresh the page to bring changes from internet.") //CAMBIO 2
                         try await viewModel.fetchPostsFromWeb(category: viewModel.categoryString)
                     } else {
                         try await viewModel.fetchPosts(category: viewModel.categoryString)

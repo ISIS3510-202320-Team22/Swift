@@ -70,6 +70,59 @@ class PostDAOFirebase: PostDAO {
         }
     }
     
+    func createPostWithLikes(description: String, imageUrl: String, category: String, likes: Int, address: String, completion: @escaping (Bool) -> Void) {
+        let firestore = Firestore.firestore()
+
+        let user = username // Replace with actual user data
+        let upVotes = likes
+        let downVotes = 0
+        let reported = false
+        let dateTime = Date()
+
+        firestore.runTransaction({ transaction, errorPointer in
+            let categoryRef = firestore.collection("categories").document(category)
+
+            do {
+                // Try to retrieve the category document
+                let categoryDocument = try transaction.getDocument(categoryRef)
+
+                if !categoryDocument.exists {
+                    // If the category doesn't exist, create it
+                    let initialCategoryData: [String: Any] = [
+                        "name": category
+                    ]
+                    transaction.setData(initialCategoryData, forDocument: categoryRef)
+                }
+
+                // Create the post and add it to the category
+                let postRef = categoryRef.collection("posts").document(UUID().uuidString)
+                let postAttributes: [String: Any] = [
+                    "user": user,
+                    "description": description,
+                    "upvotes": upVotes,
+                    "downvotes": downVotes,
+                    "reported": reported,
+                    "image": imageUrl,
+                    "address": address,
+                    "date": Timestamp(date: dateTime)
+                ]
+                transaction.setData(postAttributes, forDocument: postRef)
+
+                completion(true)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                completion(false)
+            }
+
+            return nil
+        }) { _, error in
+            if let error = error {
+                print("Transaction failed: \(error)")
+                completion(false)
+            }
+        }
+    }
+    
     @MainActor
     func getPostsByCategory(categoryName: String) async throws -> [Post] {
         var posts = [Post]()

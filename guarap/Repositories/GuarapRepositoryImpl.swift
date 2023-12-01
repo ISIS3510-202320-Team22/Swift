@@ -63,6 +63,50 @@ class GuarapRepositoryImpl: GuarapRepository {
             }
         }
     }
+    
+    func createPostWithLikes(description: String, image: UIImage?, likes: Int,category: String, address: String, completion: @escaping (Bool) -> Void) {
+        
+        guard category != "" else {
+            createPostWithLikes(description: description, image: image, likes: likes, category: DEFAULT_CATEGORY, address: address, completion: completion)
+            return
+        }
+        
+        var success = false
+        
+        if description == "" && image == nil {
+            completion(success)
+            return
+        }
+        
+        if let img = image {
+            GuarapRepositoryImpl.imageDao.uploadImageToFirebase(image: img) { result in
+                switch result {
+                case .success(let url):
+                    // The image was successfully uploaded, and the URL is in the 'url' variable.
+                    // You can proceed with creating the post here.
+                    let imageUrlString = url.absoluteString
+                    
+                    GuarapRepositoryImpl.postDao.createPostWithLikes(description: description, imageUrl: imageUrlString, category: category, likes: likes, address: address) { result in
+                        success = result
+                        completion(success) // Call the completion closure with the result
+                        return
+                    }
+                    
+                case .failure(let error):
+                    // Handle the error if the image upload fails.
+                    print("Error uploading image: \(error)")
+                    completion(success) // Call the completion closure with the result
+                    return
+                }
+            }
+        } else if image == nil {
+            GuarapRepositoryImpl.postDao.createPostWithLikes(description: description, imageUrl: "", category: category, likes: likes, address: address) { result in
+                success = result
+                completion(success) // Call the completion closure with the result
+                return
+            }
+        }
+    }
 
     
     func getPostsByCategory(categoryName: String) async throws -> [Post] {

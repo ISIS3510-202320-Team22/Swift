@@ -133,7 +133,7 @@ struct AdView: View {
                             Text("$50,000").tag("$50,000")
                             Text("$100,000").tag("$100,000")
                         }
-                        .pickerStyle(SegmentedPickerStyle())
+                        .pickerStyle(MenuPickerStyle())
                     }
                     .padding()
                     
@@ -147,7 +147,7 @@ struct AdView: View {
                                 print(345)
                                 if networkManager.isOnline {
                                     let likes = try translateAmountToLikes(amount: selectedAmount)
-                                    let _: () = GuarapRepositoryImpl.shared.createPost(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, category: category, address: address) { success in
+                                    let _: () = GuarapRepositoryImpl.shared.createPostWithLikes(description: description.trimmingCharacters(in: .whitespacesAndNewlines), image: passedOnImage, likes: likes, category: category, address: address) { success in
                                         
                                         if success {
                                             passedOnImage = nil

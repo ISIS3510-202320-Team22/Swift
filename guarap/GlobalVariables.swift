@@ -21,5 +21,5 @@ let DEFAULT_CATEGORY = "Generic"
 let MAX_TIMEOUT = 5 // sec
 let PAGE_TITLE = "Guarap"
 
-let categories = ["Generic", "Chismes", "Atardeceres", "LookingFor", "Emprendimientos"]
+let categories = ["Generic", "Chismes", "Atardeceres", "LookingFor", "Emprendimientos","Promociones"]
 let guarapColor = Color(red: 0.6705, green: 0.0, blue: 0.2431)

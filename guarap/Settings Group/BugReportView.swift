@@ -49,6 +49,8 @@ struct BugReportView: View {
                 Section {
                     Button(action: {
                         // Add your bug reporting logic here
+                        title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+                        description = description.trimmingCharacters(in: .whitespacesAndNewlines)
                         self.submitBugReport()
                     }) {
                         Text("Submit Bug Report")

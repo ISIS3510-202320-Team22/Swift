@@ -206,6 +206,7 @@ struct PublishView: View {
                     Button(action: {
                         Task {
                             do {
+                                description = description.trimmingCharacters(in: .whitespacesAndNewlines)
                                 isBlockingUI = true
                                 print(345)
                                 if networkManager.isOnline {

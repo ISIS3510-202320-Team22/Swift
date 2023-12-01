@@ -38,6 +38,7 @@ struct PostReportView: View {
                     Section {
                         Button(action: {
                             // Add your post reporting logic here
+                            description = description.trimmingCharacters(in: .whitespacesAndNewlines)
                             self.submitPostReport()
                         }) {
                             Text("Submit Report")
